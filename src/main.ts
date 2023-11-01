@@ -14,7 +14,7 @@ const basePath = "dist";
     albums.map((album) =>
       limit(async () => {
         const { data: details } = await api.albumDetails(album.cid);
-        const albumPath = `${basePath}/${album.name}`;
+        const albumPath = `${basePath}/${album.name}`.trim();
         try {
           await fs.mkdir(albumPath, { recursive: true });
         } catch {}
