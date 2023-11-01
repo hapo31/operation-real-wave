@@ -1,0 +1,25 @@
+{
+  "name": "operation-real-wave",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "main": "ts-node --esm --project ./tsconfig.json src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.23",
+    "@types/node": "^20.8.10",
+    "eslint": "^8.52.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
+    "node-fetch": "^3.3.2",
+    "p-limit": "^4.0.0"
+  }
+}
