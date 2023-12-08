@@ -4,63 +4,95 @@ import * as fs from "fs/promises";
 import { setTimeout } from "timers/promises";
 import ffmpeg from "fluent-ffmpeg";
 import path from "path";
-
-const basePath = "dist";
+import parseOption from "./optionts.js";
+import diffArray from "./diff.js";
+import {
+  enumurateAlbumListFromDir,
+  escapeFileName,
+  safeIsExists,
+  safeMkdir,
+  safeWriteFile,
+} from "./file.js";
 
 (async function main() {
   const { data: albums } = await api.albums();
   const limit = pLimit(3);
 
-  await Promise.all(
-    albums.map((album) =>
-      limit(async () => {
-        const { data: details } = await api.albumDetails(album.cid);
-        const albumPath = path
-          .join(basePath, album.name.replace(/[/\\?%*:|"<>\s]/g, "_"))
-          .trim();
-        try {
-          await fs.mkdir(albumPath, { recursive: true });
-          await fs.mkdir(path.join(".tmp", albumPath), { recursive: true });
-        } catch {}
+  const option = parseOption();
 
-        if (
-          await fs
-            .stat(`${albumPath}/${album.name}.jpg`)
-            .then(() => false)
-            .catch(() => true)
-        ) {
+  const basePath = option.output;
+
+  const targetAlbums =
+    option.force || option["meta-only"]
+      ? albums.map((v) => ({
+          ...v,
+          name: v.name.trim(),
+          originalName: v.name,
+        }))
+      : diffArray(
+          "name",
+          albums.map((v) => ({
+            ...v,
+            name: v.name.trim(),
+            originalName: v.name,
+          })),
+          await enumurateAlbumListFromDir("dist")
+        );
+
+  console.log(
+    `Scheduled acquiring albums count: ${targetAlbums.length}`,
+    option.force ? "(force)" : "",
+    option["meta-only"] ? "(meta-only)" : ""
+  );
+
+  await Promise.all(
+    targetAlbums.map((album) =>
+      limit(async () => {
+        async function onError() {
+          await fs.rm(escapeFileName(basePath, album.name), {
+            recursive: true,
+            force: true,
+          });
+        }
+
+        const { data: details } = await api.albumDetails(album.cid);
+        const albumPath = escapeFileName(basePath, album.name);
+
+        await safeMkdir(basePath, album.name);
+        await safeMkdir(".tmp", albumPath);
+
+        if (!(await safeIsExists(albumPath, `${album.name}.jpg`))) {
           const artwork = await fetch(details.coverUrl).then((res) =>
             res.arrayBuffer()
           );
-          await fs.writeFile(
-            path.join(albumPath, `${album.name}.jpg`),
+          await safeWriteFile(
+            [albumPath, `${album.name}.jpg`],
             Buffer.from(artwork)
           );
+          console.log(`Downloaded artwork of ${album.name}`);
         }
 
         let i = 1;
         for (const summary of details.songs) {
           try {
-            const { data: song } = await api.songDetails(summary.cid);
-            const fileName = path.join(
+            const { data } = await api.songDetails(summary.cid);
+            const song = {
+              ...data,
+              name: escapeFileName(data.name),
+              originalName: data.name,
+            };
+            const fileName = escapeFileName(
               albumPath,
-              `${i.toString(10).padStart(2, "0")}_${song.name.replace(
-                /[/\\?%*:|"<>\s]/g,
-                "_"
-              )}.flac`
+              `${i.toString(10).padStart(2, "0")}_${song.name}.flac`
             );
 
             let command: ffmpeg.FfmpegCommand;
             let exists = false;
-            if (
-              await fs
-                .stat(fileName)
-                .then(() => true)
-                .catch(() => false)
-            ) {
-              console.log(
-                `File exists, only update metadata: ${summary.name} of ${album.name}`
-              );
+            if (!(await safeIsExists(fileName)) || option.force) {
+              console.log(`Downloading: ${summary.name} of ${album.name}`);
+              command = ffmpeg(song.sourceUrl).format("flac");
+              await setTimeout(3000);
+            } else if (option["meta-only"]) {
               command = ffmpeg(fileName)
                 .audioCodec("copy")
                 .on("end", () => {
@@ -74,29 +106,35 @@ const basePath = "dist";
               exists = true;
               await setTimeout(1000);
             } else {
-              console.log(`Downloading: ${summary.name} of ${album.name}`);
-              command = ffmpeg(song.sourceUrl).format("flac");
-              await setTimeout(3000);
+              console.log(`Skipping: ${summary.name} of ${album.name}`);
+              continue;
             }
 
             addMetadata(command, {
-              title: song.name,
+              title: song.originalName,
               albumArtists: album.artistes.join("/"),
               artists: song.artists.join("/"),
-              album: album.name,
+              album: album.originalName,
               genre: "soundtrack",
               artworkPath: `${albumPath}/${album.name}.jpg`,
               track: `${i}/${details.songs.length}`,
               copyright: "hypergryph",
             })
               .save((exists ? ".tmp/" : "") + fileName)
-              .on("start", (e) => console.log(e));
+              .on("start", (e) => console.log(e))
+              .on("error", (e) => {
+                console.error(song.originalName, e);
+                onError();
+              })
+              .on("end", () => {
+                console.log(
+                  `Done ${summary.name} of ${album.name}(${i}/${details.songs.length})`
+                );
+              });
           } catch (error) {
+            await onError();
             console.log(error);
           } finally {
-            console.log(
-              `Done ${summary.name} of ${album.name}(${i}/${details.songs.length})`
-            );
             ++i;
           }
         }
