@@ -3,3 +3,4 @@ dist/
 *.flac
 *.wav
 .next
+.env

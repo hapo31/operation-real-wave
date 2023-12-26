@@ -1,18 +1,18 @@
 import pLimit from "p-limit";
-import * as api from "./api.js";
+import * as api from "./core/api.js";
 import * as fs from "fs/promises";
 import { setTimeout } from "timers/promises";
 import ffmpeg from "fluent-ffmpeg";
 import path from "path";
-import parseOption from "./optionts.js";
-import diffArray from "./diff.js";
+import parseOption from "./core/optionts.js";
+import diffArray from "./core/diff.js";
 import {
   enumurateAlbumListFromDir,
   escapeFileName,
   safeIsExists,
   safeMkdir,
   safeWriteFile,
-} from "./file.js";
+} from "./core/file.js";
 
 (async function main() {
   const { data: albums } = await api.albums();
