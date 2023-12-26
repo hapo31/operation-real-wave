@@ -69,7 +69,7 @@ import {
             [albumPath, `${album.name}.jpg`],
             Buffer.from(artwork)
           );
-          console.log(`Downloaded artwork of ${album.name}`);
+          console.log(`Downloaded artwork of "${album.name}"`);
         }
 
         let i = 1;
@@ -158,7 +158,7 @@ type Metadata = {
 
 function addMetadata(command: ffmpeg.FfmpegCommand, metaData: Metadata) {
   return command
-    .addInput(metaData.artworkPath)
+    .addInput(escapeFileName(metaData.artworkPath))
     .outputOptions(
       `-map`,
       `0:a`,
