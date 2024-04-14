@@ -6,13 +6,13 @@ import ffmpeg from "fluent-ffmpeg";
 import path from "path";
 import parseOption from "./optionts.js";
 import diffArray from "./diff.js";
+import { enumurateAlbumListFromDir, escapeFileName } from "./file.js";
 import {
-  enumurateAlbumListFromDir,
-  escapeFileName,
+  SafeFilePath,
   safeIsExists,
   safeMkdir,
   safeWriteFile,
-} from "./file.js";
+} from "./safeFilePath.js";
 
 (async function main() {
   const { data: albums } = await api.albums();
@@ -56,17 +56,17 @@ import {
         }
 
         const { data: details } = await api.albumDetails(album.cid);
-        const albumPath = escapeFileName(basePath, album.name);
+        const albumPath = new SafeFilePath(basePath, album.name);
 
-        await safeMkdir(basePath, album.name);
-        await safeMkdir(".tmp", albumPath);
+        await safeMkdir(albumPath);
+        await safeMkdir(albumPath.joinLeft(".tmp"));
 
-        if (!(await safeIsExists(albumPath, `${album.name}.jpg`))) {
+        if (!(await safeIsExists(albumPath.join(`${album.name}.jpg`)))) {
           const artwork = await fetch(details.coverUrl).then((res) =>
             res.arrayBuffer()
           );
           await safeWriteFile(
-            [albumPath, `${album.name}.jpg`],
+            albumPath.join(`${album.name}.jpg`),
             Buffer.from(artwork)
           );
           console.log(`Downloaded artwork of "${album.name}"`);
@@ -81,8 +81,7 @@ import {
               name: escapeFileName(data.name),
               originalName: data.name,
             };
-            const fileName = escapeFileName(
-              albumPath,
+            const fileName = albumPath.join(
               `${i.toString(10).padStart(2, "0")}_${song.name}.flac`
             );
 
@@ -93,13 +92,16 @@ import {
               command = ffmpeg(song.sourceUrl).format("flac");
               await setTimeout(3000);
             } else if (option["meta-only"]) {
-              command = ffmpeg(fileName)
+              command = ffmpeg(fileName.toString())
                 .audioCodec("copy")
                 .on("end", () => {
                   (async () => {
                     if (exists) {
-                      await fs.unlink(fileName);
-                      await fs.rename(path.join(".tmp", fileName), fileName);
+                      await fs.unlink(fileName.toString());
+                      await fs.rename(
+                        fileName.joinLeft(".tmp").toString(),
+                        fileName.toString()
+                      );
                     }
                   })();
                 });
