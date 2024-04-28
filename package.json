@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "main": "ts-node --esm --project ./tsconfig.json src/main.ts",
+    "dev": "remix vite:dev",
     "test": "vitest --config ./vite.config.ts",
     "test:oneshot": "vitest run --config ./vite.config.ts"
   },
