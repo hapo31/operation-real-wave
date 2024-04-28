@@ -2,10 +2,30 @@ import path from "path";
 import fs from "fs/promises";
 
 export class SafeFilePath {
-  private fileName: string;
+  private _fileName: string;
 
   constructor(...paths: string[]) {
-    this.fileName = path.join(
+    this._fileName = this.escape(...paths);
+  }
+
+  set fileName(v: string) {
+    this._fileName = this.escape(v);
+  }
+
+  toString() {
+    return this._fileName;
+  }
+
+  joinLeft(...path: string[]) {
+    return new SafeFilePath(...path, this._fileName);
+  }
+
+  join(...path: string[]) {
+    return new SafeFilePath(this._fileName, ...path);
+  }
+
+  private escape(...paths: string[]) {
+    return path.join(
       ...paths.map((path) =>
         path
           .replace(/[\\?%*:|"<>\s]/g, "_")
@@ -13,18 +33,6 @@ export class SafeFilePath {
           .trim()
       )
     );
-  }
-
-  toString() {
-    return this.fileName;
-  }
-
-  joinLeft(...path: string[]) {
-    return new SafeFilePath(...path, this.fileName);
-  }
-
-  join(...path: string[]) {
-    return new SafeFilePath(this.fileName, ...path);
   }
 }
 
