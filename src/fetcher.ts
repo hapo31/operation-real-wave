@@ -44,7 +44,12 @@ export async function fetchSongFile(
   targetDir: SafeFilePath,
   audioFormat = "flac"
 ): Promise<FfmpegCommand> {
-  const command = ffmpeg(song.sourceUrl).format("flac");
-
-  return command;
+  return new Promise((res, rej) => {
+    const command = ffmpeg(song.sourceUrl);
+    command
+      .format(audioFormat)
+      .saveToFile(targetDir.join(`${song.fileName}.flac`).toString())
+      .on("end", () => res(command))
+      .on("error", (err) => rej(err));
+  });
 }
