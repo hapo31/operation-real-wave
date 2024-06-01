@@ -1,5 +1,4 @@
-import path from "path";
-import fs from "fs/promises";
+import * as path from "std/path/mod";
 
 export class SafeFilePath {
   private _fileName: string;
@@ -31,13 +30,13 @@ export class SafeFilePath {
           .replace(/[\\?%*:|"<>\s]/g, "_")
           .replace(/\.+$/, "")
           .trim()
-      )
+      ),
     );
   }
 }
 
 export async function safeIsExists(file: SafeFilePath): Promise<boolean> {
-  return fs
+  return await Deno
     .stat(file.toString())
     .then(() => true)
     .catch(() => false);
@@ -45,15 +44,15 @@ export async function safeIsExists(file: SafeFilePath): Promise<boolean> {
 
 export async function safeMkdir(file: SafeFilePath): Promise<boolean> {
   const dir = path.dirname(file.toString());
-  return fs
+  return await Deno
     .mkdir(dir, { recursive: true })
     .then(() => true)
     .catch(() => false);
 }
 
-export async function safeWriteFile(file: SafeFilePath, buffer: Buffer) {
-  return fs
-    .writeFile(file.toString(), buffer)
+export async function safeWriteFile(file: SafeFilePath, buffer: ArrayBuffer) {
+  return await Deno
+    .writeFile(file.toString(), new Uint8Array(buffer))
     .then(() => true)
     .catch(() => false);
 }

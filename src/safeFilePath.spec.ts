@@ -1,40 +1,33 @@
-import { describe, test, it, expect, vi } from "vitest";
+import { assertEquals } from "https://deno.land/std@0.65.0/testing/asserts.ts";
 
-import {
-  safeIsExists,
-  safeMkdir,
-  safeWriteFile,
-  SafeFilePath,
-} from "./safeFilePath.js";
+import { SafeFilePath } from "./safeFilePath.ts";
 
-describe("SafeFilePath", () => {
-  test("normal", async () => {
-    const file = new SafeFilePath("a", "b", "c");
-    expect(file.toString()).toBe("a/b/c");
-  });
+Deno.test("normal", () => {
+  const file = new SafeFilePath("a", "b", "c");
+  assertEquals(file.toString(), "a/b/c");
+});
 
-  test("escape", async () => {
-    const file = new SafeFilePath("a*:", "b?", "c ");
-    expect(file.toString()).toBe("a__/b_/c_");
-  });
+Deno.test("escape", () => {
+  const file = new SafeFilePath("a*:", "b?", "c ");
+  assertEquals(file.toString(), "a__/b_/c_");
+});
 
-  test("join", () => {
-    const file = new SafeFilePath("a", "b", "c");
-    expect(file.join("d", "e").toString()).toBe("a/b/c/d/e");
-  });
+Deno.test("join", () => {
+  const file = new SafeFilePath("a", "b", "c");
+  assertEquals(file.join("d", "e").toString(), "a/b/c/d/e");
+});
 
-  test("join(escape)", () => {
-    const file = new SafeFilePath("a", "b", "c");
-    expect(file.join("d?", "e ").toString()).toBe("a/b/c/d_/e_");
-  });
+Deno.test("join(escape)", () => {
+  const file = new SafeFilePath("a", "b", "c");
+  assertEquals(file.join("d?", "e ").toString(), "a/b/c/d_/e_");
+});
 
-  test("joinLeft", () => {
-    const file = new SafeFilePath("a", "b", "c");
-    expect(file.joinLeft("d", "e").toString()).toBe("d/e/a/b/c");
-  });
+Deno.test("joinLeft", () => {
+  const file = new SafeFilePath("a", "b", "c");
+  assertEquals(file.joinLeft("d", "e").toString(), "d/e/a/b/c");
+});
 
-  test("joinLeft(escape)", () => {
-    const file = new SafeFilePath("a", "b", "c");
-    expect(file.joinLeft("d?", "e?? ").toString()).toBe("d_/e___/a/b/c");
-  });
+Deno.test("joinLeft(escape)", () => {
+  const file = new SafeFilePath("a", "b", "c");
+  assertEquals(file.joinLeft("d?", "e?? ").toString(), "d_/e___/a/b/c");
 });

@@ -2,9 +2,7 @@ import type {
   AlbumDetailsAPIResponse,
   AlbumsAPIResponse,
   SongDetailsAPIResponse,
-} from "./type.js";
-
-import fetch from "node-fetch";
+} from "./type.ts";
 
 const base = "https://monster-siren.hypergryph.com/api";
 

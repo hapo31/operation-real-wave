@@ -1,7 +1,7 @@
-import ffmpeg, { type FfmpegCommand } from "fluent-ffmpeg";
-import * as api from "./api.js";
-import { SafeFilePath, safeWriteFile } from "./safeFilePath.js";
-import { Album, Song, SongSummary } from "./type.js";
+import { ffmpeg } from "x/ffmpeg";
+import * as api from "./api.ts";
+import { SafeFilePath, safeWriteFile } from "./safeFilePath.ts";
+import { Album, Song, SongSummary } from "./type.ts";
 
 export type SafeFileNameWith<T> = T & {
   fileName: SafeFilePath;
@@ -20,15 +20,15 @@ export async function fetchAlbums(): Promise<SafeFileNameWith<Album>[]> {
 
 export async function fetchAlbumArtWork(
   album: Album,
-  distDir: SafeFilePath
+  distDir: SafeFilePath,
 ): Promise<ArrayBuffer> {
   const artwork = await fetch(album.coverUrl).then((res) => res.arrayBuffer());
-  await safeWriteFile(distDir.join(`${album.name}.jpg`), Buffer.from(artwork));
+  await safeWriteFile(distDir.join(`${album.name}.jpg`), artwork);
   return artwork;
 }
 
 export async function fetchSongDetails(
-  song: SongSummary
+  song: SongSummary,
 ): Promise<SafeFileNameWith<Song>> {
   const { data } = await api.songDetails(song.cid);
 
@@ -41,15 +41,9 @@ export async function fetchSongDetails(
 
 export async function fetchSongFile(
   song: SafeFileNameWith<Song>,
-  targetDir: SafeFilePath,
-  audioFormat = "flac"
-): Promise<FfmpegCommand> {
-  return new Promise((res, rej) => {
-    const command = ffmpeg(song.sourceUrl);
-    command
-      .format(audioFormat)
-      .saveToFile(targetDir.join(`${song.fileName}.flac`).toString())
-      .on("end", () => res(command))
-      .on("error", (err) => rej(err));
-  });
+  audioFormat = "flac",
+): Promise<Uint8Array> {
+  const command = ffmpeg({ input: song.sourceUrl });
+  command.audioCodec(audioFormat);
+  return await command.save("pipe:1");
 }
