@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from "npm:vite";
 import { vitePlugin as remix } from "@remix-run/dev";
 
 /// <reference types="vitest" />
