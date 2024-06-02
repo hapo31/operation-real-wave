@@ -1,7 +1,0 @@
-{
-  "imports": {
-    "std/path/mod": "https://deno.land/std@0.224.0/path/mod.ts",
-    "std/io": "https://deno.land/std@0.224.0/io",
-    "x/ffmpeg": "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts"
-  }
-}

@@ -1,4 +1,4 @@
-import * as path from "std/path/mod";
+import { path } from "@/deps";
 
 export class SafeFilePath {
   private _fileName: string;

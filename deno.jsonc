@@ -5,6 +5,9 @@
     "preview": "deno run -A --unstable --node-modules-dir npm:vite preview",
     "serve": "deno run --allow-net --allow-read https://deno.land/std@0.157.0/http/file_server.ts dist/"
   },
+  "imports": {
+    "@/deps": "./deps.ts"
+  },
   "compilerOptions": {
     "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
     "strict": true

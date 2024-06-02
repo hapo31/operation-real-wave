@@ -1,4 +1,4 @@
-import { ffmpeg } from "x/ffmpeg";
+import { ffmpeg } from "@/deps";
 import * as api from "./api.ts";
 import { SafeFilePath, safeWriteFile } from "./safeFilePath.ts";
 import { Album, Song, SongSummary } from "./type.ts";
@@ -43,7 +43,7 @@ export async function fetchSongFile(
   song: SafeFileNameWith<Song>,
   audioFormat = "flac",
 ): Promise<Uint8Array> {
-  const command = ffmpeg({ input: song.sourceUrl });
+  const command = ffmpeg.ffmpeg({ input: song.sourceUrl });
   command.audioCodec(audioFormat);
   return await command.save("pipe:1");
 }
