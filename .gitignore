@@ -2,6 +2,7 @@ node_modules
 dist/
 build/
 .pnpm-store
+.cache
 
 *.flac
 *.wav
