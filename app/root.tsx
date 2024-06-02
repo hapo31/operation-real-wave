@@ -1,3 +1,5 @@
+// @deno-types="npm:@types/react"
+import React from "npm:react";
 import {
   Links,
   LiveReload,
