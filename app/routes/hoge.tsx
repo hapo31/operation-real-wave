@@ -1,10 +1,7 @@
 import { useLoaderData } from "@remix-run/react";
 
-import fs from "fs/promises";
-
 export async function loader() {
-  const dir = await fs.readdir("./src");
-
+  const dir = await Array.fromAsync(Deno.readDir("./src"));
   return { message: dir };
 }
 
@@ -15,9 +12,7 @@ export default function Hoge() {
 
   return (
     <ul>
-      {data.message.map((s, index) => (
-        <li key={index}>{s}</li>
-      ))}
+      {data.message.map((s, index) => <li key={index}>{s.name}</li>)}
     </ul>
   );
 }

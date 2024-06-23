@@ -8,21 +8,29 @@
     "esm:update": "deno run -A https://esm.sh/v135 update",
     "esm:remove": "deno run -A https://esm.sh/v135 remove"
   },
+  "compilerOptions": {
+    "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
+    "strict": true,
+    "jsx": "react-jsx",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment"
+  },
   "imports": {
     "@remix-run/deno": "https://esm.sh/v135/*@remix-run/deno@2.9.2",
-    "@remix-run/dev": "npm:@remix-run/dev"
+    "@remix-run/dev": "npm:@remix-run/dev",
+    "@remix-run/dev/": "npm:@remix-run/dev/",
+    "react-dom": "npm:react-dom@18.2.0",
+    "react-dom/": "npm:react-dom@18.2.0/",
+    "react": "npm:react@18.2.0",
+    "react/": "npm:react@18.2.0/"
   },
   "scopes": {
     "https://esm.sh/v135/": {
       "@remix-run/server-runtime": "https://esm.sh/v135/@remix-run/server-runtime@2.9.2",
-      "mime": "https://esm.sh/v135/mime@3.0.0"
+      "mime": "https://esm.sh/v135/mime@3.0.0",
+      "loose-envify": "https://esm.sh/v135/loose-envify@1.4.0",
+      "scheduler": "https://esm.sh/v135/scheduler@0.23.2"
     }
-  },
-  "compilerOptions": {
-    "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
-    "strict": true,
-    "jsx": "precompile",
-    "jsxImportSource": "react"
   },
   "lint": {
     "include": ["src"],
