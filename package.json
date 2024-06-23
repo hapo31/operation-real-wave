@@ -5,8 +5,8 @@
   "scripts": {
     "build": "remix build",
     "deploy": "deployctl deploy --prod --include=build,public --project=<your deno deploy project> ./build/index.js",
-    "dev": "remix build && run-p \"dev:*\"",
-    "dev:deno": "cross-env NODE_ENV=development deno run --unstable --watch --allow-net --allow-read --allow-env ./build/index.js",
+    "dev": "cross-env NODE_ENV=development remix build && run-p \"dev:*\"",
+    "dev:deno": "cross-env NODE_ENV=development deno run --watch --allow-net --allow-read --allow-env ./build/index.js",
     "dev:remix": "remix watch",
     "format": "deno fmt --ignore=node_modules,build,public/build",
     "lint": "deno lint --ignore=node_modules,build,public/build",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@remix-run/deno": "^2.9.2",
     "@remix-run/react": "^2.9.2",
+    "@remix-run/server-runtime": "^2.9.2",
     "isbot": "^4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -24,7 +25,9 @@
     "cross-env": "^7.0.3",
     "esbuild": "^0.21.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^3.3.0"
+    "prettier": "^3.3.0",
+    "run-p": "^0.0.0",
+    "vite": "^5.3.1"
   },
   "engines": {
     "node": ">=14"

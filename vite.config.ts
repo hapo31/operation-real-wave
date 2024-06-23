@@ -1,5 +1,5 @@
-import { defineConfig } from "npm:vite";
-import { vitePlugin as remix } from "npm:@remix-run/dev";
+import { defineConfig } from "vite";
+import { vitePlugin as remix } from "@remix-run/dev";
 
 /// <reference types="vitest" />
 // @deno-types="npm:vitest"
