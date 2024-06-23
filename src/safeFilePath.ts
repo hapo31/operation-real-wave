@@ -1,4 +1,4 @@
-import { path } from "@/deps";
+import { path } from "../deps.ts";
 
 export class SafeFilePath {
   private _fileName: string;

@@ -3,17 +3,20 @@
     "dev": "deno run -A --unstable --node-modules-dir server.ts",
     "build": "deno run -A --unstable --node-modules-dir npm:vite build",
     "preview": "deno run -A --unstable --node-modules-dir npm:vite preview",
-    "serve": "deno run --allow-net --allow-read https://deno.land/std@0.157.0/http/file_server.ts dist/"
+    "serve": "deno run --allow-net --allow-read https://deno.land/std@0.157.0/http/file_server.ts dist/",
+    "esm:add": "deno run -A https://esm.sh/v135 add",
+    "esm:update": "deno run -A https://esm.sh/v135 update",
+    "esm:remove": "deno run -A https://esm.sh/v135 remove"
   },
   "imports": {
-    "@/deps": "./deps.ts",
-    "@remix-run/deno": "./node_modules/@remix-run/deno/index.ts",
-    "@remix-run/server-runtime": "npm:@remix-run/server-runtime",
-    "@remix-run/dev": "npm:@remix-run/dev",
-    "@remix-run/react": "npm:@remix-run/react",
-    "react": "https://esm.sh/react@18.3.1",
-    "react-dom": "https://esm.sh/react-dom@18.3.1",
-    "react-dom/server": "https://esm.sh/react-dom@18.3.1/server"
+    "@remix-run/deno": "https://esm.sh/v135/*@remix-run/deno@2.9.2",
+    "@remix-run/dev": "npm:@remix-run/dev"
+  },
+  "scopes": {
+    "https://esm.sh/v135/": {
+      "@remix-run/server-runtime": "https://esm.sh/v135/@remix-run/server-runtime@2.9.2",
+      "mime": "https://esm.sh/v135/mime@3.0.0"
+    }
   },
   "compilerOptions": {
     "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
@@ -22,25 +25,19 @@
     "jsxImportSource": "react"
   },
   "lint": {
-    "files": {
-      "include": ["src"],
-      "exclude": ["node_modules"]
-    },
+    "include": ["src"],
+    "exclude": ["node_modules"],
     "rules": {
       "tags": ["recommended"]
     }
   },
   "fmt": {
-    "files": {
-      "include": ["src", "deno.jsonc"],
-      "exclude": ["node_modules"]
-    },
-    "options": {
-      "useTabs": false,
-      "lineWidth": 100,
-      "indentWidth": 2,
-      "singleQuote": false
-    }
+    "include": ["src", "app", "deno.jsonc"],
+    "exclude": ["node_modules"],
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "singleQuote": false
   },
   "unstable": [
     "byonm"
