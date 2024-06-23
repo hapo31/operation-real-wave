@@ -1,4 +1,4 @@
-import { ffmpeg } from "@/deps";
+import { ffmpeg } from "../deps.ts";
 import * as api from "./api.ts";
 import { SafeFilePath, safeWriteFile } from "./safeFilePath.ts";
 import { Album, Song, SongSummary } from "./type.ts";
