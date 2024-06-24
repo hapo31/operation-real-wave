@@ -12,8 +12,8 @@
     "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
     "strict": true,
     "jsx": "react-jsx",
-    "jsxFactory": "React.createElement",
-    "jsxFragmentFactory": "React.Fragment"
+    "jsxImportSource": "npm:react@18.2.0",
+    "jsxImportSourceTypes": "npm:@types/react@18.2.0"
   },
   "imports": {
     "@remix-run/deno": "https://esm.sh/v135/*@remix-run/deno@2.9.2",

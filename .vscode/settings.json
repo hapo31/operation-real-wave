@@ -10,5 +10,6 @@
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
   "deno.codeLens.referencesAllFunctions": true,
-  "deno.enablePaths": ["app", "src", "server.ts", "deps.ts"]
+  "deno.enablePaths": ["app", "src", "server.ts", "deps.ts"],
+	"deno.config": ".vscode/deno.vscode.json",
 }
