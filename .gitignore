@@ -6,3 +6,6 @@ build/
 
 *.flac
 *.wav
+
+*.db
+dev.db-journal
