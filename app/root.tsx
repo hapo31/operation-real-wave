@@ -12,6 +12,7 @@ export default function App() {
     <html>
       <head>
         <link rel="icon" href="data:image/x-icon;base64,AA" />
+        <meta charSet="UTF-8" />
         <Meta />
         <Links />
       </head>
