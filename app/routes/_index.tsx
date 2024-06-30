@@ -4,7 +4,11 @@ export default function Fuga() {
   return (
     <div>
       <h1>fuga</h1>
-      <Link to="hoge">hoge</Link>
+      <ul>
+        <li>
+          <Link to="albums">albums</Link>
+        </li>
+      </ul>
     </div>
   );
 }
