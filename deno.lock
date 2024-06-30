@@ -4475,10 +4475,12 @@
       "dependencies": [
         "npm:@remix-run/deno@^2.9.2",
         "npm:@remix-run/dev@^2.9.2",
+        "npm:@remix-run/node@^2.10.0",
         "npm:@remix-run/react@^2.9.2",
         "npm:@remix-run/server-runtime@^2.9.2",
         "npm:@types/react-dom@^18.2.0",
         "npm:@types/react@^18.2.0",
+        "npm:@vanilla-extract/css@^1.15.3",
         "npm:cross-env@^7.0.3",
         "npm:esbuild@^0.21.4",
         "npm:isbot@^4",
@@ -4486,6 +4488,7 @@
         "npm:prettier@^3.3.0",
         "npm:react-dom@^18.2.0",
         "npm:react@^18.2.0",
+        "npm:remix-typedjson@^0.4.1",
         "npm:vite@^5.3.1"
       ]
     }

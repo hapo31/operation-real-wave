@@ -14,11 +14,14 @@
   },
   "dependencies": {
     "@remix-run/deno": "^2.9.2",
+    "@remix-run/node": "^2.10.0",
     "@remix-run/react": "^2.9.2",
     "@remix-run/server-runtime": "^2.9.2",
+    "@vanilla-extract/css": "^1.15.3",
     "isbot": "^4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remix-typedjson": "^0.4.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
