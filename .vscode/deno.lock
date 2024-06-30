@@ -2,6 +2,7 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "npm:@prisma/client@5.16.1": "npm:@prisma/client@5.16.1",
       "npm:@remix-run/deno@^2.9.2": "npm:@remix-run/deno@2.9.2",
       "npm:@remix-run/dev@^2.9.2": "npm:@remix-run/dev@2.9.2_@remix-run+react@2.9.2__react@18.2.0__react-dom@18.3.1___react@18.3.1_@babel+core@7.24.7_react@18.2.0_esbuild@0.17.6_postcss@8.4.38",
       "npm:@remix-run/node@^2.10.0": "npm:@remix-run/node@2.10.0",
@@ -591,6 +592,10 @@
       },
       "@pkgjs/parseargs@0.11.0": {
         "integrity": "sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==",
+        "dependencies": {}
+      },
+      "@prisma/client@5.16.1": {
+        "integrity": "sha512-wM9SKQjF0qLxdnOZIVAIMKiz6Hu7vDt4FFAih85K1dk/Rr2mdahy6d3QP41K62N9O0DJJA//gUDA3Mp49xsKIg==",
         "dependencies": {}
       },
       "@remix-run/deno@2.9.2": {

@@ -4473,6 +4473,7 @@
     ],
     "packageJson": {
       "dependencies": [
+        "npm:@prisma/client@5.16.1",
         "npm:@remix-run/deno@^2.9.2",
         "npm:@remix-run/dev@^2.9.2",
         "npm:@remix-run/node@^2.10.0",
@@ -4486,6 +4487,7 @@
         "npm:isbot@^4",
         "npm:npm-run-all@^4.1.5",
         "npm:prettier@^3.3.0",
+        "npm:prisma@^5.16.1",
         "npm:react-dom@^18.2.0",
         "npm:react@^18.2.0",
         "npm:remix-typedjson@^0.4.1",

@@ -8,11 +8,13 @@
     "dev": "cross-env NODE_ENV=development remix build && run-p \"dev:*\"",
     "dev:deno": "cross-env NODE_ENV=development deno run --watch --allow-net --allow-read --allow-env ./build/index.js",
     "dev:remix": "remix watch",
+    "prisma": "prisma",
     "format": "deno fmt --ignore=node_modules,build,public/build",
     "lint": "deno lint --ignore=node_modules,build,public/build",
     "start": "cross-env NODE_ENV=production deno run --unstable --allow-net --allow-read --allow-env ./build/index.js"
   },
   "dependencies": {
+    "@prisma/client": "5.16.1",
     "@remix-run/deno": "^2.9.2",
     "@remix-run/node": "^2.10.0",
     "@remix-run/react": "^2.9.2",
@@ -31,6 +33,7 @@
     "esbuild": "^0.21.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^3.3.0",
+    "prisma": "^5.16.1",
     "vite": "^5.3.1"
   },
   "engines": {
