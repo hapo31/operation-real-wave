@@ -1,6 +1,6 @@
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import * as api from "../../src/api.ts";
-import Albums from "../../src/pages/Albums/Albums.tsx";
+import * as api from "../../core/src/api.ts";
+import Albums from "../_src/pages/Albums/Albums.tsx";
 
 export async function loader() {
   const albums = await api.albums();

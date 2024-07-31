@@ -1,15 +1,21 @@
 {
-  "name": "operation-real-wave",
+  "name": "web",
   "private": false,
   "sideEffects": false,
   "scripts": {
-    "core": "pnpm -F \"core\"",
-    "web": "pnpm -F \"web\""
+    "build": "remix build",
+    "deploy": "deployctl deploy --prod --include=build,public --project=<your deno deploy project> ./build/index.js",
+    "dev": "remix dev",
+    "start": "remix^serve build",
+    "prisma": "prisma",
+    "format": "deno fmt --ignore=node_modules,build,public/build",
+    "lint": "deno lint --ignore=node_modules,build,public/build"
   },
   "dependencies": {
     "@prisma/client": "5.16.1",
     "@remix-run/node": "^2.10.0",
     "@remix-run/react": "^2.9.2",
+    "@remix-run/serve": "^2.10.3",
     "@remix-run/server-runtime": "^2.9.2",
     "@vanilla-extract/css": "^1.15.3",
     "isbot": "^4",
@@ -26,6 +32,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.3.0",
     "prisma": "^5.16.1",
+    "typescript": "^5.5.4",
     "vite": "^5.3.1"
   },
   "engines": {

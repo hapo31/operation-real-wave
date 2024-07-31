@@ -1,0 +1,9 @@
+{
+  "name": "core",
+  "dependencies": {
+    "hono": "^4.5.3"
+  },
+  "devDependencies": {
+    "create-hono": "^0.10.1"
+  }
+}

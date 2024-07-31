@@ -1,0 +1,29 @@
+{
+  "tasks": {
+    "start": "deno run --allow-net main.ts"
+  },
+  "compilerOptions": {
+    "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
+    "strict": true,
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  },
+  "imports": {
+    "hono": "jsr:@hono/hono@^4.5.3"
+  },
+  "lint": {
+    "include": ["src"],
+    "exclude": ["node_modules"],
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "include": ["src", "app", "deno.jsonc"],
+    "exclude": ["node_modules"],
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "singleQuote": false
+  }
+}
