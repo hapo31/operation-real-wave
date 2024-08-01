@@ -26,6 +26,9 @@ export type Song = {
   name: string;
   albumCid: string;
   sourceUrl: string;
+  lyricUrl: string | null;
+  mvUrl: string | null;
+  mvCoverUrl: string | null;
   artists: string[];
 };
 
