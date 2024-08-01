@@ -1,5 +1,5 @@
 import { DB } from "https://deno.land/x/sqlite@v3.8/mod.ts";
-import { uuid } from "https://deno.land/x/uuid/mod.ts";
+import { uuid } from "https://deno.land/x/uuid@v0.1.2/mod.ts";
 import { SafeFileNameWith } from "./fetcher.ts";
 
 import type { Album } from "./type.ts";
@@ -12,7 +12,11 @@ function makePlaceHolders(records: object[]) {
   ).join(",");
 }
 
-function insert<T extends object>(table: string, records: T[], upsert = false) {
+export function insert<T extends object>(
+  table: string,
+  records: T[],
+  upsert = false,
+) {
   const columns = Object.keys(records[0]);
   const placeholders = makePlaceHolders(records);
   const sql = `${upsert ? "REPLACE" : "INSERT"} INTO ${table} (${
@@ -25,6 +29,14 @@ function insert<T extends object>(table: string, records: T[], upsert = false) {
   );
 
   return rows;
+}
+
+export function get<T extends Record<string | number | symbol, never>>(
+  table: string,
+  limit = -1,
+) {
+  const limitSt = limit === -1 ? "" : `LIMIT ${limit}`;
+  return db.queryEntries<T>(`SELECT * FROM ? ${limitSt}`, [table]);
 }
 
 export function collectionAlbums(albums: SafeFileNameWith<Album>[]) {
