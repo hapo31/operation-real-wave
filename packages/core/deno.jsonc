@@ -19,7 +19,7 @@
     }
   },
   "fmt": {
-    "include": ["src", "app", "deno.jsonc"],
+    "include": ["src", "deno.jsonc"],
     "exclude": ["node_modules"],
     "useTabs": false,
     "lineWidth": 100,
