@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run --allow-net main.ts"
+    "start": "deno run --unstable-kv --allow-env --allow-read --allow-write --allow-net main.ts"
   },
   "compilerOptions": {
     "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
