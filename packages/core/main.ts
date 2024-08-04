@@ -5,7 +5,9 @@ import * as api from "./src/api.ts";
 import type { Album, AlbumDetails, Song } from "./src/type.ts";
 import { SafeFilePath, safeIsExists } from "./src/safeFilePath.ts";
 import "https://deno.land/std@0.203.0/dotenv/load.ts";
-import { toArray, toArrayAsync } from "./src/iterator.ts";
+import { toArray } from "./src/iterator.ts";
+import DenoKVModel from "./src/lib/DenoKVModel.ts";
+import { SongSummary } from "./src/type.ts";
 
 const basePath = Deno.env.get("FILE_BASE_FULLPATH");
 
@@ -16,19 +18,26 @@ if (basePath == null) {
 const app = new Hono();
 const kv = await Deno.openKv();
 
-app.get("/albums", async (c) => {
-  const { data: originAlbums } = await api.albums();
-  const albumsResult = await kv.list<Album>({ prefix: ["albums"] });
+const albumModel = new DenoKVModel<Album>(["albums"]);
+const albumDetailsModel = new DenoKVModel<AlbumDetails>(["albums", "details"]);
+const songsBelongToAlbumModel = new DenoKVModel<SongSummary>(["songs"]);
+const songModel = new DenoKVModel<Song>(["songs", "details"]);
 
-  const albums = await toArrayAsync(albumsResult);
+app.get("/albums", async (c) => {
+  const [albums] = await albumModel.list();
+  return c.json({ albums });
+});
+
+app.post("/albums", async (c) => {
+  const { data: originAlbums } = await api.albums();
+
+  const [albums] = await albumModel.list();
 
   if (originAlbums.length === albums.length) {
     return c.json({ albums });
   }
 
-  await Promise.all(
-    originAlbums.map((album) => kv.set(["albums", album.cid], album)),
-  );
+  await albumModel.setMany("cid", originAlbums);
 
   return c.json({ albums: originAlbums });
 });
@@ -36,12 +45,16 @@ app.get("/albums", async (c) => {
 app.get("/albums/:albumCid", async (c) => {
   const { albumCid } = c.req.param();
 
-  const albumResult = await kv.get(["albums", albumCid]);
+  const [albumDetail, albumResult] = await albumDetailsModel.get(
+    albumCid,
+    async () => {
+      const { data: albumDetail } = await api.albumDetails(albumCid);
+      return albumDetail;
+    },
+  );
   if (albumResult.versionstamp != null) {
-    return c.json({ ...(albumResult.value as Album) });
+    return c.json({ albumDetail });
   }
-
-  const { data: albumDetail } = await api.albumDetails(albumCid);
 
   const album: Album = {
     name: albumDetail.name,
@@ -50,58 +63,76 @@ app.get("/albums/:albumCid", async (c) => {
     artistes: albumDetail.songs.map((song) => song.artistes).flat(),
   };
 
-  await kv.set(["albums", albumCid], album);
-  await kv.set(["albums", "details", albumCid], albumDetail);
+  await albumModel.set(albumCid, album);
 
-  return c.json({ ...album });
+  return c.json({ album });
 });
 
 app.get("/albums/:albumCid/details", async (c) => {
   const { albumCid } = c.req.param();
 
-  const albumDetailsesult = await kv.get(["albums", "details", albumCid]);
-  if (albumDetailsesult.versionstamp != null) {
-    return c.json({ ...(albumDetailsesult.value as AlbumDetails) });
-  }
-
-  const { data: albumDetail } = await api.albumDetails(albumCid);
-
-  await kv.set(["albums", "details", albumCid], albumDetail);
-
-  await Promise.all(
-    albumDetail.songs.map((song) =>
-      kv.set(["songs", albumDetail.cid, song.cid], song)
-    ),
+  const [albumDetail, albumDetailsResult] = await albumDetailsModel.get(
+    albumCid,
+    async () => {
+      const { data: albumDetail } = await api.albumDetails(albumCid);
+      return albumDetail;
+    },
   );
 
-  return c.json({ ...albumDetail });
+  if (albumDetailsResult.versionstamp != null) {
+    return c.json({ albumDetail });
+  }
+
+  await songsBelongToAlbumModel.setMany("cid", albumDetail.songs, [
+    albumDetail.cid,
+  ]);
+
+  return c.json({ albumDetail });
+});
+
+app.get("/albums/:albumCid/songs", async (c) => {
+  const { albumCid } = c.req.param();
+
+  const [songs] = await songsBelongToAlbumModel.list(
+    albumCid,
+  );
+
+  if (songs.length === 0) {
+    const { data: albumDetails } = await api.albumDetails(albumCid);
+    await songsBelongToAlbumModel.setMany("cid", albumDetails.songs);
+    return c.json({ songs: albumDetails.songs });
+  }
+
+  return c.json({ songs });
 });
 
 app.get("/song/:songCid", async (c) => {
   const { songCid } = c.req.param();
 
-  const song = await kv.get(["songs", songCid]);
-  if (song.versionstamp != null) {
-    return c.json({ ...(song.value as Song) });
+  const [song, songResult] = await songModel.get(songCid, async () => {
+    const { data: originSong } = await api.songDetails(songCid);
+    return originSong;
+  });
+  if (songResult.versionstamp != null) {
+    return c.json({ song });
   }
 
-  const { data: originSong } = await api.songDetails(songCid);
+  songsBelongToAlbumModel.set([songCid, song.albumCid], {
+    name: song.name,
+    cid: song.cid,
+    artistes: song.artists,
+  });
 
-  await kv.set(["songs", originSong.albumCid, songCid], originSong);
-  await kv.set(["songs", "details", songCid], originSong);
-
-  return c.json({ ...originSong });
+  return c.json({ song });
 });
 
 app.post("/file/cover/:albumCid", async (c) => {
   const { albumCid } = c.req.param();
 
-  const albumResult = await kv.get(["albums", albumCid]);
-  if (albumResult.versionstamp == null) {
+  const [album] = await albumModel.get(albumCid);
+  if (album == null) {
     return c.notFound();
   }
-
-  const album = albumResult.value as AlbumDetails;
 
   const destDirPath = new SafeFilePath(
     basePath,
