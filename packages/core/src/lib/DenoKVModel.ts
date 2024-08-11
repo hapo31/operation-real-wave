@@ -32,6 +32,43 @@ export default class DenoKVModel<TValue extends object> {
     return [defaultValue, result];
   }
 
+  async getMany(
+    pks: (string | Deno.KvKey)[],
+  ): Promise<[TValue[], Deno.KvEntryMaybe<TValue>[]]> {
+    const results = await kv.getMany<TValue[]>(
+      pks.map((pk) => this._keyPrefix.concat(pk)),
+    );
+    return [
+      results
+        .filter((result): result is Deno.KvEntry<TValue> =>
+          result.value != null
+        )
+        .map((
+          result,
+        ) => result.value),
+      results,
+    ];
+  }
+
+  async getManyAsRecord(
+    pks: (string | Deno.KvKey)[],
+  ): Promise<Record<string, TValue | null>>;
+  async getManyAsRecord(
+    pks: (string | Deno.KvKey)[],
+    defaultValue: (pk: string | Deno.KvKey) => TValue | Promise<TValue>,
+  ): Promise<Record<string, TValue>>;
+  async getManyAsRecord(
+    pks: (string | Deno.KvKey)[],
+    defaultValue?: (pk: string | Deno.KvKey) => TValue | Promise<TValue>,
+  ): Promise<Record<string, TValue>> {
+    const [_, results] = await this.getMany(pks);
+    return Object.fromEntries(
+      results.map((
+        result,
+      ) => [result.key, result.value ?? defaultValue?.(result.key) ?? null]),
+    );
+  }
+
   async set(
     pk: string | Deno.KvKey,
     value: TValue,

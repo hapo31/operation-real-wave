@@ -9,6 +9,8 @@ import { toArray } from "./src/iterator.ts";
 import DenoKVModel from "./src/lib/DenoKVModel.ts";
 import { SongSummary } from "./src/type.ts";
 
+import * as songStatus from "./src/songStatus.ts";
+
 const basePath = Deno.env.get("FILE_BASE_FULLPATH");
 
 if (basePath == null) {
@@ -165,20 +167,12 @@ app.post("/file/songs", async (c) => {
       message: 'require { "targetCids": string[] } property in body.',
     });
   }
-  const songs = await kv.getMany<Song[]>(
-    targetCids.map((cid) => ["songs", "details", cid]),
-  );
-  const songStatuses = (await kv.getMany<{ cid: string; state: string }[]>(
-    targetCids.map((cid) => ["status", "song", cid]),
-  )).reduce(
-    (acc, prev) =>
-      prev.value == null ? acc : { ...acc, [prev.value.state]: prev.value },
-    {} as Record<string, { cid: string; state: string }>,
-  );
+  const [songs] = await songModel.getMany(targetCids);
+  const songStatuses = await songStatus.getSongStatuses(targetCids);
 
-  const targetSongs = await toArray(songs.values()).map((song) => song.value)
+  const targetSongs = songs
     .filter((song): song is Song =>
-      song != null && songStatuses[song.cid] == null
+      song != null && songStatuses[song.cid].status === "NOT_EXIST"
     );
 
   setTimeout(async () => {
