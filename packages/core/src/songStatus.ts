@@ -4,6 +4,7 @@ export const SongStatusType = {
   NOT_EXIST: "NOT_EXIST",
   QUEUED: "QUEUED",
   DOWNLOADING: "DOWNLOADING",
+  ERROR: "ERROR",
   EXIST: "EXIST",
 } as const;
 
