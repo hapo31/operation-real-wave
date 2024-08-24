@@ -1,4 +1,4 @@
-import { ffmpeg } from "../deps.ts";
+import { ffmpeg } from "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts";
 import * as api from "./api.ts";
 import { SafeFilePath, safeWriteFile } from "./safeFilePath.ts";
 import { Album, Song, SongSummary } from "./type.ts";
@@ -43,7 +43,18 @@ export async function fetchSongFile(
   song: SafeFileNameWith<Song>,
   audioFormat = "flac",
 ): Promise<Uint8Array> {
-  const command = ffmpeg.ffmpeg({ input: song.sourceUrl });
+  const command = ffmpeg({ input: song.sourceUrl });
   command.audioCodec(audioFormat);
-  return await command.save("pipe:1");
+  return await command.save("pipe:1", false, {
+    ...makeMataData(song),
+  });
+}
+
+function makeMataData(song: SafeFileNameWith<Song>) {
+  return {
+    "-metadata:g:0": `title=${song.name}`,
+    "-metadata:g:1": `artist=${song.artists.join(", ")}`,
+    "-metadata:g:2": `album=${song.albumCid}`,
+    "-metadata:g:3": `track=${song.cid}`,
+  };
 }
