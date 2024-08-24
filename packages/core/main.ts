@@ -1,5 +1,4 @@
 import { Hono } from "npm:hono";
-import { pLimit } from "https://deno.land/x/p_limit@v1.0.0/mod.ts";
 import { HTTPException } from "npm:hono/http-exception";
 import * as api from "./src/api.ts";
 import type { Album, AlbumDetails, Song } from "./src/type.ts";
@@ -10,6 +9,8 @@ import DenoKVModel from "./src/lib/DenoKVModel.ts";
 import { SongSummary } from "./src/type.ts";
 
 import * as songStatus from "./src/songStatus.ts";
+import { AlbumFetchEventPayload } from "./src/worker/albumFetcher.ts";
+import { AlbumEntity } from "./src/worker/albumFetcher.ts";
 
 const basePath = Deno.env.get("FILE_BASE_FULLPATH");
 
@@ -160,6 +161,27 @@ app.post("/file/cover/:albumCid", async (c) => {
   return c.json({ filePath: filePath.toString(), new: true });
 });
 
+app.post("/file/album/", async (c) => {
+  const { targetAlbumCids } = await c.req.json<{ targetAlbumCids: string[] }>();
+  if (targetAlbumCids == null) {
+    throw new HTTPException(400, {
+      message: 'require { "targetAlbumCids": string[] } property in body.',
+    });
+  }
+  const [albums] = await albumDetailsModel.getMany(targetAlbumCids);
+
+  const songRecord = await songModel.getManyAsRecord(
+    albums.flatMap((album) => album.songs.map((song) => song.cid)),
+  );
+
+  const targetAlbums: AlbumEntity[] = albums.map((album) => ({
+    ...album,
+    songs: album.songs.map((song) => songRecord[song.cid])
+      .filter((song): song is Song => song != null),
+  }));
+  await startWorker({ type: "fetchAlbum", targetAlbums });
+});
+
 app.post("/file/songs", async (c) => {
   const { targetCids } = await c.req.json<{ targetCids: string[] }>();
   if (targetCids == null) {
@@ -213,5 +235,17 @@ app.post("/file/status", async (c) => {
     targetSongStatuses,
   });
 });
+
+function startWorker(req: AlbumFetchEventPayload) {
+  const worker = new Worker(
+    new URL("./worker/albumFetcher.ts", import.meta.url).href,
+    {
+      type: "module",
+      deno: true,
+    },
+  );
+
+  worker.postMessage(req);
+}
 
 Deno.serve(app.fetch);
