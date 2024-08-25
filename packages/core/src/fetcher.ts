@@ -4,7 +4,7 @@ import { SafeFilePath, safeWriteFile } from "./safeFilePath.ts";
 import { Album, AlbumDetails, Song, SongSummary } from "./type.ts";
 
 export type AlbumEntity = Omit<AlbumDetails, "songs"> & {
-  artistes: string[];
+  albumArtistes: string[];
   songs: Song[];
 };
 
@@ -45,25 +45,27 @@ export async function fetchSongDetails(
 }
 
 export async function fetchSongFile(
-  song: SafeFileNameWith<Song>,
+  song: Song,
   album: AlbumEntity,
   trackNumber: `${number}/${number}`,
   audioFormat = "flac",
 ): Promise<Uint8Array> {
   const command = ffmpeg({ input: song.sourceUrl });
   command.audioCodec(audioFormat);
-  return await command.save("pipe:1", false, {
-    ...makeMataData({
-      name: song.originalName,
+  return await command.save(
+    "pipe:1",
+    false,
+    makeMataDataArgs({
+      name: song.name,
       artists: song.artists,
-      albumArtists: album.artistes,
+      albumArtists: album.albumArtistes,
       albumTitle: album.name,
       trackNumber,
     }),
-  });
+  );
 }
 
-function makeMataData(
+function makeMataDataArgs(
   props: {
     name: string;
     artists: string[];
@@ -73,10 +75,10 @@ function makeMataData(
   },
 ) {
   return {
-    "-metadata:g:0": `title=${props.name}`,
-    "-metadata:g:1": `artist=${props.artists.join(", ")}`,
-    "-metadata:g:2": `album_artist=${props.albumArtists.join(", ")}`,
-    "-metadata:g:3": `album=${props.albumTitle}`,
-    "-metadata:g:4": `track=${props.trackNumber}`,
+    "metadata:g:0": `title=${props.name}`,
+    "metadata:g:1": `artist=${props.artists.join(", ")}`,
+    "metadata:g:2": `album_artist=${props.albumArtists.join(", ")}`,
+    "metadata:g:3": `album=${props.albumTitle}`,
+    "metadata:g:4": `track=${props.trackNumber}`,
   };
 }

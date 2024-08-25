@@ -9,6 +9,7 @@ declare const self: Worker;
 export type AlbumFetchEventPayload = {
   type: "fetchAlbum";
   targetAlbums: AlbumEntity[];
+  basePath: string;
 };
 
 self.addEventListener("message", async (event) => {
@@ -21,7 +22,9 @@ self.addEventListener("message", async (event) => {
 
   const limit = pLimit(5);
 
-  await Promise.all(data.targetAlbums.map((album) => async () => {
+  const { basePath, targetAlbums } = data;
+
+  await Promise.all(targetAlbums.map((album) => async () => {
     setSongStatuses(album.songs.map((song) => song.cid), "DOWNLOADING");
 
     await Promise.all(album.songs.map((song, index, self) =>
@@ -34,10 +37,18 @@ self.addEventListener("message", async (event) => {
         let retry = 0;
         while (retry < 3) {
           try {
-            await fetchSongFile(
+            const buffer = await fetchSongFile(
               songWithFileName,
               album,
               `${index + 1}/${self.length}`,
+            );
+            Deno.writeFile(
+              new SafeFilePath(
+                basePath,
+                `${album.cid}_${album.name}`,
+                `${index + 1}_${song.name}`,
+              ).toString(),
+              buffer,
             );
           } catch (e) {
             console.error(e);
