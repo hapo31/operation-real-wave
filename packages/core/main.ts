@@ -1,16 +1,17 @@
 import { Hono } from "npm:hono";
 import { HTTPException } from "npm:hono/http-exception";
+import { createRoute, OpenAPIHono, z } from "npm:@hono/zod-openapi";
 import * as api from "./src/api.ts";
 import type { Album, AlbumDetails, Song } from "./src/type.ts";
 import { SafeFilePath, safeIsExists } from "./src/safeFilePath.ts";
 import "https://deno.land/std@0.203.0/dotenv/load.ts";
 import { toArray } from "./src/iterator.ts";
 import DenoKVModel from "./src/lib/DenoKVModel.ts";
-import { SongSummary } from "./src/type.ts";
+import { AlbumSchema, SongSummary } from "./src/type.ts";
 
 import * as songStatus from "./src/songStatus.ts";
 import { AlbumFetchEventPayload } from "./src/worker/albumFetcher.ts";
-import { AlbumEntity } from "./src/worker/albumFetcher.ts";
+import { AlbumEntity } from "./src/fetcher.ts";
 
 const basePath = Deno.env.get("FILE_BASE_FULLPATH");
 
@@ -19,12 +20,35 @@ if (basePath == null) {
 }
 
 const app = new Hono();
+const app2 = new OpenAPIHono();
 const kv = await Deno.openKv();
 
 const albumModel = new DenoKVModel<Album>(["albums"]);
 const albumDetailsModel = new DenoKVModel<AlbumDetails>(["albums", "details"]);
 const songsBelongToAlbumModel = new DenoKVModel<SongSummary>(["songs"]);
 const songModel = new DenoKVModel<Song>(["songs", "details"]);
+
+app2.openapi(
+  createRoute({
+    path: "albums",
+    method: "get",
+    request: {},
+    responses: {
+      200: {
+        content: {
+          "application/json": {
+            schema: z.array(AlbumSchema),
+          },
+        },
+        description: "List of albums",
+      },
+    },
+  }),
+  async (c) => {
+    const [albums] = await albumModel.list();
+    return c.json({ albums });
+  },
+);
 
 app.get("/albums", async (c) => {
   const [albums] = await albumModel.list();
@@ -170,16 +194,19 @@ app.post("/file/album/", async (c) => {
   }
   const [albums] = await albumDetailsModel.getMany(targetAlbumCids);
 
-  const songRecord = await songModel.getManyAsRecord(
+  const [songs] = await songModel.getMany(
     albums.flatMap((album) => album.songs.map((song) => song.cid)),
   );
 
+  const songRecord = Object.fromEntries(songs.map((song) => [song.cid, song]));
+
   const targetAlbums: AlbumEntity[] = albums.map((album) => ({
     ...album,
-    songs: album.songs.map((song) => songRecord[song.cid])
-      .filter((song): song is Song => song != null),
+    songs: album.songs.map((song) => songRecord[song.cid]),
+    albumArtistes: album.songs.map((song) => songRecord[song.cid].artists)
+      .flat(),
   }));
-  await startWorker({ type: "fetchAlbum", targetAlbums });
+  await startWorker({ type: "fetchAlbum", targetAlbums, basePath: "dist" });
 });
 
 app.post("/file/songs", async (c) => {
@@ -242,7 +269,8 @@ function startWorker(req: AlbumFetchEventPayload) {
     {
       type: "module",
       deno: true,
-    },
+      // deno-lint-ignore no-explicit-any
+    } as any,
   );
 
   worker.postMessage(req);
