@@ -1,4 +1,4 @@
-import { path } from "../deps.ts";
+import * as path from "https://deno.land/std@0.224.0/path/mod.ts";
 
 export class SafeFilePath {
   private _fileName: string;
