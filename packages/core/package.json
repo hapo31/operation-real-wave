@@ -4,6 +4,7 @@
     "start": "deno task start"
   },
   "dependencies": {
+    "@hono/zod-openapi": "^0.16.0",
     "hono": "^4.5.3"
   },
   "devDependencies": {
