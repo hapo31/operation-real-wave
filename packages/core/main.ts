@@ -1,6 +1,7 @@
 import { Hono } from "npm:hono";
 import { HTTPException } from "npm:hono/http-exception";
-import { createRoute, OpenAPIHono, z } from "npm:@hono/zod-openapi";
+import { z } from "npm:zod";
+
 import * as api from "./src/api.ts";
 import type { Album, AlbumDetails, Song } from "./src/type.ts";
 import { SafeFilePath, safeIsExists } from "./src/safeFilePath.ts";
@@ -12,6 +13,7 @@ import { AlbumSchema, SongSummary } from "./src/type.ts";
 import * as songStatus from "./src/songStatus.ts";
 import { AlbumFetchEventPayload } from "./src/worker/albumFetcher.ts";
 import { AlbumEntity } from "./src/fetcher.ts";
+import { OpenAPIHonoWA } from "./src/lib/OpenAPIWrapper.ts";
 
 const basePath = Deno.env.get("FILE_BASE_FULLPATH");
 
@@ -20,7 +22,7 @@ if (basePath == null) {
 }
 
 const app = new Hono();
-const app2 = new OpenAPIHono();
+const app2 = new OpenAPIHonoWA();
 const kv = await Deno.openKv();
 
 const albumModel = new DenoKVModel<Album>(["albums"]);
@@ -28,27 +30,19 @@ const albumDetailsModel = new DenoKVModel<AlbumDetails>(["albums", "details"]);
 const songsBelongToAlbumModel = new DenoKVModel<SongSummary>(["songs"]);
 const songModel = new DenoKVModel<Song>(["songs", "details"]);
 
-app2.openapi(
-  createRoute({
-    path: "albums",
-    method: "get",
-    request: {},
-    responses: {
-      200: {
-        content: {
-          "application/json": {
-            schema: z.array(AlbumSchema),
-          },
-        },
-        description: "List of albums",
-      },
+app2.add({
+  path: "albums",
+  method: "get",
+  request: { schema: AlbumSchema },
+  response: {
+    200: {
+      schema: z.array(AlbumSchema),
     },
-  }),
-  async (c) => {
-    const [albums] = await albumModel.list();
-    return c.json({ albums });
   },
-);
+}, async () => {
+  const [albums] = await albumModel.list();
+  return albums;
+}).swagger("/doc.json", "/swagger");
 
 app.get("/albums", async (c) => {
   const [albums] = await albumModel.list();
@@ -276,4 +270,4 @@ function startWorker(req: AlbumFetchEventPayload) {
   worker.postMessage(req);
 }
 
-Deno.serve(app.fetch);
+app2.serve();

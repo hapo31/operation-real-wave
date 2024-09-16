@@ -1,4 +1,4 @@
-import { z } from "npm:@hono/zod-openapi";
+import { z } from "npm:zod";
 
 export const AlbumSchema = z.object({
   cid: z.string(),

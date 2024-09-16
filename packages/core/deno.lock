@@ -2,8 +2,10 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "npm:@hono/swagger-ui": "npm:@hono/swagger-ui@0.4.1_hono@4.5.8",
       "npm:@hono/zod-openapi": "npm:@hono/zod-openapi@0.16.0_hono@4.5.8_zod@3.23.8",
-      "npm:hono": "npm:hono@4.5.8"
+      "npm:hono": "npm:hono@4.5.8",
+      "npm:zod": "npm:zod@3.23.8"
     },
     "npm": {
       "@asteasolutions/zod-to-openapi@7.1.1_zod@3.23.8": {
@@ -11,6 +13,12 @@
         "dependencies": {
           "openapi3-ts": "openapi3-ts@4.3.3",
           "zod": "zod@3.23.8"
+        }
+      },
+      "@hono/swagger-ui@0.4.1_hono@4.5.8": {
+        "integrity": "sha512-kPaJatHffeYQ3yVkHo878hCqwfapqx54FczJVJ+eRWt8J4biyVVMIdCAJb6MyA8bcnHUoTmUpPc7OJAV1VTg2g==",
+        "dependencies": {
+          "hono": "hono@4.5.8"
         }
       },
       "@hono/zod-openapi@0.16.0_hono@4.5.8_zod@3.23.8": {
