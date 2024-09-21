@@ -4,7 +4,8 @@
   "sideEffects": false,
   "scripts": {
     "core": "pnpm -F \"core\"",
-    "web": "pnpm -F \"web\""
+    "web": "pnpm -F \"web\"",
+    "openapi": "pnpm -F \"openapi\""
   },
   "dependencies": {
     "@prisma/client": "5.16.1",

@@ -7,7 +7,8 @@
   "features": {
     "ghcr.io/devcontainers-community/features/deno:1": {},
     "ghcr.io/devcontainers-contrib/features/ffmpeg-apt-get:1": {},
-    "ghcr.io/devcontainers/features/node:1": {}
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/java:1": {}
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -18,7 +19,8 @@
     "vscode": {
       "extensions": [
         "Prisma.prisma",
-        "denoland.vscode-deno"
+        "denoland.vscode-deno",
+        "42Crunch.vscode-openapi"
       ]
     }
   }
