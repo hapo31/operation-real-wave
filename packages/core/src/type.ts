@@ -56,10 +56,16 @@ export type Album = z.infer<typeof AlbumSchema>;
 export type SongSummary = z.infer<typeof SongSummarySchema>;
 export type AlbumDetails = z.infer<typeof AlbumDetailsSchema>;
 export type Song = z.infer<typeof SongSchema>;
-export type AlbumsAPIResponse = z.infer<typeof AlbumsAPIResponseSchema>;
-export type AlbumDetailsAPIResponse = z.infer<
-  typeof AlbumDetailsAPIResponseSchema
->;
-export type SongDetailsAPIResponse = z.infer<
-  typeof SongDetailsAPIResponseSchema
->;
+
+export const FileStatus = {
+  NOT_EXISTS: "NOT_EXISTS",
+  BROKEN: "BROKEN",
+  EXISTS: "EXISTS",
+};
+
+export type FileStatus = keyof typeof FileStatus;
+
+export type AlbumStatus = {
+  cid: string;
+  status: FileStatus;
+};

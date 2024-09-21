@@ -1,18 +1,18 @@
-export * from '../models/AlbumCidDetailGet200Response.ts';
-export * from '../models/AlbumCidDetailGet200ResponseData.ts';
-export * from '../models/AlbumCidDetailGet200ResponseDataSongsInner.ts';
-export * from '../models/AlbumsGet200Response.ts';
-export * from '../models/AlbumsGet200ResponseDataInner.ts';
-export * from '../models/SongCidGet200Response.ts';
-export * from '../models/SongCidGet200ResponseData.ts';
+export * from '../models/AlbumDetailResponse.ts';
+export * from '../models/AlbumDetails.ts';
+export * from '../models/AlbumSummary.ts';
+export * from '../models/AlbumsResponse.ts';
+export * from '../models/Song.ts';
+export * from '../models/SongDetailsResponse.ts';
+export * from '../models/SongSummary.ts';
 
-import { AlbumCidDetailGet200Response } from '../models/AlbumCidDetailGet200Response.ts';
-import { AlbumCidDetailGet200ResponseData } from '../models/AlbumCidDetailGet200ResponseData.ts';
-import { AlbumCidDetailGet200ResponseDataSongsInner } from '../models/AlbumCidDetailGet200ResponseDataSongsInner.ts';
-import { AlbumsGet200Response } from '../models/AlbumsGet200Response.ts';
-import { AlbumsGet200ResponseDataInner } from '../models/AlbumsGet200ResponseDataInner.ts';
-import { SongCidGet200Response } from '../models/SongCidGet200Response.ts';
-import { SongCidGet200ResponseData } from '../models/SongCidGet200ResponseData.ts';
+import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
+import { AlbumDetails } from '../models/AlbumDetails.ts';
+import { AlbumSummary } from '../models/AlbumSummary.ts';
+import { AlbumsResponse } from '../models/AlbumsResponse.ts';
+import { Song } from '../models/Song.ts';
+import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
+import { SongSummary } from '../models/SongSummary.ts';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -30,13 +30,13 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
-    "AlbumCidDetailGet200Response": AlbumCidDetailGet200Response,
-    "AlbumCidDetailGet200ResponseData": AlbumCidDetailGet200ResponseData,
-    "AlbumCidDetailGet200ResponseDataSongsInner": AlbumCidDetailGet200ResponseDataSongsInner,
-    "AlbumsGet200Response": AlbumsGet200Response,
-    "AlbumsGet200ResponseDataInner": AlbumsGet200ResponseDataInner,
-    "SongCidGet200Response": SongCidGet200Response,
-    "SongCidGet200ResponseData": SongCidGet200ResponseData,
+    "AlbumDetailResponse": AlbumDetailResponse,
+    "AlbumDetails": AlbumDetails,
+    "AlbumSummary": AlbumSummary,
+    "AlbumsResponse": AlbumsResponse,
+    "Song": Song,
+    "SongDetailsResponse": SongDetailsResponse,
+    "SongSummary": SongSummary,
 }
 
 type MimeTypeDescriptor = {

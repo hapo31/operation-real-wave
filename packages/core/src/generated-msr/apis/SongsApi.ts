@@ -8,7 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util.ts';
 import {SecurityAuthentication} from '../auth/auth.ts';
 
 
-import { SongCidGet200Response } from '../models/SongCidGet200Response.ts';
+import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
 
 /**
  * no description
@@ -57,22 +57,22 @@ export class SongsApiResponseProcessor {
      * @params response Response returned by the server for a request to songCidGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async songCidGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SongCidGet200Response >> {
+     public async songCidGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SongDetailsResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: SongCidGet200Response = ObjectSerializer.deserialize(
+            const body: SongDetailsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongCidGet200Response", ""
-            ) as SongCidGet200Response;
+                "SongDetailsResponse", ""
+            ) as SongDetailsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: SongCidGet200Response = ObjectSerializer.deserialize(
+            const body: SongDetailsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongCidGet200Response", ""
-            ) as SongCidGet200Response;
+                "SongDetailsResponse", ""
+            ) as SongDetailsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

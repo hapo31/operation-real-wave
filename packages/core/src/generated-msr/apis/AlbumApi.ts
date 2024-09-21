@@ -8,8 +8,8 @@ import {canConsumeForm, isCodeInRange} from '../util.ts';
 import {SecurityAuthentication} from '../auth/auth.ts';
 
 
-import { AlbumCidDetailGet200Response } from '../models/AlbumCidDetailGet200Response.ts';
-import { AlbumsGet200Response } from '../models/AlbumsGet200Response.ts';
+import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
+import { AlbumsResponse } from '../models/AlbumsResponse.ts';
 
 /**
  * no description
@@ -81,22 +81,22 @@ export class AlbumApiResponseProcessor {
      * @params response Response returned by the server for a request to albumCidDetailGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumCidDetailGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumCidDetailGet200Response >> {
+     public async albumCidDetailGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumDetailResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: AlbumCidDetailGet200Response = ObjectSerializer.deserialize(
+            const body: AlbumDetailResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumCidDetailGet200Response", ""
-            ) as AlbumCidDetailGet200Response;
+                "AlbumDetailResponse", ""
+            ) as AlbumDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: AlbumCidDetailGet200Response = ObjectSerializer.deserialize(
+            const body: AlbumDetailResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumCidDetailGet200Response", ""
-            ) as AlbumCidDetailGet200Response;
+                "AlbumDetailResponse", ""
+            ) as AlbumDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -110,22 +110,22 @@ export class AlbumApiResponseProcessor {
      * @params response Response returned by the server for a request to albumsGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumsGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumsGet200Response >> {
+     public async albumsGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumsResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: AlbumsGet200Response = ObjectSerializer.deserialize(
+            const body: AlbumsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumsGet200Response", ""
-            ) as AlbumsGet200Response;
+                "AlbumsResponse", ""
+            ) as AlbumsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: AlbumsGet200Response = ObjectSerializer.deserialize(
+            const body: AlbumsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumsGet200Response", ""
-            ) as AlbumsGet200Response;
+                "AlbumsResponse", ""
+            ) as AlbumsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

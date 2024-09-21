@@ -10,13 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { AlbumsGet200ResponseDataInner } from '../models/AlbumsGet200ResponseDataInner.ts';
+import { AlbumDetails } from '../models/AlbumDetails.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class AlbumsGet200Response {
+export class AlbumDetailResponse {
     'code': number;
     'msg': string;
-    'data': Array<AlbumsGet200ResponseDataInner>;
+    'data': AlbumDetails;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -36,12 +36,12 @@ export class AlbumsGet200Response {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<AlbumsGet200ResponseDataInner>",
+            "type": "AlbumDetails",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AlbumsGet200Response.attributeTypeMap;
+        return AlbumDetailResponse.attributeTypeMap;
     }
 
     public constructor() {

@@ -20,53 +20,12 @@ paths:
       tags:
         - album
       responses:
-        '200':
+        200:
           description: OK
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - code
-                  - msg
-                  - data
-                properties:
-                  code: 
-                    type: integer
-                    example: 0
-                  msg: 
-                    type: string
-                    example: ""
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      required:
-                        - cid
-                        - name
-                        - coverUrl
-                        - coverDeUrl
-                        - artistes
-                      properties:
-                        cid:
-                          type: string
-                          example: 8932
-                        name:
-                          type: string
-                          example: Mystic Light Quest
-                        coverUrl:
-                          type: string
-                          example: https://web.hycdn.cn/siren/pic/20240725/07bd6ec5f0807c75120fccead91a7522.jpg
-                        coverDeUrl:
-                          type: string
-                          example: https://web.hycdn.cn/siren/pic/20240801/be064a4a98d79772e8ef1cebfcb175ae.jpg
-                        artistes:
-                          type: array
-                          items:
-                            type: string
-                            example: 塞壬唱片-MSR
-
-
+                $ref: "#/components/schemas/AlbumsResponse"
   /album/{cid}/detail:
     get:
       summary: 指定したアルバムの収録楽曲一覧を取得
@@ -85,69 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - code
-                  - msg
-                  - data
-                properties:
-                  code: 
-                    type: integer
-                    example: 0
-                  msg: 
-                    type: string
-                    example: ""
-                  data:
-                    type: object
-                    required:
-                        - cid
-                        - name
-                        - intro
-                        - belong
-                        - coverUrl
-                        - coverDeUrl
-                        - songs
-                    properties:
-                      cid:
-                        type: string
-                        example: 8932
-                      name:
-                        type: string
-                        example: Mystic Light Quest
-                      intro:
-                        type: string
-                        example: 足陷黄沙也无妨，再次迈步，跟随指引未知的太阳。倾听跨越光阴的回响，回应涌动的古老呼唤。追寻低语的历史波澜，见奇迹绽放于璀璨。
-                      belong:
-                        type: string
-                        example: arknights
-                      coverUrl:
-                        type: string
-                        example: https://web.hycdn.cn/siren/pic/20240725/07bd6ec5f0807c75120fccead91a7522.jpg
-                      coverDeUrl:
-                        type: string
-                        example: https://web.hycdn.cn/siren/pic/20240801/be064a4a98d79772e8ef1cebfcb175ae.jpg
-                      songs:
-                        type: array
-                        items:
-                          type: object
-                          required:
-                            - cid
-                            - name
-                            - artistes
-                          properties:
-                            cid:
-                              type: string
-                              example: 880310
-                            name:
-                              type: string
-                              example: Mystic Light Quest
-                            artistes:
-                              type: array
-                              items:
-                                type: string
-                                example: 塞壬唱片-MSR
-
-
+                $ref: '#/components/schemas/AlbumDetailResponse'
   /song/{cid}:
     get:
       summary: 指定した楽曲の詳細を取得
@@ -166,58 +63,170 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - code
-                  - msg
-                  - data
-                properties:
-                  code: 
-                    type: integer
-                    example: 0
-                  msg: 
-                    type: string
-                    example: ""
-                  data:
-                    type: object
-                    required:
-                        - cid
-                        - name
-                        - albumCid
-                        - sourceUrl
-                        - lyricUrl
-                        - mvUrl
-                        - mvCoverUrl
-                        - artists
-                    properties:
-                      cid:
-                        type: string
-                        example: 880310
-                      name:
-                        type: string
-                        example: Mystic Light Quest
-                      albumCid:
-                        type: string
-                        example: 8932
-                      sourceUrl:
-                        type: string
-                        example: https://res01.hycdn.cn/26316881753d10bd0234ef94efef7498/66EE9383/siren/audio/20240801/b60134fe3ffab194bbc3c0d8d806c1a6.wav
-                      lyricUrl:
-                        type: string
-                        example: https://web.hycdn.cn/siren/lyric/20240801/46964bcc8cd21e082b8acecd358860d3.lrc
-                      mvUrl:
-                        type: string
-                        nullable: true
-                        example: 
-                      mvCoverUrl:
-                        type: string
-                        nullable: true
-                        example: 
-                      artists:
-                        type: array
-                        items:
-                          type: string
-                          example: 塞壬唱片-MSR
-
-
-
+                $ref: '#/components/schemas/SongDetailsResponse'
+components:
+  schemas:
+    AlbumSummary:
+      type: object
+      required:
+        - cid
+        - name
+        - coverUrl
+        - coverDeUrl
+        - artistes
+      properties:
+        cid:
+          type: string
+          example: 8932
+        name:
+          type: string
+          example: Mystic Light Quest
+        coverUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/pic/20240725/07bd6ec5f0807c75120fccead91a7522.jpg
+        coverDeUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/pic/20240801/be064a4a98d79772e8ef1cebfcb175ae.jpg
+        artistes:
+          type: array
+          items:
+            type: string
+            example: 塞壬唱片-MSR
+    SongSummary:
+      type: object
+      required:
+        - cid
+        - name
+        - artistes
+      properties:
+        cid:
+          type: string
+          example: 880310
+        name:
+          type: string
+          example: Mystic Light Quest
+        artistes:
+          type: array
+          items:
+            type: string
+            example: 塞壬唱片-MSR
+    AlbumDetails:
+      type: object
+      required:
+        - cid
+        - name
+        - intro
+        - belong
+        - coverUrl
+        - coverDeUrl
+        - songs
+      properties:
+        cid:
+          type: string
+          example: 8932
+        name:
+          type: string
+          example: Mystic Light Quest
+        intro:
+          type: string
+          example: 足陷黄沙也无妨，再次迈步，跟随指引未知的太阳。倾听跨越光阴的回响，回应涌动的古老呼唤。追寻低语的历史波澜，见奇迹绽放于璀璨。
+        belong:
+          type: string
+          example: arknights
+        coverUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/pic/20240725/07bd6ec5f0807c75120fccead91a7522.jpg
+        coverDeUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/pic/20240801/be064a4a98d79772e8ef1cebfcb175ae.jpg
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SongSummary'
+    Song:
+      type: object
+      required:
+        - cid
+        - name
+        - albumCid
+        - sourceUrl
+        - lyricUrl
+        - mvUrl
+        - mvCoverUrl
+        - artists
+      properties:
+        cid:
+          type: string
+          example: 880310
+        name:
+          type: string
+          example: Mystic Light Quest
+        albumCid:
+          type: string
+          example: 8932
+        sourceUrl:
+          type: string
+          example: https://res01.hycdn.cn/26316881753d10bd0234ef94efef7498/66EE9383/siren/audio/20240801/b60134fe3ffab194bbc3c0d8d806c1a6.wav
+        lyricUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/lyric/20240801/46964bcc8cd21e082b8acecd358860d3.lrc
+        mvUrl:
+          type: string
+          nullable: true
+          example: 
+        mvCoverUrl:
+          type: string
+          nullable: true
+          example: 
+        artists:
+          type: array
+          items:
+            type: string
+          example: 塞壬唱片-MSR
+    AlbumsResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code: 
+          type: integer
+          example: 0
+        msg: 
+          type: string
+          example: ""
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumSummary'
+    AlbumDetailResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code: 
+          type: integer
+          example: 0
+        msg: 
+          type: string
+          example: ""
+        data:
+          $ref: '#/components/schemas/AlbumDetails'
+    SongDetailsResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code: 
+          type: integer
+          example: 0
+        msg: 
+          type: string
+          example: ""
+        data:
+          $ref: '#/components/schemas/Song'

@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **albumCidDetailGet**
-> AlbumCidDetailGet200Response albumCidDetailGet()
+> AlbumDetailResponse albumCidDetailGet()
 
 
 ### Example
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**AlbumCidDetailGet200Response**
+**AlbumDetailResponse**
 
 ### Authorization
 
@@ -62,7 +62,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **albumsGet**
-> AlbumsGet200Response albumsGet()
+> AlbumsResponse albumsGet()
 
 
 ### Example
@@ -89,7 +89,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**AlbumsGet200Response**
+**AlbumsResponse**
 
 ### Authorization
 

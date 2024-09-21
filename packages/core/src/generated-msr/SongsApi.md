@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **songCidGet**
-> SongCidGet200Response songCidGet()
+> SongDetailsResponse songCidGet()
 
 
 ### Example
@@ -41,7 +41,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SongCidGet200Response**
+**SongDetailsResponse**
 
 ### Authorization
 

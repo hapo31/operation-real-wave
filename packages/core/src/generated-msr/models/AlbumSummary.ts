@@ -12,7 +12,7 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class AlbumsGet200ResponseDataInner {
+export class AlbumSummary {
     'cid': string;
     'name': string;
     'coverUrl': string;
@@ -54,7 +54,7 @@ export class AlbumsGet200ResponseDataInner {
         }    ];
 
     static getAttributeTypeMap() {
-        return AlbumsGet200ResponseDataInner.attributeTypeMap;
+        return AlbumSummary.attributeTypeMap;
     }
 
     public constructor() {

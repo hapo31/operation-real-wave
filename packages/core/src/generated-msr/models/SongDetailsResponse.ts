@@ -10,13 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { SongCidGet200ResponseData } from '../models/SongCidGet200ResponseData.ts';
+import { Song } from '../models/Song.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class SongCidGet200Response {
+export class SongDetailsResponse {
     'code': number;
     'msg': string;
-    'data': SongCidGet200ResponseData;
+    'data': Song;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -36,12 +36,12 @@ export class SongCidGet200Response {
         {
             "name": "data",
             "baseName": "data",
-            "type": "SongCidGet200ResponseData",
+            "type": "Song",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return SongCidGet200Response.attributeTypeMap;
+        return SongDetailsResponse.attributeTypeMap;
     }
 
     public constructor() {

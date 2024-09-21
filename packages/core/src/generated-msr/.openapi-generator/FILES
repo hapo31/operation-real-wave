@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 AlbumApi.md
 SongsApi.md
 apis/AlbumApi.ts
@@ -12,14 +13,14 @@ http/http.ts
 http/isomorphic-fetch.ts
 index.ts
 middleware.ts
-models/AlbumCidDetailGet200Response.ts
-models/AlbumCidDetailGet200ResponseData.ts
-models/AlbumCidDetailGet200ResponseDataSongsInner.ts
-models/AlbumsGet200Response.ts
-models/AlbumsGet200ResponseDataInner.ts
+models/AlbumDetailResponse.ts
+models/AlbumDetails.ts
+models/AlbumSummary.ts
+models/AlbumsResponse.ts
 models/ObjectSerializer.ts
-models/SongCidGet200Response.ts
-models/SongCidGet200ResponseData.ts
+models/Song.ts
+models/SongDetailsResponse.ts
+models/SongSummary.ts
 models/all.ts
 rxjsStub.ts
 servers.ts

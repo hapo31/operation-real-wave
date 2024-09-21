@@ -2,13 +2,13 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration.ts'
 import { Observable, of, from } from '../rxjsStub.ts';
 import {mergeMap, map} from  '../rxjsStub.ts';
-import { AlbumCidDetailGet200Response } from '../models/AlbumCidDetailGet200Response.ts';
-import { AlbumCidDetailGet200ResponseData } from '../models/AlbumCidDetailGet200ResponseData.ts';
-import { AlbumCidDetailGet200ResponseDataSongsInner } from '../models/AlbumCidDetailGet200ResponseDataSongsInner.ts';
-import { AlbumsGet200Response } from '../models/AlbumsGet200Response.ts';
-import { AlbumsGet200ResponseDataInner } from '../models/AlbumsGet200ResponseDataInner.ts';
-import { SongCidGet200Response } from '../models/SongCidGet200Response.ts';
-import { SongCidGet200ResponseData } from '../models/SongCidGet200ResponseData.ts';
+import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
+import { AlbumDetails } from '../models/AlbumDetails.ts';
+import { AlbumSummary } from '../models/AlbumSummary.ts';
+import { AlbumsResponse } from '../models/AlbumsResponse.ts';
+import { Song } from '../models/Song.ts';
+import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
+import { SongSummary } from '../models/SongSummary.ts';
 
 import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumApi.ts";
 export class ObservableAlbumApi {
@@ -30,7 +30,7 @@ export class ObservableAlbumApi {
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidDetailGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<AlbumCidDetailGet200Response>> {
+    public albumCidDetailGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<AlbumDetailResponse>> {
         const requestContextPromise = this.requestFactory.albumCidDetailGet(cid, _options);
 
         // build promise chain
@@ -53,14 +53,14 @@ export class ObservableAlbumApi {
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidDetailGet(cid: string, _options?: Configuration): Observable<AlbumCidDetailGet200Response> {
-        return this.albumCidDetailGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<AlbumCidDetailGet200Response>) => apiResponse.data));
+    public albumCidDetailGet(cid: string, _options?: Configuration): Observable<AlbumDetailResponse> {
+        return this.albumCidDetailGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<AlbumDetailResponse>) => apiResponse.data));
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public albumsGetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<AlbumsGet200Response>> {
+    public albumsGetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<AlbumsResponse>> {
         const requestContextPromise = this.requestFactory.albumsGet(_options);
 
         // build promise chain
@@ -82,8 +82,8 @@ export class ObservableAlbumApi {
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public albumsGet(_options?: Configuration): Observable<AlbumsGet200Response> {
-        return this.albumsGetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<AlbumsGet200Response>) => apiResponse.data));
+    public albumsGet(_options?: Configuration): Observable<AlbumsResponse> {
+        return this.albumsGetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<AlbumsResponse>) => apiResponse.data));
     }
 
 }
@@ -108,7 +108,7 @@ export class ObservableSongsApi {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public songCidGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<SongCidGet200Response>> {
+    public songCidGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<SongDetailsResponse>> {
         const requestContextPromise = this.requestFactory.songCidGet(cid, _options);
 
         // build promise chain
@@ -131,8 +131,8 @@ export class ObservableSongsApi {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public songCidGet(cid: string, _options?: Configuration): Observable<SongCidGet200Response> {
-        return this.songCidGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<SongCidGet200Response>) => apiResponse.data));
+    public songCidGet(cid: string, _options?: Configuration): Observable<SongDetailsResponse> {
+        return this.songCidGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<SongDetailsResponse>) => apiResponse.data));
     }
 
 }

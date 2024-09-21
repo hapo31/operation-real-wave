@@ -12,10 +12,15 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class AlbumCidDetailGet200ResponseDataSongsInner {
+export class Song {
     'cid': string;
     'name': string;
-    'artistes': Array<string>;
+    'albumCid': string;
+    'sourceUrl': string;
+    'lyricUrl': string;
+    'mvUrl': string;
+    'mvCoverUrl': string;
+    'artists': Array<string>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -33,14 +38,44 @@ export class AlbumCidDetailGet200ResponseDataSongsInner {
             "format": ""
         },
         {
-            "name": "artistes",
-            "baseName": "artistes",
+            "name": "albumCid",
+            "baseName": "albumCid",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "sourceUrl",
+            "baseName": "sourceUrl",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "lyricUrl",
+            "baseName": "lyricUrl",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "mvUrl",
+            "baseName": "mvUrl",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "mvCoverUrl",
+            "baseName": "mvCoverUrl",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "artists",
+            "baseName": "artists",
             "type": "Array<string>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AlbumCidDetailGet200ResponseDataSongsInner.attributeTypeMap;
+        return Song.attributeTypeMap;
     }
 
     public constructor() {

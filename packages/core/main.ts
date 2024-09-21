@@ -27,11 +27,6 @@ const songsBelongToAlbumModel = new DenoKVModel<SongSummary>(["songs"]);
 const songModel = new DenoKVModel<Song>(["songs", "details"]);
 
 app.get("/albums", async (c) => {
-  const [albums] = await albumModel.list();
-  return c.json({ albums });
-});
-
-app.post("/albums", async (c) => {
   const { data: originAlbums } = await api.albumApi().albumsGet();
 
   const [albums] = await albumModel.list();
