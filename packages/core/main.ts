@@ -1,6 +1,5 @@
 import { Hono } from "npm:hono";
 import { HTTPException } from "npm:hono/http-exception";
-import { z } from "npm:zod";
 
 import * as api from "./src/api.ts";
 import type { Album, AlbumDetails, Song } from "./src/type.ts";
@@ -8,13 +7,11 @@ import { SafeFilePath, safeIsExists } from "./src/safeFilePath.ts";
 import "https://deno.land/std@0.203.0/dotenv/load.ts";
 import { toArray } from "./src/iterator.ts";
 import DenoKVModel from "./src/lib/DenoKVModel.ts";
-import { AlbumSchema, SongSummary } from "./src/type.ts";
+import { SongSummary } from "./src/type.ts";
 
 import * as songStatus from "./src/songStatus.ts";
 import { AlbumFetchEventPayload } from "./src/worker/albumFetcher.ts";
 import { AlbumEntity } from "./src/fetcher.ts";
-import { OpenAPIHonoWA } from "./src/lib/OpenAPIWrapper.ts";
-
 const basePath = Deno.env.get("FILE_BASE_FULLPATH");
 
 if (basePath == null) {
@@ -22,27 +19,12 @@ if (basePath == null) {
 }
 
 const app = new Hono();
-const app2 = new OpenAPIHonoWA();
 const kv = await Deno.openKv();
 
 const albumModel = new DenoKVModel<Album>(["albums"]);
 const albumDetailsModel = new DenoKVModel<AlbumDetails>(["albums", "details"]);
 const songsBelongToAlbumModel = new DenoKVModel<SongSummary>(["songs"]);
 const songModel = new DenoKVModel<Song>(["songs", "details"]);
-
-app2.add({
-  path: "albums",
-  method: "get",
-  request: { schema: AlbumSchema },
-  response: {
-    200: {
-      schema: z.array(AlbumSchema),
-    },
-  },
-}, async () => {
-  const [albums] = await albumModel.list();
-  return albums;
-}).swagger("/doc.json", "/swagger");
 
 app.get("/albums", async (c) => {
   const [albums] = await albumModel.list();
@@ -204,17 +186,20 @@ app.post("/file/album/", async (c) => {
 });
 
 app.post("/file/songs", async (c) => {
-  const { targetCids } = await c.req.json<{ targetCids: string[] }>();
-  if (targetCids == null) {
+  const { targetCids: targetSongCids, force } = await c.req.json<
+    { targetCids: string[]; force?: boolean }
+  >();
+  if (targetSongCids == null) {
     throw new HTTPException(400, {
       message: 'require { "targetCids": string[] } property in body.',
     });
   }
-  const [songs] = await songModel.getMany(targetCids);
-  const songStatuses = await songStatus.getSongStatuses(targetCids);
+  const [songs] = await songModel.getMany(targetSongCids);
+  const songStatuses = await songStatus.getSongStatuses(targetSongCids);
 
   const targetSongs = songs
     .filter((song): song is Song =>
+      force == true ||
       song != null && songStatuses[song.cid].status === "NOT_EXIST"
     );
 
@@ -224,7 +209,6 @@ app.post("/file/songs", async (c) => {
         kv.set(["status", "song", song.cid], { state: "QUEUED", cid: song.cid })
       ),
     );
-
     // TODO: setTimeout でワーカー立ち上げみたいなことはできるっぽい
     // 曲を取得してファイルとステータスに書き込む処理
     // つらくなってきたのでちょっと構造化したさある
@@ -270,4 +254,4 @@ function startWorker(req: AlbumFetchEventPayload) {
   worker.postMessage(req);
 }
 
-app2.serve();
+Deno.serve(app.fetch);

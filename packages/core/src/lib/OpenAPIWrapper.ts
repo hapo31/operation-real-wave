@@ -16,9 +16,9 @@ export class OpenAPIHonoWA extends OpenAPIHono { // WorkAround
   >(
     args: AddRouteArgs<Path, RequestSchema, ResultSchema>,
     handler: (
-      result: ZodMaybe<Zod.infer<RequestSchema>>,
+      result: Zod.infer<RequestSchema>,
       c: Context,
-    ) => Zod.infer<ResultSchema>,
+    ) => Promise<Zod.infer<ResultSchema>> | Zod.infer<ResultSchema>,
   ) {
     const { method, path, request, response } = args;
     this.openapi(
@@ -56,12 +56,17 @@ export class OpenAPIHonoWA extends OpenAPIHono { // WorkAround
       // @ts-ignore
       async (r, c) => {
         try {
-          const handlerResult = await handler(r, c);
+          if (!r.result.success) {
+            console.log("%o", r.result);
+            throw new ZodError(r.result.error);
+          }
+          const handlerResult = await handler(r.result, c);
           const schema = response?.[200]?.schema;
           schema?.parse(handlerResult);
           return c.json(handlerResult);
         } catch (e) {
           if (e instanceof ZodError) {
+            c.status(400);
             return c.json({ error: e.errors });
           }
           if (e instanceof HttpException) {
