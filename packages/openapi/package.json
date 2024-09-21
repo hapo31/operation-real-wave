@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "gen:msr": "openapi-generator-cli generate -i ./msr.openapi.yml -g typescript --additional-properties=platform=deno -o generated-msr/",
-    "postgen:msr": "mv ./generated-msr ../core/src",
+    "postgen:msr": "rimraf ../core/src/generated-msr && mv -f ./generated-msr ../core/src",
     "gen:api": ""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@openapitools/openapi-generator-cli": "^2.13.7"
+    "@openapitools/openapi-generator-cli": "^2.13.7",
+    "rimraf": "^6.0.1"
   }
 }
