@@ -11,5 +11,8 @@
   "deno.codeLens.references": true,
   "deno.codeLens.referencesAllFunctions": true,
   "deno.enablePaths": ["packages/core"],
-	"deno.config": ".vscode/deno.vscode.json",
+  "deno.config": ".vscode/deno.vscode.json",
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json": "file:///workspaces/operation-real-wave/packages/openapi/msr.openapi.yml"
+  },
 }
