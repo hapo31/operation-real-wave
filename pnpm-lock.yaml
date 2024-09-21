@@ -91,9 +91,6 @@ importers:
 
   packages/web:
     dependencies:
-      '@prisma/client':
-        specifier: 5.16.1
-        version: 5.16.1(prisma@5.17.0)
       '@remix-run/node':
         specifier: ^2.12.1
         version: 2.12.1(typescript@5.6.2)
@@ -143,9 +140,6 @@ importers:
       prettier:
         specifier: ^3.3.0
         version: 3.3.3
-      prisma:
-        specifier: ^5.16.1
-        version: 5.17.0
       typescript:
         specifier: ^5.6.2
         version: 5.6.2
