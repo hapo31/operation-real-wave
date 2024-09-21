@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "gen": "echo \"Error: no test specified\" && exit 1"
+    "gen:msr": "openapi-generator-cli generate -i ./msr.openapi.yml -g typescript --additional-properties=platform=deno -o generated-msr/",
+    "postgen:msr": "mv ./generated-msr ../core/src",
+    "gen:api": ""
   },
   "keywords": [],
   "author": "",

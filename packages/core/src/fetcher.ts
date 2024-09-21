@@ -14,7 +14,7 @@ export type SafeFileNameWith<T> = T & {
 };
 
 export async function fetchAlbums(): Promise<SafeFileNameWith<Album>[]> {
-  const { data: albums } = await api.albums();
+  const { data: albums } = await api.albumApi().albumsGet();
 
   return albums.map((v) => ({
     ...v,
@@ -35,7 +35,7 @@ export async function fetchAlbumArtWork(
 export async function fetchSongDetails(
   song: SongSummary,
 ): Promise<SafeFileNameWith<Song>> {
-  const { data } = await api.songDetails(song.cid);
+  const { data } = await api.songApi().songCidGet(song.cid);
 
   return {
     ...data,

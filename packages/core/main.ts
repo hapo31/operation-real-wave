@@ -32,7 +32,7 @@ app.get("/albums", async (c) => {
 });
 
 app.post("/albums", async (c) => {
-  const { data: originAlbums } = await api.albums();
+  const { data: originAlbums } = await api.albumApi().albumsGet();
 
   const [albums] = await albumModel.list();
 
@@ -51,7 +51,9 @@ app.get("/albums/:albumCid", async (c) => {
   const [albumDetail, albumResult] = await albumDetailsModel.get(
     albumCid,
     async () => {
-      const { data: albumDetail } = await api.albumDetails(albumCid);
+      const { data: albumDetail } = await api.albumApi().albumCidDetailGet(
+        albumCid,
+      );
       return albumDetail;
     },
   );
@@ -77,7 +79,9 @@ app.get("/albums/:albumCid/details", async (c) => {
   const [albumDetail, albumDetailsResult] = await albumDetailsModel.get(
     albumCid,
     async () => {
-      const { data: albumDetail } = await api.albumDetails(albumCid);
+      const { data: albumDetail } = await api.albumApi().albumCidDetailGet(
+        albumCid,
+      );
       return albumDetail;
     },
   );
@@ -101,7 +105,9 @@ app.get("/albums/:albumCid/songs", async (c) => {
   );
 
   if (songs.length === 0) {
-    const { data: albumDetails } = await api.albumDetails(albumCid);
+    const { data: albumDetails } = await api.albumApi().albumCidDetailGet(
+      albumCid,
+    );
     await songsBelongToAlbumModel.setMany("cid", albumDetails.songs);
     return c.json({ songs: albumDetails.songs });
   }
@@ -113,7 +119,7 @@ app.get("/song/:songCid", async (c) => {
   const { songCid } = c.req.param();
 
   const [song, songResult] = await songModel.get(songCid, async () => {
-    const { data: originSong } = await api.songDetails(songCid);
+    const { data: originSong } = await api.songApi().songCidGet(songCid);
     return originSong;
   });
   if (songResult.versionstamp != null) {

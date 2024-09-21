@@ -1,27 +1,15 @@
-import type {
-  AlbumDetailsAPIResponse,
-  AlbumsAPIResponse,
-  SongDetailsAPIResponse,
-} from "./type.ts";
+import { createConfiguration } from "./generated-msr/configuration.ts";
+import { SongsApi } from "./generated-msr/index.ts";
+import { AlbumApi, Configuration } from "./generated-msr/index.ts";
 
 const base = "https://monster-siren.hypergryph.com/api";
 
-export async function albums() {
-  const albums = await fetch(`${base}/albums`).then((res) => res.json());
+const baseConfig: Configuration = createConfiguration({});
 
-  return albums as AlbumsAPIResponse;
+export function albumApi() {
+  return new AlbumApi(baseConfig);
 }
 
-export async function albumDetails(albumCid: string) {
-  const details = await fetch(`${base}/album/${albumCid}/detail`).then((res) =>
-    res.json()
-  );
-
-  return details as AlbumDetailsAPIResponse;
-}
-
-export async function songDetails(songCid: string) {
-  const song = await fetch(`${base}/song/${songCid}`).then((res) => res.json());
-
-  return song as SongDetailsAPIResponse;
+export function songApi() {
+  return new SongsApi(baseConfig);
 }
