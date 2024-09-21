@@ -6,10 +6,10 @@ import {
 
 const baseConfig = createConfiguration({});
 
-export function albums() {
+export function albumsApi() {
   return new AlbumApi(baseConfig);
 }
 
-export function song() {
+export function songApi() {
   return new SongsApi(baseConfig);
 }

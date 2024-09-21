@@ -218,7 +218,10 @@ components:
       type: object
       required:
         - songs
+        - album
       properties:
+        album:
+          $ref: '#/components/schemas/Album'
         songs:
           type: array
           items:

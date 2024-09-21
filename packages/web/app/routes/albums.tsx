@@ -1,11 +1,12 @@
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import * as api from "../../core/src/api.ts";
+import * as api from "../../../core/src/api.ts";
 import Albums from "../_src/pages/Albums/Albums.tsx";
+import { albumsApi } from "../_src/api/api.ts";
 
 export async function loader() {
-  const albums = await api.albums();
+  const albums = await albumsApi().albumsGet();
 
-  return typedjson({ albums: albums.data });
+  return typedjson({ albums: albums.albums });
 }
 
 export default function AlbumsRoute() {

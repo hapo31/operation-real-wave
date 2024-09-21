@@ -1,18 +1,19 @@
 import { Link } from "@remix-run/react";
-import { AlbumDetails } from "../../type.ts";
+import { Album, Song } from "../../generated-orw/index.ts";
 
 type Props = {
-  albumDetails: AlbumDetails;
+  album: Album;
+  songs: Song[];
   coverBase64: string;
 };
 
-export default function Album({ albumDetails, coverBase64 }: Props) {
+export default function AlbumDetails({ album, songs, coverBase64 }: Props) {
   return (
     <div>
       <img src={coverBase64} />
-      <h1>{albumDetails.name}</h1>
+      <h1>{album.name}</h1>
       <ul>
-        {albumDetails.songs.map((song) => (
+        {songs.map((song) => (
           <li key={song.cid}>
             <Link to={`/songs/${song.cid}`}>
               {song.name}

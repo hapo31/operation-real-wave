@@ -10,15 +10,23 @@
  * Do not edit the class manually.
  */
 
+import { Album } from '../models/Album.ts';
 import { Song } from '../models/Song.ts';
 import { HttpFile } from '../http/http.ts';
 
 export class SongListResponse {
+    'album': Album;
     'songs': Array<Song>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "album",
+            "baseName": "album",
+            "type": "Album",
+            "format": ""
+        },
         {
             "name": "songs",
             "baseName": "songs",

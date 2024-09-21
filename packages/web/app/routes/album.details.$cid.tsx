@@ -1,7 +1,8 @@
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import * as api from "../../core/src/api.ts";
+import * as api from "../../../core/src/api.ts";
 import AlbumDetails from "../_src/pages/AlbumDetails/AlbumDetails.jsx";
+import { albumsApi } from "../_src/api/api.ts";
 
 function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = "";
@@ -16,22 +17,26 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const cid = params.cid;
-  const details = await api.albumDetails(cid);
+  if (cid == null) {
+    throw new Error("No cid provided");
+  }
+  const details = await albumsApi().albumCidGet(cid);
 
   // アルバムカバー画像はクロスサイト制限が掛かっているかで直接読み込めないので
   // サーバー側で base64 にして返す
-  const arrayBuffer = await fetch(details.data.coverUrl).then((res) =>
+  const arrayBuffer = await fetch(details.album.coverPath).then((res) =>
     res.arrayBuffer()
   );
 
   return typedjson({
-    albumDetails: details.data,
+    album: details.album,
+    songs: details.songs,
     coverBase64: arrayBufferToBase64(arrayBuffer),
   });
 }
 
 export default function AlbumsRoute() {
-  const { albumDetails, coverBase64 } = useTypedLoaderData<typeof loader>();
+  const { album, songs, coverBase64 } = useTypedLoaderData<typeof loader>();
 
-  return <AlbumDetails coverBase64={coverBase64} albumDetails={albumDetails} />;
+  return <AlbumDetails coverBase64={coverBase64} album={album} songs={songs} />;
 }
