@@ -151,6 +151,31 @@ components:
       required:
         - cid
         - name
+        - songs
+        - status
+        - coverPath
+      properties:
+        cid:
+          type: string
+          example: 8932
+        name:
+          type: string
+          example: Mystic Light Quest
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+          example: [塞壬唱片-MSR]
+        status:
+          $ref: '#/components/schemas/FileStatus'
+        coverPath:
+          type: string
+          example: ./path/to/album/cover.png
+    AlbumSummary:
+      type: object
+      required:
+        - cid
+        - name
         - artistes
         - status
         - coverPath
@@ -204,7 +229,7 @@ components:
         albums:
           type: array
           items:
-            $ref: '#/components/schemas/Album'
+            $ref: '#/components/schemas/AlbumSummary'
     FetchAlbumResponse:
       type: object
       required:
