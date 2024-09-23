@@ -1,14 +1,17 @@
 import { Hono } from "npm:hono";
 import DenoKVModel from "./lib/DenoKVModel.ts";
-import { Album } from "./generated-core/models/Album.ts";
 import { Song } from "./generated-core/models/Song.ts";
 import { albumApi } from "./api.ts";
 import { AlbumListResponse } from "./generated-core/models/AlbumListResponse.ts";
+import { AlbumSummary } from "./generated-core//models/AlbumSummary.ts";
+import AlbumModel from "./model/AlbumModel.ts";
 
 export default class App {
   private readonly app: Hono;
   private readonly songModel = new DenoKVModel<Song>(["songs"]);
-  private readonly albumModel = new DenoKVModel<Album>(["albums"]);
+  private readonly albumSummaryModel = new DenoKVModel<AlbumSummary>([
+    "albumSummary",
+  ]);
 
   constructor(private kv: Deno.Kv, private fileBasePath: string) {
     const app = new Hono();
@@ -18,12 +21,15 @@ export default class App {
 
       if (isFetchFromOrigin) {
         const { data } = await albumApi().albumsGet();
-        const result: Album[] = data.map((r) => ({ ...r }));
-        await this.albumModel.setMany("cid", result);
+        const modelData = await Promise.all(data.map(AlbumModel.fromMsrEntity));
+        await this.albumSummaryModel.setMany(
+          "cid",
+          modelData,
+        );
 
-        return c.json<AlbumListResponse>({ albums: data.map() });
+        return c.json<AlbumListResponse>({ albums: modelData });
       } else {
-        const [albums] = await this.albumModel.list();
+        const [albums] = await this.albumSummaryModel.list();
         return c.json({ albums });
       }
     });
@@ -32,5 +38,6 @@ export default class App {
   }
 
   public run() {
+    Deno.serve(this.app.fetch);
   }
 }
