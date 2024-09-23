@@ -1,48 +1,13 @@
 import { ffmpeg } from "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts";
-import * as api from "./api.ts";
-import { SafeFilePath, safeIsExists, safeWriteFile } from "./safeFilePath.ts";
-import { Album } from "./generated-core/models/Album.ts";
-import { Song } from "./generated-core/models/Song.ts";
-import { FileStatus } from "./generated-core/models/FileStatus.ts";
-import { AlbumSummary } from "./generated-msr/index.ts";
+
 import {
   AlbumData,
   AlbumDetails,
+  AlbumSummary,
   Song as SongSrc,
 } from "./generated-msr/index.ts";
 
-// import { Album, AlbumDetails, Song, SongSummary } from "./type.ts";
-
 export type AlbumEntity = AlbumDetails & AlbumData;
-
-export async function fetchAlbums(): Promise<Album[]> {
-  const { data: albums } = await api.albumApi().albumsGet();
-
-  const coverFetched = await Promise.all(
-    albums.map(async (album) => {
-      const path = new SafeFilePath(album.name, "cover.png");
-      const exists = await safeIsExists(path);
-      if (!exists) {
-        const bin = await fetchAlbumArtWork(
-          album,
-        );
-        return await safeWriteFile(
-          new SafeFilePath(album.name, "cover.jpg"),
-          bin,
-        );
-      }
-      return true;
-    }),
-  );
-
-  return albums.map((v, i) => ({
-    artistes: v.artistes,
-    cid: v.cid,
-    name: v.name,
-    status: coverFetched[i] ? FileStatus.Exists : FileStatus.NotExists,
-    coverPath: new SafeFilePath(v.name, "cover.png").toString(),
-  } satisfies Album));
-}
 
 export async function fetchAlbumArtWork(
   album: AlbumSummary,
@@ -65,14 +30,14 @@ export async function fetchSongFile(
     makeMataDataArgs({
       name: song.name,
       artists: song.artists,
-      albumArtists: album,
+      albumArtists: album.artistes,
       albumTitle: album.name,
       trackNumber,
     }),
   );
 }
 
-function makeMataDataArgs(
+export function makeMataDataArgs(
   props: {
     name: string;
     artists: string[];
