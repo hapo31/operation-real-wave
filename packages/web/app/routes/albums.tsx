@@ -1,5 +1,4 @@
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import * as api from "../../../core/src/api.ts";
 import Albums from "../_src/pages/Albums/Albums.tsx";
 import { albumsApi } from "../_src/api/api.ts";
 
