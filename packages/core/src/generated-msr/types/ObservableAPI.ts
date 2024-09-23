@@ -2,6 +2,8 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration.ts'
 import { Observable, of, from } from '../rxjsStub.ts';
 import {mergeMap, map} from  '../rxjsStub.ts';
+import { AlbumData } from '../models/AlbumData.ts';
+import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
 import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
 import { AlbumDetails } from '../models/AlbumDetails.ts';
 import { AlbumSummary } from '../models/AlbumSummary.ts';
@@ -24,6 +26,37 @@ export class ObservableAlbumApi {
         this.configuration = configuration;
         this.requestFactory = requestFactory || new AlbumApiRequestFactory(configuration);
         this.responseProcessor = responseProcessor || new AlbumApiResponseProcessor();
+    }
+
+    /**
+     * 指定したアルバムの楽曲を除いた詳細データを取得
+     * @param cid アルバムの cid
+     */
+    public albumCidDataGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<AlbumDetailResponse>> {
+        const requestContextPromise = this.requestFactory.albumCidDataGet(cid, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.albumCidDataGetWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * 指定したアルバムの楽曲を除いた詳細データを取得
+     * @param cid アルバムの cid
+     */
+    public albumCidDataGet(cid: string, _options?: Configuration): Observable<AlbumDetailResponse> {
+        return this.albumCidDataGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<AlbumDetailResponse>) => apiResponse.data));
     }
 
     /**

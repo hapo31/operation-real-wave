@@ -13,6 +13,8 @@ http/http.ts
 http/isomorphic-fetch.ts
 index.ts
 middleware.ts
+models/AlbumData.ts
+models/AlbumDataResponse.ts
 models/AlbumDetailResponse.ts
 models/AlbumDetails.ts
 models/AlbumSummary.ts

@@ -1,3 +1,5 @@
+export * from '../models/AlbumData.ts';
+export * from '../models/AlbumDataResponse.ts';
 export * from '../models/AlbumDetailResponse.ts';
 export * from '../models/AlbumDetails.ts';
 export * from '../models/AlbumSummary.ts';
@@ -6,6 +8,8 @@ export * from '../models/Song.ts';
 export * from '../models/SongDetailsResponse.ts';
 export * from '../models/SongSummary.ts';
 
+import { AlbumData } from '../models/AlbumData.ts';
+import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
 import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
 import { AlbumDetails } from '../models/AlbumDetails.ts';
 import { AlbumSummary } from '../models/AlbumSummary.ts';
@@ -30,6 +34,8 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
+    "AlbumData": AlbumData,
+    "AlbumDataResponse": AlbumDataResponse,
     "AlbumDetailResponse": AlbumDetailResponse,
     "AlbumDetails": AlbumDetails,
     "AlbumSummary": AlbumSummary,

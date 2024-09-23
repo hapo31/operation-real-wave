@@ -1,6 +1,8 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
+import { AlbumData } from '../models/AlbumData.ts';
+import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
 import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
 import { AlbumDetails } from '../models/AlbumDetails.ts';
 import { AlbumSummary } from '../models/AlbumSummary.ts';
@@ -11,6 +13,15 @@ import { SongSummary } from '../models/SongSummary.ts';
 
 import { ObservableAlbumApi } from "./ObservableAPI.ts";
 import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumApi.ts";
+
+export interface AlbumApiAlbumCidDataGetRequest {
+    /**
+     * アルバムの cid
+     * @type string
+     * @memberof AlbumApialbumCidDataGet
+     */
+    cid: string
+}
 
 export interface AlbumApiAlbumCidDetailGetRequest {
     /**
@@ -29,6 +40,22 @@ export class ObjectAlbumApi {
 
     public constructor(configuration: Configuration, requestFactory?: AlbumApiRequestFactory, responseProcessor?: AlbumApiResponseProcessor) {
         this.api = new ObservableAlbumApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * 指定したアルバムの楽曲を除いた詳細データを取得
+     * @param param the request object
+     */
+    public albumCidDataGetWithHttpInfo(param: AlbumApiAlbumCidDataGetRequest, options?: Configuration): Promise<HttpInfo<AlbumDetailResponse>> {
+        return this.api.albumCidDataGetWithHttpInfo(param.cid,  options).toPromise();
+    }
+
+    /**
+     * 指定したアルバムの楽曲を除いた詳細データを取得
+     * @param param the request object
+     */
+    public albumCidDataGet(param: AlbumApiAlbumCidDataGetRequest, options?: Configuration): Promise<AlbumDetailResponse> {
+        return this.api.albumCidDataGet(param.cid,  options).toPromise();
     }
 
     /**

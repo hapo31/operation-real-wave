@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: (c) MONSTER SIREN RECORD
   description: |
@@ -29,6 +29,25 @@ paths:
   /album/{cid}/detail:
     get:
       summary: 指定したアルバムの収録楽曲一覧を取得
+      tags:
+        - album
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: アルバムの cid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumDetailResponse'
+  /album/{cid}/data:
+    get:
+      summary: 指定したアルバムの楽曲を除いた詳細データを取得
       tags:
         - album
       parameters:
@@ -143,6 +162,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SongSummary'
+    AlbumData:
+      type: object
+      required:
+        - cid
+        - name
+        - intro
+        - belong
+        - coverUrl
+        - coverDeUrl
+        - artistes
+      properties:
+        cid:
+          type: string
+          example: 8932
+        name:
+          type: string
+          example: Mystic Light Quest
+        intro:
+          type: string
+          example: 足陷黄沙也无妨，再次迈步，跟随指引未知的太阳。倾听跨越光阴的回响，回应涌动的古老呼唤。追寻低语的历史波澜，见奇迹绽放于璀璨。
+        belong:
+          type: string
+          example: arknights
+        coverUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/pic/20240725/07bd6ec5f0807c75120fccead91a7522.jpg
+        coverDeUrl:
+          type: string
+          example: https://web.hycdn.cn/siren/pic/20240801/be064a4a98d79772e8ef1cebfcb175ae.jpg
+        artistes:
+          type: array
+          items:
+            type: string
+            example: [塞壬唱片-MSR]
     Song:
       type: object
       required:
@@ -215,6 +268,21 @@ components:
           example: ""
         data:
           $ref: '#/components/schemas/AlbumDetails'
+    AlbumDataResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code: 
+          type: integer
+          example: 0
+        msg: 
+          type: string
+          example: ""
+        data:
+          $ref: '#/components/schemas/AlbumData'
     SongDetailsResponse:
       type: object
       required:

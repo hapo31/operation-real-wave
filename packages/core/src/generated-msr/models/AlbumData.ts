@@ -12,15 +12,14 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class Song {
+export class AlbumData {
     'cid': string;
     'name': string;
-    'albumCid': string;
-    'sourceUrl': string;
-    'lyricUrl': string;
-    'mvUrl': string | null;
-    'mvCoverUrl': string | null;
-    'artists': Array<string>;
+    'intro': string;
+    'belong': string;
+    'coverUrl': string;
+    'coverDeUrl': string;
+    'artistes': Array<string>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -38,44 +37,38 @@ export class Song {
             "format": ""
         },
         {
-            "name": "albumCid",
-            "baseName": "albumCid",
+            "name": "intro",
+            "baseName": "intro",
             "type": "string",
             "format": ""
         },
         {
-            "name": "sourceUrl",
-            "baseName": "sourceUrl",
+            "name": "belong",
+            "baseName": "belong",
             "type": "string",
             "format": ""
         },
         {
-            "name": "lyricUrl",
-            "baseName": "lyricUrl",
+            "name": "coverUrl",
+            "baseName": "coverUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "mvUrl",
-            "baseName": "mvUrl",
+            "name": "coverDeUrl",
+            "baseName": "coverDeUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "mvCoverUrl",
-            "baseName": "mvCoverUrl",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "artists",
-            "baseName": "artists",
+            "name": "artistes",
+            "baseName": "artistes",
             "type": "Array<string>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Song.attributeTypeMap;
+        return AlbumData.attributeTypeMap;
     }
 
     public constructor() {

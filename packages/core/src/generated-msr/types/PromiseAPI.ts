@@ -1,6 +1,8 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
+import { AlbumData } from '../models/AlbumData.ts';
+import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
 import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
 import { AlbumDetails } from '../models/AlbumDetails.ts';
 import { AlbumSummary } from '../models/AlbumSummary.ts';
@@ -20,6 +22,24 @@ export class PromiseAlbumApi {
         responseProcessor?: AlbumApiResponseProcessor
     ) {
         this.api = new ObservableAlbumApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * 指定したアルバムの楽曲を除いた詳細データを取得
+     * @param cid アルバムの cid
+     */
+    public albumCidDataGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumDetailResponse>> {
+        const result = this.api.albumCidDataGetWithHttpInfo(cid, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * 指定したアルバムの楽曲を除いた詳細データを取得
+     * @param cid アルバムの cid
+     */
+    public albumCidDataGet(cid: string, _options?: Configuration): Promise<AlbumDetailResponse> {
+        const result = this.api.albumCidDataGet(cid, _options);
+        return result.toPromise();
     }
 
     /**
