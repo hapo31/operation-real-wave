@@ -56,3 +56,10 @@ export async function safeWriteFile(file: SafeFilePath, buffer: ArrayBuffer) {
     .then(() => true)
     .catch(() => false);
 }
+
+export async function safeDeleteFile(file: SafeFilePath) {
+  return await Deno
+    .remove(file.toString())
+    .then(() => true)
+    .catch(() => false);
+}
