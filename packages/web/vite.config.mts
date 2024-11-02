@@ -14,15 +14,17 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    host: "127.0.0.1",
     proxy: {
       "/msr/api": {
         target: "https://monster-siren.hypergryph.com/api",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => path.replace(/^\/msr\/api/, ""),
       },
       "/api": {
         target: "http://localhost:8000",
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

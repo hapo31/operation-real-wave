@@ -8,6 +8,8 @@ info:
 servers:
   - url: http://localhost:3000/msr/api/
     description: soundtrack web API (vite dev server proxy required)
+  - url: https://monster-siren.hypergryph.com/api/
+    description: soundtrack web API (production)
 tags:
   - name: album
     description: アルバム
@@ -39,12 +41,12 @@ paths:
           required: true
           description: アルバムの cid
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AlbumDetailResponse'
+                $ref: "#/components/schemas/AlbumDetailResponse"
   /album/{cid}/data:
     get:
       summary: 指定したアルバムの楽曲を除いた詳細データを取得
@@ -58,12 +60,12 @@ paths:
           required: true
           description: アルバムの cid
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AlbumDetailResponse'
+                $ref: "#/components/schemas/AlbumDetailResponse"
   /song/{cid}:
     get:
       summary: 指定した楽曲の詳細を取得
@@ -77,12 +79,12 @@ paths:
           required: true
           description: 楽曲の cid
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SongDetailsResponse'
+                $ref: "#/components/schemas/SongDetailsResponse"
 components:
   schemas:
     AlbumSummary:
@@ -161,7 +163,7 @@ components:
         songs:
           type: array
           items:
-            $ref: '#/components/schemas/SongSummary'
+            $ref: "#/components/schemas/SongSummary"
     AlbumData:
       type: object
       required:
@@ -226,11 +228,11 @@ components:
         mvUrl:
           type: string
           nullable: true
-          example: 
+          example:
         mvCoverUrl:
           type: string
           nullable: true
-          example: 
+          example:
         artists:
           type: array
           items:
@@ -243,16 +245,16 @@ components:
         - msg
         - data
       properties:
-        code: 
+        code:
           type: integer
           example: 0
-        msg: 
+        msg:
           type: string
           example: ""
         data:
           type: array
           items:
-            $ref: '#/components/schemas/AlbumSummary'
+            $ref: "#/components/schemas/AlbumSummary"
     AlbumDetailResponse:
       type: object
       required:
@@ -260,14 +262,14 @@ components:
         - msg
         - data
       properties:
-        code: 
+        code:
           type: integer
           example: 0
-        msg: 
+        msg:
           type: string
           example: ""
         data:
-          $ref: '#/components/schemas/AlbumDetails'
+          $ref: "#/components/schemas/AlbumDetails"
     AlbumDataResponse:
       type: object
       required:
@@ -275,14 +277,14 @@ components:
         - msg
         - data
       properties:
-        code: 
+        code:
           type: integer
           example: 0
-        msg: 
+        msg:
           type: string
           example: ""
         data:
-          $ref: '#/components/schemas/AlbumData'
+          $ref: "#/components/schemas/AlbumData"
     SongDetailsResponse:
       type: object
       required:
@@ -290,11 +292,11 @@ components:
         - msg
         - data
       properties:
-        code: 
+        code:
           type: integer
           example: 0
-        msg: 
+        msg:
           type: string
           example: ""
         data:
-          $ref: '#/components/schemas/Song'
+          $ref: "#/components/schemas/Song"

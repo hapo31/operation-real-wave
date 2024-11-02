@@ -51,5 +51,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
 }
 
 export const server1 = new ServerConfiguration<{  }>("http://localhost:3000/msr/api", {  })
+export const server2 = new ServerConfiguration<{  }>("https://monster-siren.hypergryph.com/api", {  })
 
-export const servers = [server1];
+export const servers = [server1, server2];
