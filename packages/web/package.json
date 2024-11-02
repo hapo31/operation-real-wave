@@ -21,7 +21,8 @@
     "isbot": "^4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "remix-typedjson": "^0.4.1"
+    "remix-typedjson": "^0.4.1",
+    "whatwg-fetch": "^3.6.20"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.1",
