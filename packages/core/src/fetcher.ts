@@ -6,8 +6,16 @@ import {
   AlbumSummary,
   Song as SongSrc,
 } from "./generated-msr/index.ts";
+import { albumApi } from "./api.ts";
+import AlbumModel from "./model/AlbumModel.ts";
 
 export type AlbumEntity = AlbumDetails & AlbumData;
+
+export async function fetchAlbumList(): Promise<AlbumModel[]> {
+  const { data } = await albumApi().albumsGet();
+
+  return data.map((album) => new AlbumModel(album));
+}
 
 export async function fetchAlbumArtWork(
   album: AlbumSummary,
