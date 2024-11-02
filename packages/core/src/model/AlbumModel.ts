@@ -4,18 +4,23 @@ import { AlbumSummary as MsrAlbumSummary } from "../generated-msr/models/AlbumSu
 import { SafeFilePath, safeIsExists } from "../safeFilePath.ts";
 
 export default class AlbumModel extends AlbumSummary {
-  static async fromMsrEntity(entity: MsrAlbumSummary): Promise<AlbumSummary> {
-    const model = new AlbumModel();
+  private filePath: SafeFilePath;
 
-    model.cid = entity.cid;
-    model.name = entity.name;
-    model.artistes = entity.artistes;
-    const path = new SafeFilePath(`${entity.cid}_${entity.name}`, "cover.jpg");
-    model.coverPath = path.toString();
-    model.status = await safeIsExists(path)
+  constructor(entity: MsrAlbumSummary) {
+    super();
+    this.cid = entity.cid;
+    this.name = entity.name;
+    this.artistes = entity.artistes;
+    this.filePath = new SafeFilePath(
+      `${entity.cid}_${entity.name}`,
+      "cover.jpg",
+    );
+    this.coverPath = this.filePath.toString();
+  }
+
+  async fileStatus(): Promise<FileStatus> {
+    return await safeIsExists(this.filePath)
       ? FileStatus.Exists
       : FileStatus.NotExists;
-
-    return model;
   }
 }
