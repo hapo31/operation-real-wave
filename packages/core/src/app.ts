@@ -17,7 +17,7 @@ export default class App {
       return c.json<AlbumListResponse>({
         albums: data.map((album) => ({
           ...album,
-          coverPath: album.coverDeUrl,
+          coverPath: album.coverUrl,
           status: FileStatus.NotExists,
         })),
       });
@@ -45,7 +45,7 @@ export default class App {
         });
       } catch (e) {
         console.error(e);
-        return {};
+        return c.json({ error: "Not Found" }, 404);
       }
     });
 
