@@ -6,7 +6,7 @@
   "scripts": {
     "build": "react-router build",
     "deploy": "deployctl deploy --prod --include=build,public --project=<your deno deploy project> ./build/index.js",
-    "gen:front-api": "openapi-generator-cli generate -i ./node_modules/core/openapi/operation-real-wave.openapi.yml -g typescript -o ./app/_src/generated-orw/",
+    "gen:api": "openapi-generator-cli generate -i ./node_modules/core/openapi/operation-real-wave.openapi.yml -g typescript -o ./app/_src/generated-orw/",
     "dev": "react-router dev",
     "start": "remix^serve build",
     "format": "deno fmt --ignore=node_modules,build,public/build",
