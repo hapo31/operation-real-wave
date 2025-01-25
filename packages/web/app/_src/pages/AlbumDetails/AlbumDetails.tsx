@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from "react-router";
 import { Album, Song } from "../../generated-orw/index.ts";
 
 type Props = {

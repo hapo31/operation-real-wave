@@ -1,7 +1,7 @@
-import { typedjson, useTypedLoaderData } from "remix-typedjson";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import type { Route } from "../+types/root.js";
 import AlbumDetails from "../_src/pages/AlbumDetails/AlbumDetails.jsx";
-import { albumsApi } from "../_src/api/api.ts";
+import { albumsApi } from "../_src/api/api.js";
+import { useLoaderData } from "react-router";
 
 function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = "";
@@ -14,7 +14,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return `data:image/jpeg;base64,${btoa(binary)}`;
 }
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params }: Route.LoaderArgs) {
   const cid = params.cid;
   if (cid == null) {
     throw new Error("No cid provided");
@@ -27,15 +27,15 @@ export async function loader({ params }: LoaderFunctionArgs) {
     res.arrayBuffer()
   );
 
-  return typedjson({
+  return {
     album: details.album,
     songs: details.songs,
     coverBase64: arrayBufferToBase64(arrayBuffer),
-  });
+  };
 }
 
 export default function AlbumsRoute() {
-  const { album, songs, coverBase64 } = useTypedLoaderData<typeof loader>();
+  const { album, songs, coverBase64 } = useLoaderData<typeof loader>();
 
   return <AlbumDetails coverBase64={coverBase64} album={album} songs={songs} />;
 }

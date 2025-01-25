@@ -1,12 +1,9 @@
-import { defineConfig } from "vite";
-import { vitePlugin as remix } from "@remix-run/dev";
-import { installGlobals } from "@remix-run/node";
-
-installGlobals();
-
 /// <reference types="vitest" />
+import { defineConfig } from "vite";
+import { reactRouter } from "@react-router/dev/vite";
+
 export default defineConfig({
-  plugins: [remix()],
+  plugins: [reactRouter()],
   test: {
     globals: true,
     includeSource: ["app/**/*.{ts,tsx}", "src/**/*.spec.{ts,tsx}"],
