@@ -1,21 +1,21 @@
 export * from '../models/Album';
 export * from '../models/AlbumListResponse';
+export * from '../models/AlbumSongListResponse';
 export * from '../models/AlbumSummary';
 export * from '../models/FetchAlbumResponse';
 export * from '../models/FetchSongResponse';
 export * from '../models/FileStatus';
 export * from '../models/Song';
-export * from '../models/SongListResponse';
 export * from '../models/SongStatusResponse';
 
 import { Album      } from '../models/Album';
 import { AlbumListResponse } from '../models/AlbumListResponse';
+import { AlbumSongListResponse } from '../models/AlbumSongListResponse';
 import { AlbumSummary      } from '../models/AlbumSummary';
 import { FetchAlbumResponse } from '../models/FetchAlbumResponse';
 import { FetchSongResponse } from '../models/FetchSongResponse';
 import { FileStatus } from '../models/FileStatus';
 import { Song      } from '../models/Song';
-import { SongListResponse } from '../models/SongListResponse';
 import { SongStatusResponse } from '../models/SongStatusResponse';
 
 /* tslint:disable:no-unused-variable */
@@ -37,11 +37,11 @@ let enumsMap: Set<string> = new Set<string>([
 let typeMap: {[index: string]: any} = {
     "Album": Album,
     "AlbumListResponse": AlbumListResponse,
+    "AlbumSongListResponse": AlbumSongListResponse,
     "AlbumSummary": AlbumSummary,
     "FetchAlbumResponse": FetchAlbumResponse,
     "FetchSongResponse": FetchSongResponse,
     "Song": Song,
-    "SongListResponse": SongListResponse,
     "SongStatusResponse": SongStatusResponse,
 }
 

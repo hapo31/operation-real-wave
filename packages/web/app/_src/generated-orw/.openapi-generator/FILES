@@ -16,13 +16,13 @@ index.ts
 middleware.ts
 models/Album.ts
 models/AlbumListResponse.ts
+models/AlbumSongListResponse.ts
 models/AlbumSummary.ts
 models/FetchAlbumResponse.ts
 models/FetchSongResponse.ts
 models/FileStatus.ts
 models/ObjectSerializer.ts
 models/Song.ts
-models/SongListResponse.ts
 models/SongStatusResponse.ts
 models/all.ts
 package.json

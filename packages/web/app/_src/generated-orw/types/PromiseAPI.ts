@@ -3,12 +3,12 @@ import { Configuration} from '../configuration'
 
 import { Album } from '../models/Album';
 import { AlbumListResponse } from '../models/AlbumListResponse';
+import { AlbumSongListResponse } from '../models/AlbumSongListResponse';
 import { AlbumSummary } from '../models/AlbumSummary';
 import { FetchAlbumResponse } from '../models/FetchAlbumResponse';
 import { FetchSongResponse } from '../models/FetchSongResponse';
 import { FileStatus } from '../models/FileStatus';
 import { Song } from '../models/Song';
-import { SongListResponse } from '../models/SongListResponse';
 import { SongStatusResponse } from '../models/SongStatusResponse';
 import { ObservableAlbumApi } from './ObservableAPI';
 
@@ -28,7 +28,7 @@ export class PromiseAlbumApi {
      * 指定したアルバムをファイルシステム上から削除する
      * @param cid アルバムの cid
      */
-    public albumCidDeleteWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongListResponse>> {
+    public albumCidDeleteWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
         const result = this.api.albumCidDeleteWithHttpInfo(cid, _options);
         return result.toPromise();
     }
@@ -37,7 +37,7 @@ export class PromiseAlbumApi {
      * 指定したアルバムをファイルシステム上から削除する
      * @param cid アルバムの cid
      */
-    public albumCidDelete(cid: string, _options?: Configuration): Promise<SongListResponse> {
+    public albumCidDelete(cid: string, _options?: Configuration): Promise<AlbumSongListResponse> {
         const result = this.api.albumCidDelete(cid, _options);
         return result.toPromise();
     }
@@ -46,7 +46,7 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongListResponse>> {
+    public albumCidGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
         const result = this.api.albumCidGetWithHttpInfo(cid, _options);
         return result.toPromise();
     }
@@ -55,7 +55,7 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidGet(cid: string, _options?: Configuration): Promise<SongListResponse> {
+    public albumCidGet(cid: string, _options?: Configuration): Promise<AlbumSongListResponse> {
         const result = this.api.albumCidGet(cid, _options);
         return result.toPromise();
     }

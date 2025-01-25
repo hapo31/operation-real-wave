@@ -9,8 +9,8 @@ import {SecurityAuthentication} from '../auth/auth';
 
 
 import { AlbumListResponse } from '../models/AlbumListResponse';
+import { AlbumSongListResponse } from '../models/AlbumSongListResponse';
 import { FetchAlbumResponse } from '../models/FetchAlbumResponse';
-import { SongListResponse } from '../models/SongListResponse';
 
 /**
  * no description
@@ -144,22 +144,22 @@ export class AlbumApiResponseProcessor {
      * @params response Response returned by the server for a request to albumCidDelete
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumCidDeleteWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SongListResponse >> {
+     public async albumCidDeleteWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumSongListResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: SongListResponse = ObjectSerializer.deserialize(
+            const body: AlbumSongListResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongListResponse", ""
-            ) as SongListResponse;
+                "AlbumSongListResponse", ""
+            ) as AlbumSongListResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: SongListResponse = ObjectSerializer.deserialize(
+            const body: AlbumSongListResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongListResponse", ""
-            ) as SongListResponse;
+                "AlbumSongListResponse", ""
+            ) as AlbumSongListResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -173,22 +173,22 @@ export class AlbumApiResponseProcessor {
      * @params response Response returned by the server for a request to albumCidGet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumCidGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SongListResponse >> {
+     public async albumCidGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumSongListResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: SongListResponse = ObjectSerializer.deserialize(
+            const body: AlbumSongListResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongListResponse", ""
-            ) as SongListResponse;
+                "AlbumSongListResponse", ""
+            ) as AlbumSongListResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: SongListResponse = ObjectSerializer.deserialize(
+            const body: AlbumSongListResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongListResponse", ""
-            ) as SongListResponse;
+                "AlbumSongListResponse", ""
+            ) as AlbumSongListResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
