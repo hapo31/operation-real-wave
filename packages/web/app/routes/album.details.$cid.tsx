@@ -3,16 +3,7 @@ import AlbumDetails from "../_src/pages/AlbumDetails/AlbumDetails.jsx";
 import { albumsApi } from "../_src/api/api.js";
 import { useLoaderData } from "react-router";
 
-function arrayBufferToBase64(buffer: ArrayBuffer) {
-  let binary = "";
-  const bytes = new Uint8Array(buffer);
-  const len = bytes.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-
-  return `data:image/jpeg;base64,${btoa(binary)}`;
-}
+import imageToDataURL from "../_src/api/imageToDataURL.js";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const cid = params.cid;
@@ -29,8 +20,8 @@ export async function loader({ params }: Route.LoaderArgs) {
 
   return {
     album: details.album,
-    songs: details.songs,
-    coverBase64: arrayBufferToBase64(arrayBuffer),
+    songs: details.album.songs,
+    coverBase64: await imageToDataURL(details.album.coverPath),
   };
 }
 
