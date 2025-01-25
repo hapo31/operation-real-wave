@@ -17,7 +17,9 @@ export default class App {
       return c.json<AlbumListResponse>({
         albums: data.map((album) => ({
           ...album,
+          // TODO: 一度表示した画像はキャッシュする処理を入れる
           coverPath: album.coverUrl,
+          // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
           status: FileStatus.NotExists,
         })),
       });
@@ -31,14 +33,18 @@ export default class App {
         return c.json<AlbumSongListResponse>({
           album: {
             cid: data.cid,
+            // TODO: 一度表示した画像はキャッシュする処理を入れる
             coverPath: data.coverDeUrl,
             name: data.name,
+            // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
             status: FileStatus.NotExists,
             songs: data.songs.map((song) => ({
               artistes: song.artistes,
               cid: song.cid,
               name: song.name,
+              // TODO: 楽曲の状態（音楽ファイルの有無）をチェックしてステータスを決める
               status: FileStatus.NotExists,
+              // ダウンロード済みの場合はローカルのファイルパスを設定する
               filePath: "",
             })),
           },
@@ -48,6 +54,8 @@ export default class App {
         return c.json({ error: "Not Found" }, 404);
       }
     });
+
+    // TODO: 楽曲自体の詳細を取得するエンドポイントを追加する
 
     this.app = app;
   }
