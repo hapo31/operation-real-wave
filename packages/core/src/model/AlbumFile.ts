@@ -1,12 +1,12 @@
-import { Album } from "./generated-core/models/Album.ts";
-import IFile from "./lib/IFile.ts";
+import { Album } from "../generated-core/models/Album.ts";
+import IFile from "../lib/IFile.ts";
 import {
   safeDeleteFile,
   SafeFilePath,
   safeIsExists,
   safeMkdir,
   safeWriteFile,
-} from "./safeFilePath.ts";
+} from "../safeFilePath.ts";
 
 export default class AlbumFile implements IFile {
   private filePath: SafeFilePath;
