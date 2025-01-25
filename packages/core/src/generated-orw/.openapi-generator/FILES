@@ -1,3 +1,4 @@
+.gitattributes
 .gitignore
 .openapi-generator-ignore
 AlbumApi.md
@@ -16,6 +17,7 @@ index.ts
 middleware.ts
 models/Album.ts
 models/AlbumListResponse.ts
+models/AlbumSummary.ts
 models/FetchAlbumResponse.ts
 models/FetchSongResponse.ts
 models/FileStatus.ts

@@ -3,6 +3,7 @@ import { Configuration} from '../configuration'
 
 import { Album } from '../models/Album';
 import { AlbumListResponse } from '../models/AlbumListResponse';
+import { AlbumSummary } from '../models/AlbumSummary';
 import { FetchAlbumResponse } from '../models/FetchAlbumResponse';
 import { FetchSongResponse } from '../models/FetchSongResponse';
 import { FileStatus } from '../models/FileStatus';

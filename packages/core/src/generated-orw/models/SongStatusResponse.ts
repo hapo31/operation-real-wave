@@ -13,24 +13,25 @@
 import { Song } from '../models/Song';
 import { HttpFile } from '../http/http';
 
-export class FetchAlbumResponse {
-    'queuedSongs': Array<Song>;
+export class SongStatusResponse {
+    'song': Song;
 
     static readonly discriminator: string | undefined = undefined;
 
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
+
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "queuedSongs",
-            "baseName": "queuedSongs",
-            "type": "Array<Song>",
+            "name": "song",
+            "baseName": "song",
+            "type": "Song",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return FetchAlbumResponse.attributeTypeMap;
+        return SongStatusResponse.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-

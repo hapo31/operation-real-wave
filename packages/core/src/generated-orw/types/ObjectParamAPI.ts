@@ -3,6 +3,7 @@ import { Configuration} from '../configuration'
 
 import { Album } from '../models/Album';
 import { AlbumListResponse } from '../models/AlbumListResponse';
+import { AlbumSummary } from '../models/AlbumSummary';
 import { FetchAlbumResponse } from '../models/FetchAlbumResponse';
 import { FetchSongResponse } from '../models/FetchSongResponse';
 import { FileStatus } from '../models/FileStatus';
@@ -16,6 +17,7 @@ import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumA
 export interface AlbumApiAlbumCidDeleteRequest {
     /**
      * アルバムの cid
+     * Defaults to: undefined
      * @type string
      * @memberof AlbumApialbumCidDelete
      */
@@ -25,6 +27,7 @@ export interface AlbumApiAlbumCidDeleteRequest {
 export interface AlbumApiAlbumCidGetRequest {
     /**
      * アルバムの cid
+     * Defaults to: undefined
      * @type string
      * @memberof AlbumApialbumCidGet
      */
@@ -34,6 +37,7 @@ export interface AlbumApiAlbumCidGetRequest {
 export interface AlbumApiAlbumCidPostRequest {
     /**
      * アルバムの cid
+     * Defaults to: undefined
      * @type string
      * @memberof AlbumApialbumCidPost
      */
@@ -122,6 +126,7 @@ import { SongsApiRequestFactory, SongsApiResponseProcessor} from "../apis/SongsA
 export interface SongsApiSongCidDeleteRequest {
     /**
      * 楽曲の cid
+     * Defaults to: undefined
      * @type string
      * @memberof SongsApisongCidDelete
      */
@@ -131,6 +136,7 @@ export interface SongsApiSongCidDeleteRequest {
 export interface SongsApiSongCidGetRequest {
     /**
      * 楽曲の cid
+     * Defaults to: undefined
      * @type string
      * @memberof SongsApisongCidGet
      */
@@ -140,6 +146,7 @@ export interface SongsApiSongCidGetRequest {
 export interface SongsApiSongCidPostRequest {
     /**
      * 楽曲の cid
+     * Defaults to: undefined
      * @type string
      * @memberof SongsApisongCidPost
      */

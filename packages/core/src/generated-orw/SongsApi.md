@@ -17,20 +17,19 @@ Method | HTTP request | Description
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, SongsApi } from '';
+import type { SongsApiSongCidDeleteRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .SongsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new SongsApi(configuration);
 
-let body:.SongsApiSongCidDeleteRequest = {
-  // string | 楽曲の cid
+const request: SongsApiSongCidDeleteRequest = {
+    // 楽曲の cid
   cid: "cid_example",
 };
 
-apiInstance.songCidDelete(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.songCidDelete(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -70,20 +69,19 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, SongsApi } from '';
+import type { SongsApiSongCidGetRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .SongsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new SongsApi(configuration);
 
-let body:.SongsApiSongCidGetRequest = {
-  // string | 楽曲の cid
+const request: SongsApiSongCidGetRequest = {
+    // 楽曲の cid
   cid: "cid_example",
 };
 
-apiInstance.songCidGet(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.songCidGet(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -123,20 +121,19 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, SongsApi } from '';
+import type { SongsApiSongCidPostRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .SongsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new SongsApi(configuration);
 
-let body:.SongsApiSongCidPostRequest = {
-  // string | 楽曲の cid
+const request: SongsApiSongCidPostRequest = {
+    // 楽曲の cid
   cid: "cid_example",
 };
 
-apiInstance.songCidPost(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.songCidPost(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 

@@ -11,16 +11,19 @@
  */
 
 import { FileStatus } from '../models/FileStatus';
+import { Song } from '../models/Song';
 import { HttpFile } from '../http/http';
 
-export class Song {
+export class Album {
     'cid': string;
     'name': string;
-    'artistes': Array<string>;
+    'songs': Array<Song>;
     'status': FileStatus;
-    'filePath': string;
+    'coverPath': string;
 
     static readonly discriminator: string | undefined = undefined;
+
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
@@ -36,9 +39,9 @@ export class Song {
             "format": ""
         },
         {
-            "name": "artistes",
-            "baseName": "artistes",
-            "type": "Array<string>",
+            "name": "songs",
+            "baseName": "songs",
+            "type": "Array<Song>",
             "format": ""
         },
         {
@@ -48,19 +51,18 @@ export class Song {
             "format": ""
         },
         {
-            "name": "filePath",
-            "baseName": "filePath",
+            "name": "coverPath",
+            "baseName": "coverPath",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Song.attributeTypeMap;
+        return Album.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
 
 

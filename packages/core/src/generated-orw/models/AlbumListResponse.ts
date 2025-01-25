@@ -10,27 +10,28 @@
  * Do not edit the class manually.
  */
 
-import { Song } from '../models/Song';
+import { AlbumSummary } from '../models/AlbumSummary';
 import { HttpFile } from '../http/http';
 
-export class FetchSongResponse {
-    'song': Song;
+export class AlbumListResponse {
+    'albums': Array<AlbumSummary>;
 
     static readonly discriminator: string | undefined = undefined;
 
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
+
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "song",
-            "baseName": "song",
-            "type": "Song",
+            "name": "albums",
+            "baseName": "albums",
+            "type": "Array<AlbumSummary>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return FetchSongResponse.attributeTypeMap;
+        return AlbumListResponse.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-

@@ -1,5 +1,6 @@
 export * from '../models/Album'
 export * from '../models/AlbumListResponse'
+export * from '../models/AlbumSummary'
 export * from '../models/FetchAlbumResponse'
 export * from '../models/FetchSongResponse'
 export * from '../models/FileStatus'

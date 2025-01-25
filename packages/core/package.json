@@ -17,9 +17,11 @@
     "npm-run-all": "^4.1.5"
   },
   "exports": {
-    "import": {
-      "models": "./src/generated-core/models",
-      "api": "./src/generated-orw"
+    "./models/*": {
+      "import": "./src/generated-core/models/*"
+    },
+    "./api/*": {
+      "import": "./src/generated-orw/*"
     }
   }
 }

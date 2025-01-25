@@ -18,20 +18,19 @@ Method | HTTP request | Description
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
+import type { AlbumApiAlbumCidDeleteRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:.AlbumApiAlbumCidDeleteRequest = {
-  // string | アルバムの cid
+const request: AlbumApiAlbumCidDeleteRequest = {
+    // アルバムの cid
   cid: "cid_example",
 };
 
-apiInstance.albumCidDelete(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumCidDelete(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -71,20 +70,19 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
+import type { AlbumApiAlbumCidGetRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:.AlbumApiAlbumCidGetRequest = {
-  // string | アルバムの cid
+const request: AlbumApiAlbumCidGetRequest = {
+    // アルバムの cid
   cid: "cid_example",
 };
 
-apiInstance.albumCidGet(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumCidGet(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -124,20 +122,19 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
+import type { AlbumApiAlbumCidPostRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:.AlbumApiAlbumCidPostRequest = {
-  // string | アルバムの cid
+const request: AlbumApiAlbumCidPostRequest = {
+    // アルバムの cid
   cid: "cid_example",
 };
 
-apiInstance.albumCidPost(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumCidPost(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -177,17 +174,15 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:any = {};
+const request = {};
 
-apiInstance.albumsGet(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumsGet(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
