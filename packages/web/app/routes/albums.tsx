@@ -3,9 +3,10 @@ import { albumsApi } from "../_src/api/api.js";
 import { useLoaderData } from "react-router";
 
 export async function loader() {
-  const albums = await albumsApi().albumsGet();
-
-  return { albums: albums.albums };
+  const { albums } = await albumsApi().albumsGet();
+  return {
+    albums,
+  };
 }
 
 export default function AlbumsRoute() {
