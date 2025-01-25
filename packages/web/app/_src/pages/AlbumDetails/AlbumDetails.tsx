@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Album, Song } from "../../generated-orw/index.ts";
+import { Album, Song } from "../../generated-orw/index.js";
 
 type Props = {
   album: Album;
