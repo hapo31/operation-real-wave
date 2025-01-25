@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-import { Song } from '../models/Song.ts';
+import { Album } from '../models/Album.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class SongStatusResponse {
-    'song': Song;
+export class AlbumSongListResponse {
+    'album': Album;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -22,14 +22,14 @@ export class SongStatusResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "song",
-            "baseName": "song",
-            "type": "Song",
+            "name": "album",
+            "baseName": "album",
+            "type": "Album",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return SongStatusResponse.attributeTypeMap;
+        return AlbumSongListResponse.attributeTypeMap;
     }
 
     public constructor() {

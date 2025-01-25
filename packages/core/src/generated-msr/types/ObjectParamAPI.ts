@@ -17,6 +17,7 @@ import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumA
 export interface AlbumApiAlbumCidDataGetRequest {
     /**
      * アルバムの cid
+     * Defaults to: undefined
      * @type string
      * @memberof AlbumApialbumCidDataGet
      */
@@ -26,6 +27,7 @@ export interface AlbumApiAlbumCidDataGetRequest {
 export interface AlbumApiAlbumCidDetailGetRequest {
     /**
      * アルバムの cid
+     * Defaults to: undefined
      * @type string
      * @memberof AlbumApialbumCidDetailGet
      */
@@ -98,6 +100,7 @@ import { SongsApiRequestFactory, SongsApiResponseProcessor} from "../apis/SongsA
 export interface SongsApiSongCidGetRequest {
     /**
      * 楽曲の cid
+     * Defaults to: undefined
      * @type string
      * @memberof SongsApisongCidGet
      */

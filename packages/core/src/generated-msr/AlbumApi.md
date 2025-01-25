@@ -17,20 +17,19 @@ Method | HTTP request | Description
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
+import type { AlbumApiAlbumCidDataGetRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:.AlbumApiAlbumCidDataGetRequest = {
-  // string | アルバムの cid
+const request: AlbumApiAlbumCidDataGetRequest = {
+    // アルバムの cid
   cid: "cid_example",
 };
 
-apiInstance.albumCidDataGet(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumCidDataGet(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -70,20 +69,19 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
+import type { AlbumApiAlbumCidDetailGetRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:.AlbumApiAlbumCidDetailGetRequest = {
-  // string | アルバムの cid
+const request: AlbumApiAlbumCidDetailGetRequest = {
+    // アルバムの cid
   cid: "cid_example",
 };
 
-apiInstance.albumCidDetailGet(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumCidDetailGet(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -123,17 +121,15 @@ No authorization required
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, AlbumApi } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .AlbumApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
 
-let body:any = {};
+const request = {};
 
-apiInstance.albumsGet(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.albumsGet(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 

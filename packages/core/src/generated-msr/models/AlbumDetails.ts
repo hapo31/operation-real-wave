@@ -24,6 +24,8 @@ export class AlbumDetails {
 
     static readonly discriminator: string | undefined = undefined;
 
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
+
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
             "name": "cid",
@@ -75,4 +77,3 @@ export class AlbumDetails {
     public constructor() {
     }
 }
-

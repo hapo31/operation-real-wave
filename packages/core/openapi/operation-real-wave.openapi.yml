@@ -45,7 +45,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SongListResponse'
+                $ref: '#/components/schemas/AlbumSongListResponse'
     post:
       summary: 指定したアルバムの楽曲すべてのダウンロードを開始する
       tags:
@@ -81,7 +81,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SongListResponse'
+                $ref: '#/components/schemas/AlbumSongListResponse'
   /song/{cid}:
     get:
       summary: 指定した楽曲の状態を取得
@@ -239,7 +239,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Song'
-    SongListResponse:
+    AlbumSongListResponse:
       type: object
       required:
         - songs
@@ -247,10 +247,6 @@ components:
       properties:
         album:
           $ref: '#/components/schemas/Album'
-        songs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Song'
     SongStatusResponse:
       type: object
       required:

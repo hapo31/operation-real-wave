@@ -1,4 +1,4 @@
-import DenoKVModel from "./lib/DenoKVModel.ts";
+import DenoKVModel from "../lib/DenoKVModel.ts";
 
 export const SongStatusType = {
   NOT_EXIST: "NOT_EXIST",

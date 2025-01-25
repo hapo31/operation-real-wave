@@ -1,7 +1,7 @@
 import { AlbumSummary } from "../generated-core/models/AlbumSummary.ts";
 import { FileStatus } from "../generated-core/models/FileStatus.ts";
 import { AlbumSummary as MsrAlbumSummary } from "../generated-msr/models/AlbumSummary.ts";
-import { SafeFilePath, safeIsExists } from "../safeFilePath.ts";
+import { SafeFilePath, safeIsExists } from "../lib/safeFilePath.ts";
 
 export default class AlbumModel extends AlbumSummary {
   private filePath: SafeFilePath;
