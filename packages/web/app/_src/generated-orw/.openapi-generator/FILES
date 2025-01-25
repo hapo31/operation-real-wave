@@ -1,6 +1,5 @@
 .gitattributes
 .gitignore
-.openapi-generator-ignore
 AlbumApi.md
 README.md
 SongsApi.md

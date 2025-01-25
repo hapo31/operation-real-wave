@@ -4,16 +4,15 @@
     "start": "deno task start",
     "gen": "run-p gen:*",
     "gen:msr": "openapi-generator-cli generate -i ./openapi/msr.openapi.yml -g typescript --additional-properties=platform=deno -o ./src/generated-msr/",
-    "gen:core": "openapi-generator-cli generate -i ./openapi/operation-real-wave.openapi.yml -g typescript --global-property models --additional-properties=platform=deno -o ./src/generated-core/",
-    "gen:front-api": "openapi-generator-cli generate -i ./openapi/operation-real-wave.openapi.yml -g typescript -o ./src/generated-orw/"
+    "gen:core": "openapi-generator-cli generate -i ./openapi/operation-real-wave.openapi.yml -g typescript --global-property models --additional-properties=platform=deno -o ./src/generated-core/"
   },
   "dependencies": {
     "@hono/zod-openapi": "^0.16.0",
     "hono": "^4.5.3"
   },
   "devDependencies": {
-    "create-hono": "^0.10.1",
     "@openapitools/openapi-generator-cli": "^2.13.7",
+    "create-hono": "^0.10.1",
     "npm-run-all": "^4.1.5"
   },
   "exports": {

@@ -1,5 +1,5 @@
-import { createConfiguration } from "core/api/configuration.js";
-import { AlbumApi, SongsApi } from "core/api/index.js";
+import { createConfiguration } from "../generated-orw/configuration";
+import { AlbumApi, SongsApi } from "../generated-orw";
 
 const baseConfig = createConfiguration({});
 

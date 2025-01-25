@@ -1,7 +1,7 @@
-import { Album } from "../../generated-orw";
+import { AlbumSummary } from "@/api/index";
 
 type Props = {
-  albums: Album[];
+  albums: AlbumSummary[];
 };
 
 export default function Albums({ albums }: Props) {
