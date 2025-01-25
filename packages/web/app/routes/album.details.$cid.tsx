@@ -1,6 +1,5 @@
 import { typedjson, useTypedLoaderData } from "remix-typedjson";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import * as api from "../../../core/src/api.ts";
 import AlbumDetails from "../_src/pages/AlbumDetails/AlbumDetails.jsx";
 import { albumsApi } from "../_src/api/api.ts";
 

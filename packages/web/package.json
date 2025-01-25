@@ -8,7 +8,6 @@
     "deploy": "deployctl deploy --prod --include=build,public --project=<your deno deploy project> ./build/index.js",
     "dev": "remix vite:dev",
     "start": "remix^serve build",
-    "prisma": "prisma",
     "format": "deno fmt --ignore=node_modules,build,public/build",
     "lint": "deno lint --ignore=node_modules,build,public/build"
   },
@@ -34,7 +33,8 @@
     "prettier": "^3.3.0",
     "typescript": "^5.6.2",
     "vite": "^5.4.7",
-    "vitest": "^2.1.1"
+    "vitest": "^2.1.1",
+    "core": "workspace:*"
   },
   "engines": {
     "node": ">=14"
