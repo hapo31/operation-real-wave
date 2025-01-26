@@ -16,15 +16,15 @@ export default class App {
       const { data } = await albumApi().getAlbums();
 
       return c.json<AlbumListResponse>({
-        albums: data
-          .map((album) => new AlbumModel(album))
-          .map((album) => ({
-            ...album,
-            // TODO: キャッシュのパスを返す処理を入れる
-            // coverPath:
-            // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
-            status: FileStatus.NotExists,
-          })),
+        albums: await Promise.all(
+          data
+            .map((album) => new AlbumModel(album))
+            .map(async (album) => ({
+              ...album,
+              coverPath: await album.coverPath,
+              status: await album.fileStatus(),
+            })),
+        ),
       });
     });
 
