@@ -14,37 +14,37 @@ import { SongStatusResponse } from '../models/SongStatusResponse.ts';
 import { ObservableAlbumApi } from "./ObservableAPI.ts";
 import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumApi.ts";
 
-export interface AlbumApiAlbumCidDeleteRequest {
+export interface AlbumApiDeleteAlbumRequest {
     /**
      * アルバムの cid
      * Defaults to: undefined
      * @type string
-     * @memberof AlbumApialbumCidDelete
+     * @memberof AlbumApideleteAlbum
      */
     cid: string
 }
 
-export interface AlbumApiAlbumCidGetRequest {
+export interface AlbumApiFetchAlbumSongsRequest {
     /**
      * アルバムの cid
      * Defaults to: undefined
      * @type string
-     * @memberof AlbumApialbumCidGet
+     * @memberof AlbumApifetchAlbumSongs
      */
     cid: string
 }
 
-export interface AlbumApiAlbumCidPostRequest {
+export interface AlbumApiGetAlbumSongsRequest {
     /**
      * アルバムの cid
      * Defaults to: undefined
      * @type string
-     * @memberof AlbumApialbumCidPost
+     * @memberof AlbumApigetAlbumSongs
      */
     cid: string
 }
 
-export interface AlbumApiAlbumsGetRequest {
+export interface AlbumApiGetAlbumsRequest {
 }
 
 export class ObjectAlbumApi {
@@ -58,64 +58,64 @@ export class ObjectAlbumApi {
      * 指定したアルバムをファイルシステム上から削除する
      * @param param the request object
      */
-    public albumCidDeleteWithHttpInfo(param: AlbumApiAlbumCidDeleteRequest, options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
-        return this.api.albumCidDeleteWithHttpInfo(param.cid,  options).toPromise();
+    public deleteAlbumWithHttpInfo(param: AlbumApiDeleteAlbumRequest, options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
+        return this.api.deleteAlbumWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定したアルバムをファイルシステム上から削除する
      * @param param the request object
      */
-    public albumCidDelete(param: AlbumApiAlbumCidDeleteRequest, options?: Configuration): Promise<AlbumSongListResponse> {
-        return this.api.albumCidDelete(param.cid,  options).toPromise();
-    }
-
-    /**
-     * 指定したアルバムの楽曲一覧を取得
-     * @param param the request object
-     */
-    public albumCidGetWithHttpInfo(param: AlbumApiAlbumCidGetRequest, options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
-        return this.api.albumCidGetWithHttpInfo(param.cid,  options).toPromise();
-    }
-
-    /**
-     * 指定したアルバムの楽曲一覧を取得
-     * @param param the request object
-     */
-    public albumCidGet(param: AlbumApiAlbumCidGetRequest, options?: Configuration): Promise<AlbumSongListResponse> {
-        return this.api.albumCidGet(param.cid,  options).toPromise();
+    public deleteAlbum(param: AlbumApiDeleteAlbumRequest, options?: Configuration): Promise<AlbumSongListResponse> {
+        return this.api.deleteAlbum(param.cid,  options).toPromise();
     }
 
     /**
      * 指定したアルバムの楽曲すべてのダウンロードを開始する
      * @param param the request object
      */
-    public albumCidPostWithHttpInfo(param: AlbumApiAlbumCidPostRequest, options?: Configuration): Promise<HttpInfo<FetchAlbumResponse>> {
-        return this.api.albumCidPostWithHttpInfo(param.cid,  options).toPromise();
+    public fetchAlbumSongsWithHttpInfo(param: AlbumApiFetchAlbumSongsRequest, options?: Configuration): Promise<HttpInfo<FetchAlbumResponse>> {
+        return this.api.fetchAlbumSongsWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定したアルバムの楽曲すべてのダウンロードを開始する
      * @param param the request object
      */
-    public albumCidPost(param: AlbumApiAlbumCidPostRequest, options?: Configuration): Promise<FetchAlbumResponse> {
-        return this.api.albumCidPost(param.cid,  options).toPromise();
+    public fetchAlbumSongs(param: AlbumApiFetchAlbumSongsRequest, options?: Configuration): Promise<FetchAlbumResponse> {
+        return this.api.fetchAlbumSongs(param.cid,  options).toPromise();
+    }
+
+    /**
+     * 指定したアルバムの楽曲一覧を取得
+     * @param param the request object
+     */
+    public getAlbumSongsWithHttpInfo(param: AlbumApiGetAlbumSongsRequest, options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
+        return this.api.getAlbumSongsWithHttpInfo(param.cid,  options).toPromise();
+    }
+
+    /**
+     * 指定したアルバムの楽曲一覧を取得
+     * @param param the request object
+     */
+    public getAlbumSongs(param: AlbumApiGetAlbumSongsRequest, options?: Configuration): Promise<AlbumSongListResponse> {
+        return this.api.getAlbumSongs(param.cid,  options).toPromise();
     }
 
     /**
      * アルバムの一覧を取得
      * @param param the request object
      */
-    public albumsGetWithHttpInfo(param: AlbumApiAlbumsGetRequest = {}, options?: Configuration): Promise<HttpInfo<AlbumListResponse>> {
-        return this.api.albumsGetWithHttpInfo( options).toPromise();
+    public getAlbumsWithHttpInfo(param: AlbumApiGetAlbumsRequest = {}, options?: Configuration): Promise<HttpInfo<AlbumListResponse>> {
+        return this.api.getAlbumsWithHttpInfo( options).toPromise();
     }
 
     /**
      * アルバムの一覧を取得
      * @param param the request object
      */
-    public albumsGet(param: AlbumApiAlbumsGetRequest = {}, options?: Configuration): Promise<AlbumListResponse> {
-        return this.api.albumsGet( options).toPromise();
+    public getAlbums(param: AlbumApiGetAlbumsRequest = {}, options?: Configuration): Promise<AlbumListResponse> {
+        return this.api.getAlbums( options).toPromise();
     }
 
 }
@@ -123,32 +123,32 @@ export class ObjectAlbumApi {
 import { ObservableSongsApi } from "./ObservableAPI.ts";
 import { SongsApiRequestFactory, SongsApiResponseProcessor} from "../apis/SongsApi.ts";
 
-export interface SongsApiSongCidDeleteRequest {
+export interface SongsApiDeleteSongRequest {
     /**
      * 楽曲の cid
      * Defaults to: undefined
      * @type string
-     * @memberof SongsApisongCidDelete
+     * @memberof SongsApideleteSong
      */
     cid: string
 }
 
-export interface SongsApiSongCidGetRequest {
+export interface SongsApiFetchSongRequest {
     /**
      * 楽曲の cid
      * Defaults to: undefined
      * @type string
-     * @memberof SongsApisongCidGet
+     * @memberof SongsApifetchSong
      */
     cid: string
 }
 
-export interface SongsApiSongCidPostRequest {
+export interface SongsApiGetSongStatusRequest {
     /**
      * 楽曲の cid
      * Defaults to: undefined
      * @type string
-     * @memberof SongsApisongCidPost
+     * @memberof SongsApigetSongStatus
      */
     cid: string
 }
@@ -164,48 +164,48 @@ export class ObjectSongsApi {
      * 指定した楽曲をファイルシステム上から削除する
      * @param param the request object
      */
-    public songCidDeleteWithHttpInfo(param: SongsApiSongCidDeleteRequest, options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
-        return this.api.songCidDeleteWithHttpInfo(param.cid,  options).toPromise();
+    public deleteSongWithHttpInfo(param: SongsApiDeleteSongRequest, options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
+        return this.api.deleteSongWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定した楽曲をファイルシステム上から削除する
      * @param param the request object
      */
-    public songCidDelete(param: SongsApiSongCidDeleteRequest, options?: Configuration): Promise<SongStatusResponse> {
-        return this.api.songCidDelete(param.cid,  options).toPromise();
-    }
-
-    /**
-     * 指定した楽曲の状態を取得
-     * @param param the request object
-     */
-    public songCidGetWithHttpInfo(param: SongsApiSongCidGetRequest, options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
-        return this.api.songCidGetWithHttpInfo(param.cid,  options).toPromise();
-    }
-
-    /**
-     * 指定した楽曲の状態を取得
-     * @param param the request object
-     */
-    public songCidGet(param: SongsApiSongCidGetRequest, options?: Configuration): Promise<SongStatusResponse> {
-        return this.api.songCidGet(param.cid,  options).toPromise();
+    public deleteSong(param: SongsApiDeleteSongRequest, options?: Configuration): Promise<SongStatusResponse> {
+        return this.api.deleteSong(param.cid,  options).toPromise();
     }
 
     /**
      * 指定した楽曲のダウンロードを開始する
      * @param param the request object
      */
-    public songCidPostWithHttpInfo(param: SongsApiSongCidPostRequest, options?: Configuration): Promise<HttpInfo<FetchSongResponse>> {
-        return this.api.songCidPostWithHttpInfo(param.cid,  options).toPromise();
+    public fetchSongWithHttpInfo(param: SongsApiFetchSongRequest, options?: Configuration): Promise<HttpInfo<FetchSongResponse>> {
+        return this.api.fetchSongWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定した楽曲のダウンロードを開始する
      * @param param the request object
      */
-    public songCidPost(param: SongsApiSongCidPostRequest, options?: Configuration): Promise<FetchSongResponse> {
-        return this.api.songCidPost(param.cid,  options).toPromise();
+    public fetchSong(param: SongsApiFetchSongRequest, options?: Configuration): Promise<FetchSongResponse> {
+        return this.api.fetchSong(param.cid,  options).toPromise();
+    }
+
+    /**
+     * 指定した楽曲の状態を取得
+     * @param param the request object
+     */
+    public getSongStatusWithHttpInfo(param: SongsApiGetSongStatusRequest, options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
+        return this.api.getSongStatusWithHttpInfo(param.cid,  options).toPromise();
+    }
+
+    /**
+     * 指定した楽曲の状態を取得
+     * @param param the request object
+     */
+    public getSongStatus(param: SongsApiGetSongStatusRequest, options?: Configuration): Promise<SongStatusResponse> {
+        return this.api.getSongStatus(param.cid,  options).toPromise();
     }
 
 }

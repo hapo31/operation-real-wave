@@ -1,40 +1,40 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
-import { AlbumData } from '../models/AlbumData.ts';
-import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
-import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
-import { AlbumDetails } from '../models/AlbumDetails.ts';
-import { AlbumSummary } from '../models/AlbumSummary.ts';
-import { AlbumsResponse } from '../models/AlbumsResponse.ts';
-import { Song } from '../models/Song.ts';
-import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
-import { SongSummary } from '../models/SongSummary.ts';
+import { MsrAlbumData } from '../models/MsrAlbumData.ts';
+import { MsrAlbumDataResponse } from '../models/MsrAlbumDataResponse.ts';
+import { MsrAlbumDetailResponse } from '../models/MsrAlbumDetailResponse.ts';
+import { MsrAlbumDetails } from '../models/MsrAlbumDetails.ts';
+import { MsrAlbumSummary } from '../models/MsrAlbumSummary.ts';
+import { MsrAlbumsResponse } from '../models/MsrAlbumsResponse.ts';
+import { MsrSong } from '../models/MsrSong.ts';
+import { MsrSongDetailsResponse } from '../models/MsrSongDetailsResponse.ts';
+import { MsrSongSummary } from '../models/MsrSongSummary.ts';
 
 import { ObservableAlbumApi } from "./ObservableAPI.ts";
 import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumApi.ts";
 
-export interface AlbumApiAlbumCidDataGetRequest {
+export interface AlbumApiGetAlbumDetailsRequest {
     /**
      * アルバムの cid
      * Defaults to: undefined
      * @type string
-     * @memberof AlbumApialbumCidDataGet
+     * @memberof AlbumApigetAlbumDetails
      */
     cid: string
 }
 
-export interface AlbumApiAlbumCidDetailGetRequest {
+export interface AlbumApiGetAlbumSongsRequest {
     /**
      * アルバムの cid
      * Defaults to: undefined
      * @type string
-     * @memberof AlbumApialbumCidDetailGet
+     * @memberof AlbumApigetAlbumSongs
      */
     cid: string
 }
 
-export interface AlbumApiAlbumsGetRequest {
+export interface AlbumApiGetAlbumsRequest {
 }
 
 export class ObjectAlbumApi {
@@ -48,48 +48,48 @@ export class ObjectAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param param the request object
      */
-    public albumCidDataGetWithHttpInfo(param: AlbumApiAlbumCidDataGetRequest, options?: Configuration): Promise<HttpInfo<AlbumDetailResponse>> {
-        return this.api.albumCidDataGetWithHttpInfo(param.cid,  options).toPromise();
+    public getAlbumDetailsWithHttpInfo(param: AlbumApiGetAlbumDetailsRequest, options?: Configuration): Promise<HttpInfo<MsrAlbumDetailResponse>> {
+        return this.api.getAlbumDetailsWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param param the request object
      */
-    public albumCidDataGet(param: AlbumApiAlbumCidDataGetRequest, options?: Configuration): Promise<AlbumDetailResponse> {
-        return this.api.albumCidDataGet(param.cid,  options).toPromise();
+    public getAlbumDetails(param: AlbumApiGetAlbumDetailsRequest, options?: Configuration): Promise<MsrAlbumDetailResponse> {
+        return this.api.getAlbumDetails(param.cid,  options).toPromise();
     }
 
     /**
      * 指定したアルバムの収録楽曲一覧を取得
      * @param param the request object
      */
-    public albumCidDetailGetWithHttpInfo(param: AlbumApiAlbumCidDetailGetRequest, options?: Configuration): Promise<HttpInfo<AlbumDetailResponse>> {
-        return this.api.albumCidDetailGetWithHttpInfo(param.cid,  options).toPromise();
+    public getAlbumSongsWithHttpInfo(param: AlbumApiGetAlbumSongsRequest, options?: Configuration): Promise<HttpInfo<MsrAlbumDetailResponse>> {
+        return this.api.getAlbumSongsWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定したアルバムの収録楽曲一覧を取得
      * @param param the request object
      */
-    public albumCidDetailGet(param: AlbumApiAlbumCidDetailGetRequest, options?: Configuration): Promise<AlbumDetailResponse> {
-        return this.api.albumCidDetailGet(param.cid,  options).toPromise();
+    public getAlbumSongs(param: AlbumApiGetAlbumSongsRequest, options?: Configuration): Promise<MsrAlbumDetailResponse> {
+        return this.api.getAlbumSongs(param.cid,  options).toPromise();
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      * @param param the request object
      */
-    public albumsGetWithHttpInfo(param: AlbumApiAlbumsGetRequest = {}, options?: Configuration): Promise<HttpInfo<AlbumsResponse>> {
-        return this.api.albumsGetWithHttpInfo( options).toPromise();
+    public getAlbumsWithHttpInfo(param: AlbumApiGetAlbumsRequest = {}, options?: Configuration): Promise<HttpInfo<MsrAlbumsResponse>> {
+        return this.api.getAlbumsWithHttpInfo( options).toPromise();
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      * @param param the request object
      */
-    public albumsGet(param: AlbumApiAlbumsGetRequest = {}, options?: Configuration): Promise<AlbumsResponse> {
-        return this.api.albumsGet( options).toPromise();
+    public getAlbums(param: AlbumApiGetAlbumsRequest = {}, options?: Configuration): Promise<MsrAlbumsResponse> {
+        return this.api.getAlbums( options).toPromise();
     }
 
 }
@@ -97,12 +97,12 @@ export class ObjectAlbumApi {
 import { ObservableSongsApi } from "./ObservableAPI.ts";
 import { SongsApiRequestFactory, SongsApiResponseProcessor} from "../apis/SongsApi.ts";
 
-export interface SongsApiSongCidGetRequest {
+export interface SongsApiGetSongDetailsRequest {
     /**
      * 楽曲の cid
      * Defaults to: undefined
      * @type string
-     * @memberof SongsApisongCidGet
+     * @memberof SongsApigetSongDetails
      */
     cid: string
 }
@@ -118,16 +118,16 @@ export class ObjectSongsApi {
      * 指定した楽曲の詳細を取得
      * @param param the request object
      */
-    public songCidGetWithHttpInfo(param: SongsApiSongCidGetRequest, options?: Configuration): Promise<HttpInfo<SongDetailsResponse>> {
-        return this.api.songCidGetWithHttpInfo(param.cid,  options).toPromise();
+    public getSongDetailsWithHttpInfo(param: SongsApiGetSongDetailsRequest, options?: Configuration): Promise<HttpInfo<MsrSongDetailsResponse>> {
+        return this.api.getSongDetailsWithHttpInfo(param.cid,  options).toPromise();
     }
 
     /**
      * 指定した楽曲の詳細を取得
      * @param param the request object
      */
-    public songCidGet(param: SongsApiSongCidGetRequest, options?: Configuration): Promise<SongDetailsResponse> {
-        return this.api.songCidGet(param.cid,  options).toPromise();
+    public getSongDetails(param: SongsApiGetSongDetailsRequest, options?: Configuration): Promise<MsrSongDetailsResponse> {
+        return this.api.getSongDetails(param.cid,  options).toPromise();
     }
 
 }

@@ -1,14 +1,14 @@
 # .SongsApi
 
-All URIs are relative to *http://localhost:3000/msr/api*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**songCidGet**](SongsApi.md#songCidGet) | **GET** /song/{cid} | 指定した楽曲の詳細を取得
+[**getSongDetails**](SongsApi.md#getSongDetails) | **GET** /song/{cid} | 指定した楽曲の詳細を取得
 
 
-# **songCidGet**
-> SongDetailsResponse songCidGet()
+# **getSongDetails**
+> MsrSongDetailsResponse getSongDetails()
 
 
 ### Example
@@ -16,17 +16,17 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, SongsApi } from '';
-import type { SongsApiSongCidGetRequest } from '';
+import type { SongsApiGetSongDetailsRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new SongsApi(configuration);
 
-const request: SongsApiSongCidGetRequest = {
+const request: SongsApiGetSongDetailsRequest = {
     // 楽曲の cid
   cid: "cid_example",
 };
 
-const data = await apiInstance.songCidGet(request);
+const data = await apiInstance.getSongDetails(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -40,7 +40,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SongDetailsResponse**
+**MsrSongDetailsResponse**
 
 ### Authorization
 

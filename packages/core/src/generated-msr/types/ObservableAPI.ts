@@ -2,15 +2,15 @@ import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/htt
 import { Configuration} from '../configuration.ts'
 import { Observable, of, from } from '../rxjsStub.ts';
 import {mergeMap, map} from  '../rxjsStub.ts';
-import { AlbumData } from '../models/AlbumData.ts';
-import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
-import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
-import { AlbumDetails } from '../models/AlbumDetails.ts';
-import { AlbumSummary } from '../models/AlbumSummary.ts';
-import { AlbumsResponse } from '../models/AlbumsResponse.ts';
-import { Song } from '../models/Song.ts';
-import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
-import { SongSummary } from '../models/SongSummary.ts';
+import { MsrAlbumData } from '../models/MsrAlbumData.ts';
+import { MsrAlbumDataResponse } from '../models/MsrAlbumDataResponse.ts';
+import { MsrAlbumDetailResponse } from '../models/MsrAlbumDetailResponse.ts';
+import { MsrAlbumDetails } from '../models/MsrAlbumDetails.ts';
+import { MsrAlbumSummary } from '../models/MsrAlbumSummary.ts';
+import { MsrAlbumsResponse } from '../models/MsrAlbumsResponse.ts';
+import { MsrSong } from '../models/MsrSong.ts';
+import { MsrSongDetailsResponse } from '../models/MsrSongDetailsResponse.ts';
+import { MsrSongSummary } from '../models/MsrSongSummary.ts';
 
 import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumApi.ts";
 export class ObservableAlbumApi {
@@ -32,8 +32,8 @@ export class ObservableAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public albumCidDataGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<AlbumDetailResponse>> {
-        const requestContextPromise = this.requestFactory.albumCidDataGet(cid, _options);
+    public getAlbumDetailsWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<MsrAlbumDetailResponse>> {
+        const requestContextPromise = this.requestFactory.getAlbumDetails(cid, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -47,7 +47,7 @@ export class ObservableAlbumApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.albumCidDataGetWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getAlbumDetailsWithHttpInfo(rsp)));
             }));
     }
 
@@ -55,16 +55,16 @@ export class ObservableAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public albumCidDataGet(cid: string, _options?: Configuration): Observable<AlbumDetailResponse> {
-        return this.albumCidDataGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<AlbumDetailResponse>) => apiResponse.data));
+    public getAlbumDetails(cid: string, _options?: Configuration): Observable<MsrAlbumDetailResponse> {
+        return this.getAlbumDetailsWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<MsrAlbumDetailResponse>) => apiResponse.data));
     }
 
     /**
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidDetailGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<AlbumDetailResponse>> {
-        const requestContextPromise = this.requestFactory.albumCidDetailGet(cid, _options);
+    public getAlbumSongsWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<MsrAlbumDetailResponse>> {
+        const requestContextPromise = this.requestFactory.getAlbumSongs(cid, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -78,7 +78,7 @@ export class ObservableAlbumApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.albumCidDetailGetWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getAlbumSongsWithHttpInfo(rsp)));
             }));
     }
 
@@ -86,15 +86,15 @@ export class ObservableAlbumApi {
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidDetailGet(cid: string, _options?: Configuration): Observable<AlbumDetailResponse> {
-        return this.albumCidDetailGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<AlbumDetailResponse>) => apiResponse.data));
+    public getAlbumSongs(cid: string, _options?: Configuration): Observable<MsrAlbumDetailResponse> {
+        return this.getAlbumSongsWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<MsrAlbumDetailResponse>) => apiResponse.data));
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public albumsGetWithHttpInfo(_options?: Configuration): Observable<HttpInfo<AlbumsResponse>> {
-        const requestContextPromise = this.requestFactory.albumsGet(_options);
+    public getAlbumsWithHttpInfo(_options?: Configuration): Observable<HttpInfo<MsrAlbumsResponse>> {
+        const requestContextPromise = this.requestFactory.getAlbums(_options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -108,15 +108,15 @@ export class ObservableAlbumApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.albumsGetWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getAlbumsWithHttpInfo(rsp)));
             }));
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public albumsGet(_options?: Configuration): Observable<AlbumsResponse> {
-        return this.albumsGetWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<AlbumsResponse>) => apiResponse.data));
+    public getAlbums(_options?: Configuration): Observable<MsrAlbumsResponse> {
+        return this.getAlbumsWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<MsrAlbumsResponse>) => apiResponse.data));
     }
 
 }
@@ -141,8 +141,8 @@ export class ObservableSongsApi {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public songCidGetWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<SongDetailsResponse>> {
-        const requestContextPromise = this.requestFactory.songCidGet(cid, _options);
+    public getSongDetailsWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<MsrSongDetailsResponse>> {
+        const requestContextPromise = this.requestFactory.getSongDetails(cid, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -156,7 +156,7 @@ export class ObservableSongsApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.songCidGetWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getSongDetailsWithHttpInfo(rsp)));
             }));
     }
 
@@ -164,8 +164,8 @@ export class ObservableSongsApi {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public songCidGet(cid: string, _options?: Configuration): Observable<SongDetailsResponse> {
-        return this.songCidGetWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<SongDetailsResponse>) => apiResponse.data));
+    public getSongDetails(cid: string, _options?: Configuration): Observable<MsrSongDetailsResponse> {
+        return this.getSongDetailsWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<MsrSongDetailsResponse>) => apiResponse.data));
     }
 
 }

@@ -49,6 +49,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
     }
 }
 
-export const server1 = new ServerConfiguration<{  }>("http://localhost:3000/api", {  })
+export const server1 = new ServerConfiguration<{  }>("", {  })
 
 export const servers = [server1];

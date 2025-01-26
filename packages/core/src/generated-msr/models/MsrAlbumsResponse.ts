@@ -1,6 +1,6 @@
 /**
- * Operation real wave API
- * MSR Soundtrack audio management website\'s schema 
+ * (c) MONSTER SIREN RECORD
+ * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -10,13 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { Album } from '../models/Album.ts';
-import { Song } from '../models/Song.ts';
+import { MsrAlbumSummary } from '../models/MsrAlbumSummary.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class SongListResponse {
-    'album': Album;
-    'songs': Array<Song>;
+export class MsrAlbumsResponse {
+    'code': number;
+    'msg': string;
+    'data': Array<MsrAlbumSummary>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,20 +24,26 @@ export class SongListResponse {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "album",
-            "baseName": "album",
-            "type": "Album",
+            "name": "code",
+            "baseName": "code",
+            "type": "number",
             "format": ""
         },
         {
-            "name": "songs",
-            "baseName": "songs",
-            "type": "Array<Song>",
+            "name": "msg",
+            "baseName": "msg",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "data",
+            "baseName": "data",
+            "type": "Array<MsrAlbumSummary>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return SongListResponse.attributeTypeMap;
+        return MsrAlbumsResponse.attributeTypeMap;
     }
 
     public constructor() {

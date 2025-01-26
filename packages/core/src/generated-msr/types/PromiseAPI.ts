@@ -1,15 +1,15 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
 import { Configuration} from '../configuration.ts'
 
-import { AlbumData } from '../models/AlbumData.ts';
-import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
-import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
-import { AlbumDetails } from '../models/AlbumDetails.ts';
-import { AlbumSummary } from '../models/AlbumSummary.ts';
-import { AlbumsResponse } from '../models/AlbumsResponse.ts';
-import { Song } from '../models/Song.ts';
-import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
-import { SongSummary } from '../models/SongSummary.ts';
+import { MsrAlbumData } from '../models/MsrAlbumData.ts';
+import { MsrAlbumDataResponse } from '../models/MsrAlbumDataResponse.ts';
+import { MsrAlbumDetailResponse } from '../models/MsrAlbumDetailResponse.ts';
+import { MsrAlbumDetails } from '../models/MsrAlbumDetails.ts';
+import { MsrAlbumSummary } from '../models/MsrAlbumSummary.ts';
+import { MsrAlbumsResponse } from '../models/MsrAlbumsResponse.ts';
+import { MsrSong } from '../models/MsrSong.ts';
+import { MsrSongDetailsResponse } from '../models/MsrSongDetailsResponse.ts';
+import { MsrSongSummary } from '../models/MsrSongSummary.ts';
 import { ObservableAlbumApi } from './ObservableAPI.ts';
 
 import { AlbumApiRequestFactory, AlbumApiResponseProcessor} from "../apis/AlbumApi.ts";
@@ -28,8 +28,8 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public albumCidDataGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumDetailResponse>> {
-        const result = this.api.albumCidDataGetWithHttpInfo(cid, _options);
+    public getAlbumDetailsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<MsrAlbumDetailResponse>> {
+        const result = this.api.getAlbumDetailsWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -37,8 +37,8 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public albumCidDataGet(cid: string, _options?: Configuration): Promise<AlbumDetailResponse> {
-        const result = this.api.albumCidDataGet(cid, _options);
+    public getAlbumDetails(cid: string, _options?: Configuration): Promise<MsrAlbumDetailResponse> {
+        const result = this.api.getAlbumDetails(cid, _options);
         return result.toPromise();
     }
 
@@ -46,8 +46,8 @@ export class PromiseAlbumApi {
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidDetailGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumDetailResponse>> {
-        const result = this.api.albumCidDetailGetWithHttpInfo(cid, _options);
+    public getAlbumSongsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<MsrAlbumDetailResponse>> {
+        const result = this.api.getAlbumSongsWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -55,24 +55,24 @@ export class PromiseAlbumApi {
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public albumCidDetailGet(cid: string, _options?: Configuration): Promise<AlbumDetailResponse> {
-        const result = this.api.albumCidDetailGet(cid, _options);
+    public getAlbumSongs(cid: string, _options?: Configuration): Promise<MsrAlbumDetailResponse> {
+        const result = this.api.getAlbumSongs(cid, _options);
         return result.toPromise();
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public albumsGetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<AlbumsResponse>> {
-        const result = this.api.albumsGetWithHttpInfo(_options);
+    public getAlbumsWithHttpInfo(_options?: Configuration): Promise<HttpInfo<MsrAlbumsResponse>> {
+        const result = this.api.getAlbumsWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public albumsGet(_options?: Configuration): Promise<AlbumsResponse> {
-        const result = this.api.albumsGet(_options);
+    public getAlbums(_options?: Configuration): Promise<MsrAlbumsResponse> {
+        const result = this.api.getAlbums(_options);
         return result.toPromise();
     }
 
@@ -99,8 +99,8 @@ export class PromiseSongsApi {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public songCidGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongDetailsResponse>> {
-        const result = this.api.songCidGetWithHttpInfo(cid, _options);
+    public getSongDetailsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<MsrSongDetailsResponse>> {
+        const result = this.api.getSongDetailsWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -108,8 +108,8 @@ export class PromiseSongsApi {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public songCidGet(cid: string, _options?: Configuration): Promise<SongDetailsResponse> {
-        const result = this.api.songCidGet(cid, _options);
+    public getSongDetails(cid: string, _options?: Configuration): Promise<MsrSongDetailsResponse> {
+        const result = this.api.getSongDetails(cid, _options);
         return result.toPromise();
     }
 

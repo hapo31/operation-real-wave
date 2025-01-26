@@ -23,6 +23,10 @@ export class SafeFilePath {
     return new SafeFilePath(this._fileName, ...path);
   }
 
+  dirname() {
+    return new SafeFilePath(path.dirname(this._fileName));
+  }
+
   private escape(...paths: string[]) {
     return path.join(
       ...paths.map((path) =>

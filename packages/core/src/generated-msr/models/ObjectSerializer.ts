@@ -1,22 +1,22 @@
-export * from '../models/AlbumData.ts';
-export * from '../models/AlbumDataResponse.ts';
-export * from '../models/AlbumDetailResponse.ts';
-export * from '../models/AlbumDetails.ts';
-export * from '../models/AlbumSummary.ts';
-export * from '../models/AlbumsResponse.ts';
-export * from '../models/Song.ts';
-export * from '../models/SongDetailsResponse.ts';
-export * from '../models/SongSummary.ts';
+export * from '../models/MsrAlbumData.ts';
+export * from '../models/MsrAlbumDataResponse.ts';
+export * from '../models/MsrAlbumDetailResponse.ts';
+export * from '../models/MsrAlbumDetails.ts';
+export * from '../models/MsrAlbumSummary.ts';
+export * from '../models/MsrAlbumsResponse.ts';
+export * from '../models/MsrSong.ts';
+export * from '../models/MsrSongDetailsResponse.ts';
+export * from '../models/MsrSongSummary.ts';
 
-import { AlbumData } from '../models/AlbumData.ts';
-import { AlbumDataResponse } from '../models/AlbumDataResponse.ts';
-import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
-import { AlbumDetails } from '../models/AlbumDetails.ts';
-import { AlbumSummary } from '../models/AlbumSummary.ts';
-import { AlbumsResponse } from '../models/AlbumsResponse.ts';
-import { Song } from '../models/Song.ts';
-import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
-import { SongSummary } from '../models/SongSummary.ts';
+import { MsrAlbumData } from '../models/MsrAlbumData.ts';
+import { MsrAlbumDataResponse } from '../models/MsrAlbumDataResponse.ts';
+import { MsrAlbumDetailResponse } from '../models/MsrAlbumDetailResponse.ts';
+import { MsrAlbumDetails } from '../models/MsrAlbumDetails.ts';
+import { MsrAlbumSummary } from '../models/MsrAlbumSummary.ts';
+import { MsrAlbumsResponse } from '../models/MsrAlbumsResponse.ts';
+import { MsrSong } from '../models/MsrSong.ts';
+import { MsrSongDetailsResponse } from '../models/MsrSongDetailsResponse.ts';
+import { MsrSongSummary } from '../models/MsrSongSummary.ts';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -34,15 +34,15 @@ let enumsMap: Set<string> = new Set<string>([
 ]);
 
 let typeMap: {[index: string]: any} = {
-    "AlbumData": AlbumData,
-    "AlbumDataResponse": AlbumDataResponse,
-    "AlbumDetailResponse": AlbumDetailResponse,
-    "AlbumDetails": AlbumDetails,
-    "AlbumSummary": AlbumSummary,
-    "AlbumsResponse": AlbumsResponse,
-    "Song": Song,
-    "SongDetailsResponse": SongDetailsResponse,
-    "SongSummary": SongSummary,
+    "MsrAlbumData": MsrAlbumData,
+    "MsrAlbumDataResponse": MsrAlbumDataResponse,
+    "MsrAlbumDetailResponse": MsrAlbumDetailResponse,
+    "MsrAlbumDetails": MsrAlbumDetails,
+    "MsrAlbumSummary": MsrAlbumSummary,
+    "MsrAlbumsResponse": MsrAlbumsResponse,
+    "MsrSong": MsrSong,
+    "MsrSongDetailsResponse": MsrSongDetailsResponse,
+    "MsrSongSummary": MsrSongSummary,
 }
 
 type MimeTypeDescriptor = {

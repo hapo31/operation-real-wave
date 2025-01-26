@@ -1,6 +1,6 @@
 /**
  * (c) MONSTER SIREN RECORD
- * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com 
+ * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -12,9 +12,11 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class AlbumSummary {
+export class MsrAlbumData {
     'cid': string;
     'name': string;
+    'intro': string;
+    'belong': string;
     'coverUrl': string;
     'coverDeUrl': string;
     'artistes': Array<string>;
@@ -33,6 +35,18 @@ export class AlbumSummary {
         {
             "name": "name",
             "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "intro",
+            "baseName": "intro",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "belong",
+            "baseName": "belong",
             "type": "string",
             "format": ""
         },
@@ -56,7 +70,7 @@ export class AlbumSummary {
         }    ];
 
     static getAttributeTypeMap() {
-        return AlbumSummary.attributeTypeMap;
+        return MsrAlbumData.attributeTypeMap;
     }
 
     public constructor() {

@@ -8,7 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util.ts';
 import {SecurityAuthentication} from '../auth/auth.ts';
 
 
-import { SongDetailsResponse } from '../models/SongDetailsResponse.ts';
+import { MsrSongDetailsResponse } from '../models/MsrSongDetailsResponse.ts';
 
 /**
  * no description
@@ -19,12 +19,12 @@ export class SongsApiRequestFactory extends BaseAPIRequestFactory {
      * 指定した楽曲の詳細を取得
      * @param cid 楽曲の cid
      */
-    public async songCidGet(cid: string, _options?: Configuration): Promise<RequestContext> {
+    public async getSongDetails(cid: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'cid' is not null or undefined
         if (cid === null || cid === undefined) {
-            throw new RequiredError("SongsApi", "songCidGet", "cid");
+            throw new RequiredError("SongsApi", "getSongDetails", "cid");
         }
 
 
@@ -54,25 +54,25 @@ export class SongsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to songCidGet
+     * @params response Response returned by the server for a request to getSongDetails
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async songCidGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<SongDetailsResponse >> {
+     public async getSongDetailsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<MsrSongDetailsResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: SongDetailsResponse = ObjectSerializer.deserialize(
+            const body: MsrSongDetailsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongDetailsResponse", ""
-            ) as SongDetailsResponse;
+                "MsrSongDetailsResponse", ""
+            ) as MsrSongDetailsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: SongDetailsResponse = ObjectSerializer.deserialize(
+            const body: MsrSongDetailsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "SongDetailsResponse", ""
-            ) as SongDetailsResponse;
+                "MsrSongDetailsResponse", ""
+            ) as MsrSongDetailsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

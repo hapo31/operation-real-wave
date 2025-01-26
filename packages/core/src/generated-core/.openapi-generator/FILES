@@ -1,6 +1,5 @@
 .gitattributes
 .gitignore
-.openapi-generator-ignore
 AlbumApi.md
 SongsApi.md
 apis/AlbumApi.ts

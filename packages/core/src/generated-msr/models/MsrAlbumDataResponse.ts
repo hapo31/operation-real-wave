@@ -1,6 +1,6 @@
 /**
  * (c) MONSTER SIREN RECORD
- * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com 
+ * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -10,13 +10,13 @@
  * Do not edit the class manually.
  */
 
-import { AlbumDetails } from '../models/AlbumDetails.ts';
+import { MsrAlbumData } from '../models/MsrAlbumData.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class AlbumDetailResponse {
+export class MsrAlbumDataResponse {
     'code': number;
     'msg': string;
-    'data': AlbumDetails;
+    'data': MsrAlbumData;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -38,12 +38,12 @@ export class AlbumDetailResponse {
         {
             "name": "data",
             "baseName": "data",
-            "type": "AlbumDetails",
+            "type": "MsrAlbumData",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AlbumDetailResponse.attributeTypeMap;
+        return MsrAlbumDataResponse.attributeTypeMap;
     }
 
     public constructor() {

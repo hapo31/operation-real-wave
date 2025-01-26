@@ -1,6 +1,6 @@
 /**
  * (c) MONSTER SIREN RECORD
- * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com 
+ * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com
  *
  * OpenAPI spec version: 0.0.1
  * 
@@ -10,17 +10,17 @@
  * Do not edit the class manually.
  */
 
-import { SongSummary } from '../models/SongSummary.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class AlbumDetails {
+export class MsrSong {
     'cid': string;
     'name': string;
-    'intro': string;
-    'belong': string;
-    'coverUrl': string;
-    'coverDeUrl': string;
-    'songs': Array<SongSummary>;
+    'albumCid': string;
+    'sourceUrl': string;
+    'lyricUrl': string;
+    'mvUrl': string | null;
+    'mvCoverUrl': string | null;
+    'artists': Array<string>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -40,38 +40,44 @@ export class AlbumDetails {
             "format": ""
         },
         {
-            "name": "intro",
-            "baseName": "intro",
+            "name": "albumCid",
+            "baseName": "albumCid",
             "type": "string",
             "format": ""
         },
         {
-            "name": "belong",
-            "baseName": "belong",
+            "name": "sourceUrl",
+            "baseName": "sourceUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "coverUrl",
-            "baseName": "coverUrl",
+            "name": "lyricUrl",
+            "baseName": "lyricUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "coverDeUrl",
-            "baseName": "coverDeUrl",
+            "name": "mvUrl",
+            "baseName": "mvUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "songs",
-            "baseName": "songs",
-            "type": "Array<SongSummary>",
+            "name": "mvCoverUrl",
+            "baseName": "mvCoverUrl",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "artists",
+            "baseName": "artists",
+            "type": "Array<string>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AlbumDetails.attributeTypeMap;
+        return MsrSong.attributeTypeMap;
     }
 
     public constructor() {

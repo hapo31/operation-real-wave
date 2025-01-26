@@ -8,8 +8,8 @@ import {canConsumeForm, isCodeInRange} from '../util.ts';
 import {SecurityAuthentication} from '../auth/auth.ts';
 
 
-import { AlbumDetailResponse } from '../models/AlbumDetailResponse.ts';
-import { AlbumsResponse } from '../models/AlbumsResponse.ts';
+import { MsrAlbumDetailResponse } from '../models/MsrAlbumDetailResponse.ts';
+import { MsrAlbumsResponse } from '../models/MsrAlbumsResponse.ts';
 
 /**
  * no description
@@ -20,12 +20,12 @@ export class AlbumApiRequestFactory extends BaseAPIRequestFactory {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public async albumCidDataGet(cid: string, _options?: Configuration): Promise<RequestContext> {
+    public async getAlbumDetails(cid: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'cid' is not null or undefined
         if (cid === null || cid === undefined) {
-            throw new RequiredError("AlbumApi", "albumCidDataGet", "cid");
+            throw new RequiredError("AlbumApi", "getAlbumDetails", "cid");
         }
 
 
@@ -51,12 +51,12 @@ export class AlbumApiRequestFactory extends BaseAPIRequestFactory {
      * 指定したアルバムの収録楽曲一覧を取得
      * @param cid アルバムの cid
      */
-    public async albumCidDetailGet(cid: string, _options?: Configuration): Promise<RequestContext> {
+    public async getAlbumSongs(cid: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'cid' is not null or undefined
         if (cid === null || cid === undefined) {
-            throw new RequiredError("AlbumApi", "albumCidDetailGet", "cid");
+            throw new RequiredError("AlbumApi", "getAlbumSongs", "cid");
         }
 
 
@@ -81,7 +81,7 @@ export class AlbumApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * リリース済みアルバムの一覧を取得
      */
-    public async albumsGet(_options?: Configuration): Promise<RequestContext> {
+    public async getAlbums(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -109,25 +109,25 @@ export class AlbumApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to albumCidDataGet
+     * @params response Response returned by the server for a request to getAlbumDetails
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumCidDataGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumDetailResponse >> {
+     public async getAlbumDetailsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<MsrAlbumDetailResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: AlbumDetailResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumDetailResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumDetailResponse", ""
-            ) as AlbumDetailResponse;
+                "MsrAlbumDetailResponse", ""
+            ) as MsrAlbumDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: AlbumDetailResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumDetailResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumDetailResponse", ""
-            ) as AlbumDetailResponse;
+                "MsrAlbumDetailResponse", ""
+            ) as MsrAlbumDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -138,25 +138,25 @@ export class AlbumApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to albumCidDetailGet
+     * @params response Response returned by the server for a request to getAlbumSongs
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumCidDetailGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumDetailResponse >> {
+     public async getAlbumSongsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<MsrAlbumDetailResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: AlbumDetailResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumDetailResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumDetailResponse", ""
-            ) as AlbumDetailResponse;
+                "MsrAlbumDetailResponse", ""
+            ) as MsrAlbumDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: AlbumDetailResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumDetailResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumDetailResponse", ""
-            ) as AlbumDetailResponse;
+                "MsrAlbumDetailResponse", ""
+            ) as MsrAlbumDetailResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -167,25 +167,25 @@ export class AlbumApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to albumsGet
+     * @params response Response returned by the server for a request to getAlbums
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async albumsGetWithHttpInfo(response: ResponseContext): Promise<HttpInfo<AlbumsResponse >> {
+     public async getAlbumsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<MsrAlbumsResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: AlbumsResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumsResponse", ""
-            ) as AlbumsResponse;
+                "MsrAlbumsResponse", ""
+            ) as MsrAlbumsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: AlbumsResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumsResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "AlbumsResponse", ""
-            ) as AlbumsResponse;
+                "MsrAlbumsResponse", ""
+            ) as MsrAlbumsResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
