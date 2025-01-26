@@ -1,0 +1,263 @@
+openapi: 3.0.0
+info:
+  title: (c) MONSTER SIREN RECORD
+  version: 0.0.1
+  description: |-
+    MSR original soundtrack website's schema
+    https://monster-siren.hypergryph.com
+tags:
+  - name: album
+  - name: songs
+paths:
+  /album/{cid}/data:
+    get:
+      operationId: getAlbumDetails
+      summary: 指定したアルバムの楽曲を除いた詳細データを取得
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: アルバムの cid
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsrAlbumDetailResponse'
+      tags:
+        - album
+  /album/{cid}/detail:
+    get:
+      operationId: getAlbumSongs
+      summary: 指定したアルバムの収録楽曲一覧を取得
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: アルバムの cid
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsrAlbumDetailResponse'
+      tags:
+        - album
+  /albums:
+    get:
+      operationId: getAlbums
+      summary: リリース済みアルバムの一覧を取得
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsrAlbumsResponse'
+      tags:
+        - album
+  /song/{cid}:
+    get:
+      operationId: getSongDetails
+      summary: 指定した楽曲の詳細を取得
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: 楽曲の cid
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsrSongDetailsResponse'
+      tags:
+        - songs
+components:
+  schemas:
+    MsrAlbumData:
+      type: object
+      required:
+        - cid
+        - name
+        - intro
+        - belong
+        - coverUrl
+        - coverDeUrl
+        - artistes
+      properties:
+        cid:
+          type: string
+        name:
+          type: string
+        intro:
+          type: string
+        belong:
+          type: string
+        coverUrl:
+          type: string
+        coverDeUrl:
+          type: string
+        artistes:
+          type: array
+          items:
+            type: string
+    MsrAlbumDataResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/MsrAlbumData'
+    MsrAlbumDetailResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/MsrAlbumDetails'
+    MsrAlbumDetails:
+      type: object
+      required:
+        - cid
+        - name
+        - intro
+        - belong
+        - coverUrl
+        - coverDeUrl
+        - songs
+      properties:
+        cid:
+          type: string
+        name:
+          type: string
+        intro:
+          type: string
+        belong:
+          type: string
+        coverUrl:
+          type: string
+        coverDeUrl:
+          type: string
+        songs:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsrSongSummary'
+    MsrAlbumSummary:
+      type: object
+      required:
+        - cid
+        - name
+        - coverUrl
+        - coverDeUrl
+        - artistes
+      properties:
+        cid:
+          type: string
+        name:
+          type: string
+        coverUrl:
+          type: string
+        coverDeUrl:
+          type: string
+        artistes:
+          type: array
+          items:
+            type: string
+    MsrAlbumsResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsrAlbumSummary'
+    MsrSong:
+      type: object
+      required:
+        - cid
+        - name
+        - albumCid
+        - sourceUrl
+        - lyricUrl
+        - mvUrl
+        - mvCoverUrl
+        - artists
+      properties:
+        cid:
+          type: string
+        name:
+          type: string
+        albumCid:
+          type: string
+        sourceUrl:
+          type: string
+        lyricUrl:
+          type: string
+        mvUrl:
+          type: string
+          nullable: true
+        mvCoverUrl:
+          type: string
+          nullable: true
+        artists:
+          type: array
+          items:
+            type: string
+    MsrSongDetailsResponse:
+      type: object
+      required:
+        - code
+        - msg
+        - data
+      properties:
+        code:
+          type: integer
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/MsrSong'
+    MsrSongSummary:
+      type: object
+      required:
+        - cid
+        - name
+        - artistes
+      properties:
+        cid:
+          type: string
+        name:
+          type: string
+        artistes:
+          type: array
+          items:
+            type: string

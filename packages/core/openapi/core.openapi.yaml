@@ -1,44 +1,23 @@
-openapi: '3.1.0'
+openapi: 3.0.0
 info:
   title: Operation real wave API
-  description: |
-    MSR Soundtrack audio management website's schema
   version: 0.0.1
-servers:
-  - url: http://localhost:3000/api/
-    description: Dev API (vite dev server proxy required)
+  description: MSR Soundtrack audio management website's schema
 tags:
   - name: album
-    description: アルバム
   - name: songs
-    description: 楽曲
-  - name: file
-    description: ファイル管理
 paths:
-  /albums:
-    get:
-      summary: アルバムの一覧を取得
-      tags:
-        - album
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AlbumListResponse'
   /album/{cid}:
-    get:
-      summary: 指定したアルバムの楽曲一覧を取得
-      tags:
-        - album
+    delete:
+      operationId: deleteAlbum
+      summary: 指定したアルバムをファイルシステム上から削除する
       parameters:
-        - in: path
-          name: cid
-          schema:
-            type: string
+        - name: cid
+          in: path
           required: true
           description: アルバムの cid
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -46,17 +25,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AlbumSongListResponse'
-    post:
-      summary: 指定したアルバムの楽曲すべてのダウンロードを開始する
       tags:
         - album
+    get:
+      operationId: getAlbumSongs
+      summary: 指定したアルバムの楽曲一覧を取得
       parameters:
-        - in: path
-          name: cid
-          schema:
-            type: string
+        - name: cid
+          in: path
           required: true
           description: アルバムの cid
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlbumSongListResponse'
+      tags:
+        - album
+    post:
+      operationId: fetchAlbumSongs
+      summary: 指定したアルバムの楽曲すべてのダウンロードを開始する
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: アルバムの cid
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -64,36 +63,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FetchAlbumResponse'
-    delete:
-      summary: 指定したアルバムをファイルシステム上から削除する
       tags:
         - album
-      parameters:
-        - in: path
-          name: cid
-          schema:
-            type: string
-          required: true
-          description: アルバムの cid
+  /albums:
+    get:
+      operationId: getAlbums
+      summary: アルバムの一覧を取得
+      parameters: []
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AlbumSongListResponse'
-  /song/{cid}:
-    get:
-      summary: 指定した楽曲の状態を取得
+                $ref: '#/components/schemas/AlbumListResponse'
       tags:
-        - songs
+        - album
+  /song/{cid}:
+    delete:
+      operationId: deleteSong
+      summary: 指定した楽曲をファイルシステム上から削除する
       parameters:
-        - in: path
-          name: cid
-          schema:
-            type: string
+        - name: cid
+          in: path
           required: true
           description: 楽曲の cid
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -101,17 +97,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SongStatusResponse'
-    post:
-      summary: 指定した楽曲のダウンロードを開始する
       tags:
         - songs
+    get:
+      operationId: getSongStatus
+      summary: 指定した楽曲の状態を取得
       parameters:
-        - in: path
-          name: cid
-          schema:
-            type: string
+        - name: cid
+          in: path
           required: true
           description: 楽曲の cid
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SongStatusResponse'
+      tags:
+        - songs
+    post:
+      operationId: fetchSong
+      summary: 指定した楽曲のダウンロードを開始する
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: 楽曲の cid
+          schema:
+            type: string
       responses:
         '200':
           description: OK
@@ -119,33 +135,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FetchSongResponse'
-    delete:
-      summary: 指定した楽曲をファイルシステム上から削除する
       tags:
         - songs
-      parameters:
-        - in: path
-          name: cid
-          schema:
-            type: string
-          required: true
-          description: 楽曲の cid
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SongStatusResponse'
-
 components:
   schemas:
-    FileStatus:
-      type: string
-      enum:
-        - NOT_EXISTS
-        - BROKEN
-        - EXISTS
     Album:
       type: object
       required:
@@ -157,20 +150,32 @@ components:
       properties:
         cid:
           type: string
-          example: 8932
         name:
           type: string
-          example: Mystic Light Quest
         songs:
           type: array
           items:
             $ref: '#/components/schemas/Song'
-          example: [塞壬唱片-MSR]
         status:
           $ref: '#/components/schemas/FileStatus'
         coverPath:
           type: string
-          example: ./path/to/album/cover.png
+    AlbumListResponse:
+      type: object
+      required:
+        - albums
+      properties:
+        albums:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlbumSummary'
+    AlbumSongListResponse:
+      type: object
+      required:
+        - album
+      properties:
+        album:
+          $ref: '#/components/schemas/Album'
     AlbumSummary:
       type: object
       required:
@@ -182,20 +187,38 @@ components:
       properties:
         cid:
           type: string
-          example: 8932
         name:
           type: string
-          example: Mystic Light Quest
         artistes:
           type: array
           items:
             type: string
-          example: [塞壬唱片-MSR]
         status:
           $ref: '#/components/schemas/FileStatus'
         coverPath:
           type: string
-          example: ./path/to/album/cover.png
+    FetchAlbumResponse:
+      type: object
+      required:
+        - queuedSongs
+      properties:
+        queuedSongs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+    FetchSongResponse:
+      type: object
+      required:
+        - song
+      properties:
+        song:
+          $ref: '#/components/schemas/Song'
+    FileStatus:
+      type: string
+      enum:
+        - NOT_EXISTS
+        - BROKEN
+        - EXISTS
     Song:
       type: object
       required:
@@ -207,54 +230,17 @@ components:
       properties:
         cid:
           type: string
-          example: 8932
         name:
           type: string
-          example: Mystic Light Quest
         artistes:
           type: array
           items:
             type: string
-          example: [塞壬唱片-MSR]
         status:
           $ref: '#/components/schemas/FileStatus'
         filePath:
           type: string
-          example: /fullpath/to/song/file.flac
-    AlbumListResponse:
-      type: object
-      required:
-        - albums
-      properties:
-        albums:
-          type: array
-          items:
-            $ref: '#/components/schemas/AlbumSummary'
-    FetchAlbumResponse:
-      type: object
-      required:
-        - queuedSongs
-      properties:
-        queuedSongs:
-          type: array
-          items:
-            $ref: '#/components/schemas/Song'
-    AlbumSongListResponse:
-      type: object
-      required:
-        - songs
-        - album
-      properties:
-        album:
-          $ref: '#/components/schemas/Album'
     SongStatusResponse:
-      type: object
-      required:
-        - song
-      properties:
-        song:
-          $ref: '#/components/schemas/Song'
-    FetchSongResponse:
       type: object
       required:
         - song

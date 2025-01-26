@@ -20,7 +20,8 @@
       "extensions": [
         "Prisma.prisma",
         "denoland.vscode-deno",
-        "42Crunch.vscode-openapi"
+        "42Crunch.vscode-openapi",
+        "typespec.typespec-vscode"
       ]
     }
   }

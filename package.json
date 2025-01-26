@@ -7,6 +7,7 @@
     "web": "pnpm -F \"web\""
   },
   "engines": {
-    "node": ">=14"
-  }
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.11.0"
 }

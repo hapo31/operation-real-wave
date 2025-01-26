@@ -15,4 +15,5 @@
   "yaml.schemas": {
     "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json": "file:///workspaces/operation-real-wave/packages/openapi/msr.openapi.yml"
   },
+  "typespec.tsp-server.path": "${workspaceFolder}/packages/core/node_modules/@typespec/compiler",
 }
