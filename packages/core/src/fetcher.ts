@@ -1,31 +1,29 @@
 import { ffmpeg } from "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts";
 
-import {
-  AlbumData,
-  AlbumDetails,
-  AlbumSummary,
-  Song as SongSrc,
-} from "./generated-msr/index.ts";
 import { albumApi } from "./api.ts";
 import AlbumModel from "./model/AlbumModel.ts";
+import { MsrAlbumDetails } from "./generated-msr/models/MsrAlbumDetails.ts";
+import { MsrAlbumData } from "./generated-msr/models/MsrAlbumData.ts";
+import { MsrAlbumSummary } from "./generated-msr/models/MsrAlbumSummary.ts";
+import { MsrSong } from "./generated-msr/models/MsrSong.ts";
 
-export type AlbumEntity = AlbumDetails & AlbumData;
+export type AlbumEntity = MsrAlbumDetails & MsrAlbumData;
 
 export async function fetchAlbumList(): Promise<AlbumModel[]> {
-  const { data } = await albumApi().albumsGet();
+  const { data } = await albumApi().getAlbums();
 
   return data.map((album) => new AlbumModel(album));
 }
 
 export async function fetchAlbumArtWork(
-  album: AlbumSummary,
+  album: MsrAlbumSummary,
 ): Promise<ArrayBuffer> {
   const artwork = await fetch(album.coverUrl).then((res) => res.arrayBuffer());
   return artwork;
 }
 
 export async function fetchSongFile(
-  song: SongSrc,
+  song: MsrSong,
   album: AlbumEntity,
   trackNumber: `${number}/${number}`,
   audioFormat = "flac",

@@ -4,6 +4,7 @@ import { AlbumSongListResponse } from "./generated-core/models/AlbumSongListResp
 
 import { albumApi } from "./api.ts";
 import { FileStatus } from "./generated-core/models/FileStatus.ts";
+import AlbumModel from "./model/AlbumModel.ts";
 
 export default class App {
   private readonly app: Hono;
@@ -12,23 +13,25 @@ export default class App {
     const app = new Hono();
 
     app.get("/albums", async (c) => {
-      const { data } = await albumApi().albumsGet();
+      const { data } = await albumApi().getAlbums();
 
       return c.json<AlbumListResponse>({
-        albums: data.map((album) => ({
-          ...album,
-          // TODO: 一度表示した画像はキャッシュする処理を入れる
-          coverPath: album.coverUrl,
-          // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
-          status: FileStatus.NotExists,
-        })),
+        albums: data
+          .map((album) => new AlbumModel(album))
+          .map((album) => ({
+            ...album,
+            // TODO: キャッシュのパスを返す処理を入れる
+            // coverPath:
+            // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
+            status: FileStatus.NotExists,
+          })),
       });
     });
 
     app.get("/album/:cid", async (c) => {
       const { cid } = c.req.param();
       try {
-        const { data } = await albumApi().albumCidDetailGet(cid);
+        const { data } = await albumApi().getAlbumSongs(cid);
 
         return c.json<AlbumSongListResponse>({
           album: {
