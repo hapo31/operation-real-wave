@@ -2,9 +2,10 @@
 import { defineConfig } from "vite";
 import { reactRouter } from "@react-router/dev/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 
 export default defineConfig({
-  plugins: [reactRouter(), tsconfigPaths()],
+  plugins: [reactRouter(), tsconfigPaths(), vanillaExtractPlugin()],
   test: {
     globals: true,
     includeSource: ["app/**/*.{ts,tsx}", "src/**/*.spec.{ts,tsx}"],
