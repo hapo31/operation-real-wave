@@ -1,14 +1,16 @@
-import { Link } from "react-router";
+import { useLoaderData } from "react-router";
+import { albumsApi } from "../_src/api/api.js";
+import Albums from "@/src/pages/Albums/Albums.jsx";
 
-export default function Fuga() {
-  return (
-    <div>
-      <h1>fuga</h1>
-      <ul>
-        <li>
-          <Link to="albums">albums</Link>
-        </li>
-      </ul>
-    </div>
-  );
+export async function loader() {
+  const { albums } = await albumsApi().getAlbums();
+  return {
+    albums,
+  };
+}
+
+export default function IndexPage() {
+  const { albums } = useLoaderData<typeof loader>();
+
+  return <Albums albums={albums} />;
 }
