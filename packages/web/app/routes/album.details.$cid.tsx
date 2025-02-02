@@ -10,7 +10,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   if (cid == null) {
     throw new Error("No cid provided");
   }
-  const details = await albumsApi().albumCidGet(cid);
+  const details = await albumsApi().getAlbumSongs(cid);
 
   // アルバムカバー画像はクロスサイト制限が掛かっているかで直接読み込めないので
   // サーバー側で base64 にして返す
