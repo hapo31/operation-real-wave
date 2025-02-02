@@ -1,5 +1,63 @@
 {
   "version": "4",
+  "specifiers": {
+    "jsr:@hono/hono@*": "4.6.20",
+    "npm:@hono/swagger-ui@*": "0.4.1_hono@4.6.2",
+    "npm:@hono/zod-openapi@*": "0.16.0_hono@4.6.2_zod@3.23.8",
+    "npm:hono@*": "4.6.2",
+    "npm:zod@*": "3.23.8"
+  },
+  "jsr": {
+    "@hono/hono@4.6.20": {
+      "integrity": "0db02d7b80db67a17e18b434c6105af002412cada5e908013086eb9fa9466a87"
+    }
+  },
+  "npm": {
+    "@asteasolutions/zod-to-openapi@7.1.1_zod@3.23.8": {
+      "integrity": "sha512-lF0d1gAc0lYLO9/BAGivwTwE2Sh9h6CHuDcbk5KnGBfIuAsAkDC+Fdat4dkQY3CS/zUWKHRmFEma0B7X132Ymw==",
+      "dependencies": [
+        "openapi3-ts",
+        "zod"
+      ]
+    },
+    "@hono/swagger-ui@0.4.1_hono@4.6.2": {
+      "integrity": "sha512-kPaJatHffeYQ3yVkHo878hCqwfapqx54FczJVJ+eRWt8J4biyVVMIdCAJb6MyA8bcnHUoTmUpPc7OJAV1VTg2g==",
+      "dependencies": [
+        "hono"
+      ]
+    },
+    "@hono/zod-openapi@0.16.0_hono@4.6.2_zod@3.23.8": {
+      "integrity": "sha512-jTnccfMTxDmA50FZeyTDD5oNDpcYo0qPzugwMuinnEQRYHLEqOXLv+sP89KNZWCGcL3Ccl+cr5GGE4yxenozqw==",
+      "dependencies": [
+        "@asteasolutions/zod-to-openapi",
+        "@hono/zod-validator",
+        "hono",
+        "zod"
+      ]
+    },
+    "@hono/zod-validator@0.2.2_hono@4.6.2_zod@3.23.8": {
+      "integrity": "sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==",
+      "dependencies": [
+        "hono",
+        "zod"
+      ]
+    },
+    "hono@4.6.2": {
+      "integrity": "sha512-v+39817TgAhetmHUEli8O0uHDmxp2Up3DnhS4oUZXOl5IQ9np9tYtldd42e5zgdLVS0wsOoXQNZ6mx+BGmEvCA=="
+    },
+    "openapi3-ts@4.4.0": {
+      "integrity": "sha512-9asTNB9IkKEzWMcHmVZE7Ts3kC9G7AFHfs8i7caD8HbI76gEjdkId4z/AkP83xdZsH7PLAnnbl47qZkXuxpArw==",
+      "dependencies": [
+        "yaml"
+      ]
+    },
+    "yaml@2.5.1": {
+      "integrity": "sha512-bLQOjaX/ADgQ20isPJRvF0iRUHIxVhYvr53Of7wGcWlO2jvtUlH5m87DsmulFVxRpNLOnI4tB6p/oh8D7kpn9Q=="
+    },
+    "zod@3.23.8": {
+      "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g=="
+    }
+  },
   "remote": {
     "https://deno.land/std@0.224.0/assert/assert.ts": "09d30564c09de846855b7b071e62b5974b001bb72a4b797958fe0660e7849834",
     "https://deno.land/std@0.224.0/assert/assertion_error.ts": "ba8752bd27ebc51f723702fac2f54d3e94447598f54264a6653d6413738a8917",
@@ -83,17 +141,15 @@
   },
   "workspace": {
     "dependencies": [
-      "npm:hono@*"
+      "jsr:@hono/hono@*"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@hono/zod-openapi@0.16",
         "npm:@openapitools/openapi-generator-cli@^2.13.7",
         "npm:@typespec/compiler@0.64",
         "npm:@typespec/http@0.64",
         "npm:@typespec/openapi3@0.64",
         "npm:@typespec/openapi@0.64",
-        "npm:hono@^4.5.3",
         "npm:npm-run-all@^4.1.5"
       ]
     }

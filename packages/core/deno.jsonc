@@ -9,7 +9,7 @@
     "jsxImportSource": "hono/jsx"
   },
   "imports": {
-    "hono": "npm:hono"
+    "hono": "jsr:@hono/hono"
   },
   "lint": {
     "include": ["src"],
