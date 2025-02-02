@@ -11,11 +11,14 @@ using OpenAPI;
  *
  */
 @service({
-  title: "(c) MONSTER SIREN RECORD",
+  title: "msr",
 })
 @info({
   version: "0.0.1",
+  title: "(c) MONSTER SIREN RECORDs"
 })
+@server("https://monster-siren.hypergryph.com/api")
+
 namespace msr;
 
 model MsrAlbumSummary {

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: (c) MONSTER SIREN RECORD
+  title: (c) MONSTER SIREN RECORDs
   version: 0.0.1
   description: |-
     MSR original soundtrack website's schema
@@ -261,3 +261,6 @@ components:
           type: array
           items:
             type: string
+servers:
+  - url: https://monster-siren.hypergryph.com/api
+    variables: {}

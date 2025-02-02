@@ -1,5 +1,5 @@
 /**
- * (c) MONSTER SIREN RECORD
+ * (c) MONSTER SIREN RECORDs
  * MSR original soundtrack website\'s schema https://monster-siren.hypergryph.com
  *
  * OpenAPI spec version: 0.0.1

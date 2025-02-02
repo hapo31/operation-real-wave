@@ -1,6 +1,6 @@
 # .AlbumApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://monster-siren.hypergryph.com/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

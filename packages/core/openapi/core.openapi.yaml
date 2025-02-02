@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Operation real wave API
+  title: core
   version: 0.0.1
   description: MSR Soundtrack audio management website's schema
 tags:
@@ -247,3 +247,6 @@ components:
       properties:
         song:
           $ref: '#/components/schemas/Song'
+servers:
+  - url: http://localhost:8000
+    variables: {}

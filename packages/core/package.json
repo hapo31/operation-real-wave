@@ -5,16 +5,14 @@
     "openapi": "openapi-generator-cli",
     "tsp": "tsp",
     "tsp:compile": "run-p tsp:compile:*",
-    "tsp:compile:msr": "tsp compile ./tsp/msr.tsp --config ./tspconfig.yaml",
-    "tsp:compile:core": "tsp compile ./tsp/core.tsp --config ./tspconfig.yaml",
-    "_pregen": "pnpm tsp:compile",
+    "tsp:compile:msr": "tsp compile ./tsp/msr.tsp --options \"@typespec/openapi3.output-file=msr.openapi.yaml\" --config ./tspconfig.yaml",
+    "tsp:compile:core": "tsp compile ./tsp/core.tsp --options \"@typespec/openapi3.output-file=core.openapi.yaml\" --config ./tspconfig.yaml",
+    "pregen": "pnpm tsp:compile",
     "gen": "run-p gen:*",
     "gen:msr": "openapi-generator-cli generate -i ./openapi/msr.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-msr/",
     "gen:core": "openapi-generator-cli generate -i ./openapi/core.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-core/"
   },
   "dependencies": {
-    "@hono/zod-openapi": "^0.16.0",
-    "hono": "^4.5.3"
   },
   "devDependencies": {
     "@typespec/compiler": "^0.64.0",

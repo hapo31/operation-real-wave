@@ -1,5 +1,5 @@
 /**
- * Operation real wave API
+ * core
  * MSR Soundtrack audio management website\'s schema
  *
  * OpenAPI spec version: 0.0.1

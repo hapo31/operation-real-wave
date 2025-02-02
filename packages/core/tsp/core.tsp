@@ -10,11 +10,13 @@ using OpenAPI;
  *
  */
 @service({
-  title: "Operation real wave API",
+  title: "core",
 })
 @info({
   version: "0.0.1",
 })
+@server("http://localhost:8000")
+
 namespace core;
 
 enum FileStatus {
