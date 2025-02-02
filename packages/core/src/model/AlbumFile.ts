@@ -6,16 +6,21 @@ import {
   safeIsExists,
   safeMkdir,
   safeWriteFile,
-} from "../safeFilePath.ts";
+} from "../lib/safeFilePath.ts";
 
 export default class AlbumFile implements IFile {
-  private filePath: SafeFilePath;
-  constructor(private basePath: string, model: Album) {
-    this.filePath = new SafeFilePath(
+  private _filePath: SafeFilePath;
+  constructor(private basePath: string, model: Pick<Album, "coverPath">) {
+    this._filePath = new SafeFilePath(
       this.basePath,
       model.coverPath,
     );
   }
+
+  get filePath(): SafeFilePath {
+    return this._filePath;
+  }
+
   async save(arrayBuffer: ArrayBuffer): Promise<void> {
     await safeMkdir(this.filePath);
     await safeWriteFile(this.filePath, arrayBuffer);
