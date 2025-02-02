@@ -1,65 +1,6 @@
 {
-  "version": "3",
-  "packages": {
-    "specifiers": {
-      "npm:@hono/swagger-ui": "npm:@hono/swagger-ui@0.4.1_hono@4.5.8",
-      "npm:@hono/zod-openapi": "npm:@hono/zod-openapi@0.16.0_hono@4.5.8_zod@3.23.8",
-      "npm:hono": "npm:hono@4.5.8",
-      "npm:zod": "npm:zod@3.23.8"
-    },
-    "npm": {
-      "@asteasolutions/zod-to-openapi@7.1.1_zod@3.23.8": {
-        "integrity": "sha512-lF0d1gAc0lYLO9/BAGivwTwE2Sh9h6CHuDcbk5KnGBfIuAsAkDC+Fdat4dkQY3CS/zUWKHRmFEma0B7X132Ymw==",
-        "dependencies": {
-          "openapi3-ts": "openapi3-ts@4.3.3",
-          "zod": "zod@3.23.8"
-        }
-      },
-      "@hono/swagger-ui@0.4.1_hono@4.5.8": {
-        "integrity": "sha512-kPaJatHffeYQ3yVkHo878hCqwfapqx54FczJVJ+eRWt8J4biyVVMIdCAJb6MyA8bcnHUoTmUpPc7OJAV1VTg2g==",
-        "dependencies": {
-          "hono": "hono@4.5.8"
-        }
-      },
-      "@hono/zod-openapi@0.16.0_hono@4.5.8_zod@3.23.8": {
-        "integrity": "sha512-jTnccfMTxDmA50FZeyTDD5oNDpcYo0qPzugwMuinnEQRYHLEqOXLv+sP89KNZWCGcL3Ccl+cr5GGE4yxenozqw==",
-        "dependencies": {
-          "@asteasolutions/zod-to-openapi": "@asteasolutions/zod-to-openapi@7.1.1_zod@3.23.8",
-          "@hono/zod-validator": "@hono/zod-validator@0.2.2_hono@4.5.8_zod@3.23.8",
-          "hono": "hono@4.5.8",
-          "zod": "zod@3.23.8"
-        }
-      },
-      "@hono/zod-validator@0.2.2_hono@4.5.8_zod@3.23.8": {
-        "integrity": "sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==",
-        "dependencies": {
-          "hono": "hono@4.5.8",
-          "zod": "zod@3.23.8"
-        }
-      },
-      "hono@4.5.8": {
-        "integrity": "sha512-pqpSlcdqGkpTTRpLYU1PnCz52gVr0zVR9H5GzMyJWuKQLLEBQxh96q45QizJ2PPX8NATtz2mu31/PKW/Jt+90Q==",
-        "dependencies": {}
-      },
-      "openapi3-ts@4.3.3": {
-        "integrity": "sha512-LKkzBGJcZ6wdvkKGMoSvpK+0cbN5Xc3XuYkJskO+vjEQWJgs1kgtyUk0pjf8KwPuysv323Er62F5P17XQl96Qg==",
-        "dependencies": {
-          "yaml": "yaml@2.5.0"
-        }
-      },
-      "yaml@2.5.0": {
-        "integrity": "sha512-2wWLbGbYDiSqqIKoPjar3MPgB94ErzCtrNE1FdqGuaO0pi2JGjmE8aW8TDZwzU7vuxcGRdL/4gPQwQ7hD5AMSw==",
-        "dependencies": {}
-      },
-      "zod@3.23.8": {
-        "integrity": "sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==",
-        "dependencies": {}
-      }
-    }
-  },
+  "version": "4",
   "remote": {
-    "https://deno.land/std@0.203.0/dotenv/load.ts": "0636983549b98f29ab75c9a22a42d9723f0a389ece5498fe971e7bb2556a12e2",
-    "https://deno.land/std@0.203.0/dotenv/mod.ts": "1da8c6d0e7f7d8a5c2b19400b763bc11739df24acec235dda7ea2cfd3d300057",
     "https://deno.land/std@0.224.0/assert/assert.ts": "09d30564c09de846855b7b071e62b5974b001bb72a4b797958fe0660e7849834",
     "https://deno.land/std@0.224.0/assert/assertion_error.ts": "ba8752bd27ebc51f723702fac2f54d3e94447598f54264a6653d6413738a8917",
     "https://deno.land/std@0.224.0/path/_common/assert_path.ts": "dbdd757a465b690b2cc72fc5fb7698c51507dec6bfafce4ca500c46b76ff7bd8",
@@ -138,37 +79,20 @@
     "https://deno.land/std@0.224.0/path/windows/relative.ts": "3e1abc7977ee6cc0db2730d1f9cb38be87b0ce4806759d271a70e4997fc638d7",
     "https://deno.land/std@0.224.0/path/windows/resolve.ts": "8dae1dadfed9d46ff46cc337c9525c0c7d959fb400a6308f34595c45bdca1972",
     "https://deno.land/std@0.224.0/path/windows/to_file_url.ts": "40e560ee4854fe5a3d4d12976cef2f4e8914125c81b11f1108e127934ced502e",
-    "https://deno.land/std@0.224.0/path/windows/to_namespaced_path.ts": "4ffa4fb6fae321448d5fe810b3ca741d84df4d7897e61ee29be961a6aac89a4c",
-    "https://deno.land/std@0.97.0/_util/assert.ts": "2f868145a042a11d5ad0a3c748dcf580add8a0dbc0e876eaa0026303a5488f58",
-    "https://deno.land/std@0.97.0/bytes/bytes_list.ts": "a13287edb03f19d27ba4927dec6d6de3e5bd46254cd4aee6f7e5815810122673",
-    "https://deno.land/std@0.97.0/bytes/mod.ts": "1ae1ccfe98c4b979f12b015982c7444f81fcb921bea7aa215bf37d84f46e1e13",
-    "https://deno.land/std@0.97.0/fmt/colors.ts": "db22b314a2ae9430ae7460ce005e0a7130e23ae1c999157e3bb77cf55800f7e4",
-    "https://deno.land/std@0.97.0/io/buffer.ts": "ed3528e299fd1e0dc056c4b5005a07b28c3dabad2595f077a562ff7b06fe89a5",
-    "https://deno.land/std@0.97.0/io/bufio.ts": "61d11414e83d2b504eb8ea2fca3c2670470ee2fe2e5fe82bdd81eb55dc11ac4a",
-    "https://deno.land/std@0.97.0/io/util.ts": "318be78b7954da25f0faffe123fef0d9423ea61af98467e860c06b60265eff6d",
-    "https://deno.land/std@0.97.0/testing/_diff.ts": "961eaf6d9f5b0a8556c9d835bbc6fa74f5addd7d3b02728ba7936ff93364f7a3",
-    "https://deno.land/std@0.97.0/testing/asserts.ts": "341292d12eebc44be4c3c2ca101ba8b6b5859cef2fa69d50c217f9d0bfbcfd1f",
-    "https://deno.land/x/deno_ffmpeg@v3.1.0/deps.ts": "a56c5886d76f6f27b5be8382fd8ece4d242660902d657472a6b873da6dd24ac2",
-    "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts": "1c26e05de887e70b7afe472e4178dd57332f7e2074648fdfa456500d3990dbb0",
-    "https://deno.land/x/deno_ffmpeg@v3.1.0/src/error.ts": "3f63c79efaa34700b7c595d492893c8286d9c5e7bdf59b7d1e9d192325240acf",
-    "https://deno.land/x/deno_ffmpeg@v3.1.0/src/ffmpegClass.ts": "512c71fdf31b72987acc57813832192683bef42469a6c3eb177fc4b7246dcf49",
-    "https://deno.land/x/deno_ffmpeg@v3.1.0/src/formatter.ts": "33d46962aeafd0c7c688aae10fca82465f4d1e631a2c2ef1777ae6eddbaa40a8",
-    "https://deno.land/x/deno_ffmpeg@v3.1.0/src/types.ts": "1229c2fde655799da2d8ca648ab5c82057245da47e91a84aa306db25d44c7534",
-    "https://deno.land/x/p_limit@v1.0.0/mod.ts": "0348ca21c2cce293f6e8b42a96bb235a07550eba8e52c6713365ec247a0b2d8c",
-    "https://deno.land/x/yocto_queue@v0.1.3/mod.ts": "f63406731f43af2038c2a9158446d020d7a6f203ba5e1d9a6c18b1247ee0fb63"
+    "https://deno.land/std@0.224.0/path/windows/to_namespaced_path.ts": "4ffa4fb6fae321448d5fe810b3ca741d84df4d7897e61ee29be961a6aac89a4c"
   },
   "workspace": {
     "dependencies": [
-      "npm:hono"
+      "npm:hono@*"
     ],
     "packageJson": {
       "dependencies": [
-        "npm:@hono/zod-openapi@^0.16.0",
+        "npm:@hono/zod-openapi@0.16",
         "npm:@openapitools/openapi-generator-cli@^2.13.7",
-        "npm:@typespec/compiler@^0.64.0",
-        "npm:@typespec/http@^0.64.0",
-        "npm:@typespec/openapi3@^0.64.0",
-        "npm:@typespec/openapi@^0.64.0",
+        "npm:@typespec/compiler@0.64",
+        "npm:@typespec/http@0.64",
+        "npm:@typespec/openapi3@0.64",
+        "npm:@typespec/openapi@0.64",
         "npm:hono@^4.5.3",
         "npm:npm-run-all@^4.1.5"
       ]
