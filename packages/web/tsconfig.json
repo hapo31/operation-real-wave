@@ -1,5 +1,5 @@
 {
-  "include": [".react-router/types/**/*"],
+  "include": [".react-router/types/**/*", "app"],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
