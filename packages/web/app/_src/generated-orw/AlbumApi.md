@@ -1,17 +1,17 @@
 # .AlbumApi
 
-All URIs are relative to *http://localhost:3000/api*
+All URIs are relative to *http://localhost:8000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**albumCidDelete**](AlbumApi.md#albumCidDelete) | **DELETE** /album/{cid} | 指定したアルバムをファイルシステム上から削除する
-[**albumCidGet**](AlbumApi.md#albumCidGet) | **GET** /album/{cid} | 指定したアルバムの楽曲一覧を取得
-[**albumCidPost**](AlbumApi.md#albumCidPost) | **POST** /album/{cid} | 指定したアルバムの楽曲すべてのダウンロードを開始する
-[**albumsGet**](AlbumApi.md#albumsGet) | **GET** /albums | アルバムの一覧を取得
+[**deleteAlbum**](AlbumApi.md#deleteAlbum) | **DELETE** /album/{cid} | 指定したアルバムをファイルシステム上から削除する
+[**fetchAlbumSongs**](AlbumApi.md#fetchAlbumSongs) | **POST** /album/{cid} | 指定したアルバムの楽曲すべてのダウンロードを開始する
+[**getAlbumSongs**](AlbumApi.md#getAlbumSongs) | **GET** /album/{cid} | 指定したアルバムの楽曲一覧を取得
+[**getAlbums**](AlbumApi.md#getAlbums) | **GET** /albums | アルバムの一覧を取得
 
 
-# **albumCidDelete**
-> AlbumSongListResponse albumCidDelete()
+# **deleteAlbum**
+> AlbumSongListResponse deleteAlbum()
 
 
 ### Example
@@ -19,17 +19,17 @@ Method | HTTP request | Description
 
 ```typescript
 import { createConfiguration, AlbumApi } from '';
-import type { AlbumApiAlbumCidDeleteRequest } from '';
+import type { AlbumApiDeleteAlbumRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AlbumApi(configuration);
 
-const request: AlbumApiAlbumCidDeleteRequest = {
+const request: AlbumApiDeleteAlbumRequest = {
     // アルバムの cid
   cid: "cid_example",
 };
 
-const data = await apiInstance.albumCidDelete(request);
+const data = await apiInstance.deleteAlbum(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -62,8 +62,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **albumCidGet**
-> AlbumSongListResponse albumCidGet()
+# **fetchAlbumSongs**
+> FetchAlbumResponse fetchAlbumSongs()
 
 
 ### Example
@@ -71,69 +71,17 @@ No authorization required
 
 ```typescript
 import { createConfiguration, AlbumApi } from '';
-import type { AlbumApiAlbumCidGetRequest } from '';
+import type { AlbumApiFetchAlbumSongsRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new AlbumApi(configuration);
 
-const request: AlbumApiAlbumCidGetRequest = {
+const request: AlbumApiFetchAlbumSongsRequest = {
     // アルバムの cid
   cid: "cid_example",
 };
 
-const data = await apiInstance.albumCidGet(request);
-console.log('API called successfully. Returned data:', data);
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **cid** | [**string**] | アルバムの cid | defaults to undefined
-
-
-### Return type
-
-**AlbumSongListResponse**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | OK |  -  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **albumCidPost**
-> FetchAlbumResponse albumCidPost()
-
-
-### Example
-
-
-```typescript
-import { createConfiguration, AlbumApi } from '';
-import type { AlbumApiAlbumCidPostRequest } from '';
-
-const configuration = createConfiguration();
-const apiInstance = new AlbumApi(configuration);
-
-const request: AlbumApiAlbumCidPostRequest = {
-    // アルバムの cid
-  cid: "cid_example",
-};
-
-const data = await apiInstance.albumCidPost(request);
+const data = await apiInstance.fetchAlbumSongs(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -166,8 +114,60 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **albumsGet**
-> AlbumListResponse albumsGet()
+# **getAlbumSongs**
+> AlbumSongListResponse getAlbumSongs()
+
+
+### Example
+
+
+```typescript
+import { createConfiguration, AlbumApi } from '';
+import type { AlbumApiGetAlbumSongsRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new AlbumApi(configuration);
+
+const request: AlbumApiGetAlbumSongsRequest = {
+    // アルバムの cid
+  cid: "cid_example",
+};
+
+const data = await apiInstance.getAlbumSongs(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **cid** | [**string**] | アルバムの cid | defaults to undefined
+
+
+### Return type
+
+**AlbumSongListResponse**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **getAlbums**
+> AlbumListResponse getAlbums()
 
 
 ### Example
@@ -181,7 +181,7 @@ const apiInstance = new AlbumApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.albumsGet(request);
+const data = await apiInstance.getAlbums(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

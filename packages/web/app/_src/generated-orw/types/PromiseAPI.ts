@@ -28,8 +28,8 @@ export class PromiseAlbumApi {
      * 指定したアルバムをファイルシステム上から削除する
      * @param cid アルバムの cid
      */
-    public albumCidDeleteWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
-        const result = this.api.albumCidDeleteWithHttpInfo(cid, _options);
+    public deleteAlbumWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
+        const result = this.api.deleteAlbumWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -37,26 +37,8 @@ export class PromiseAlbumApi {
      * 指定したアルバムをファイルシステム上から削除する
      * @param cid アルバムの cid
      */
-    public albumCidDelete(cid: string, _options?: Configuration): Promise<AlbumSongListResponse> {
-        const result = this.api.albumCidDelete(cid, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * 指定したアルバムの楽曲一覧を取得
-     * @param cid アルバムの cid
-     */
-    public albumCidGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
-        const result = this.api.albumCidGetWithHttpInfo(cid, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * 指定したアルバムの楽曲一覧を取得
-     * @param cid アルバムの cid
-     */
-    public albumCidGet(cid: string, _options?: Configuration): Promise<AlbumSongListResponse> {
-        const result = this.api.albumCidGet(cid, _options);
+    public deleteAlbum(cid: string, _options?: Configuration): Promise<AlbumSongListResponse> {
+        const result = this.api.deleteAlbum(cid, _options);
         return result.toPromise();
     }
 
@@ -64,8 +46,8 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲すべてのダウンロードを開始する
      * @param cid アルバムの cid
      */
-    public albumCidPostWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<FetchAlbumResponse>> {
-        const result = this.api.albumCidPostWithHttpInfo(cid, _options);
+    public fetchAlbumSongsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<FetchAlbumResponse>> {
+        const result = this.api.fetchAlbumSongsWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -73,24 +55,42 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲すべてのダウンロードを開始する
      * @param cid アルバムの cid
      */
-    public albumCidPost(cid: string, _options?: Configuration): Promise<FetchAlbumResponse> {
-        const result = this.api.albumCidPost(cid, _options);
+    public fetchAlbumSongs(cid: string, _options?: Configuration): Promise<FetchAlbumResponse> {
+        const result = this.api.fetchAlbumSongs(cid, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * 指定したアルバムの楽曲一覧を取得
+     * @param cid アルバムの cid
+     */
+    public getAlbumSongsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<AlbumSongListResponse>> {
+        const result = this.api.getAlbumSongsWithHttpInfo(cid, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * 指定したアルバムの楽曲一覧を取得
+     * @param cid アルバムの cid
+     */
+    public getAlbumSongs(cid: string, _options?: Configuration): Promise<AlbumSongListResponse> {
+        const result = this.api.getAlbumSongs(cid, _options);
         return result.toPromise();
     }
 
     /**
      * アルバムの一覧を取得
      */
-    public albumsGetWithHttpInfo(_options?: Configuration): Promise<HttpInfo<AlbumListResponse>> {
-        const result = this.api.albumsGetWithHttpInfo(_options);
+    public getAlbumsWithHttpInfo(_options?: Configuration): Promise<HttpInfo<AlbumListResponse>> {
+        const result = this.api.getAlbumsWithHttpInfo(_options);
         return result.toPromise();
     }
 
     /**
      * アルバムの一覧を取得
      */
-    public albumsGet(_options?: Configuration): Promise<AlbumListResponse> {
-        const result = this.api.albumsGet(_options);
+    public getAlbums(_options?: Configuration): Promise<AlbumListResponse> {
+        const result = this.api.getAlbums(_options);
         return result.toPromise();
     }
 
@@ -117,8 +117,8 @@ export class PromiseSongsApi {
      * 指定した楽曲をファイルシステム上から削除する
      * @param cid 楽曲の cid
      */
-    public songCidDeleteWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
-        const result = this.api.songCidDeleteWithHttpInfo(cid, _options);
+    public deleteSongWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
+        const result = this.api.deleteSongWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -126,26 +126,8 @@ export class PromiseSongsApi {
      * 指定した楽曲をファイルシステム上から削除する
      * @param cid 楽曲の cid
      */
-    public songCidDelete(cid: string, _options?: Configuration): Promise<SongStatusResponse> {
-        const result = this.api.songCidDelete(cid, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * 指定した楽曲の状態を取得
-     * @param cid 楽曲の cid
-     */
-    public songCidGetWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
-        const result = this.api.songCidGetWithHttpInfo(cid, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * 指定した楽曲の状態を取得
-     * @param cid 楽曲の cid
-     */
-    public songCidGet(cid: string, _options?: Configuration): Promise<SongStatusResponse> {
-        const result = this.api.songCidGet(cid, _options);
+    public deleteSong(cid: string, _options?: Configuration): Promise<SongStatusResponse> {
+        const result = this.api.deleteSong(cid, _options);
         return result.toPromise();
     }
 
@@ -153,8 +135,8 @@ export class PromiseSongsApi {
      * 指定した楽曲のダウンロードを開始する
      * @param cid 楽曲の cid
      */
-    public songCidPostWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<FetchSongResponse>> {
-        const result = this.api.songCidPostWithHttpInfo(cid, _options);
+    public fetchSongWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<FetchSongResponse>> {
+        const result = this.api.fetchSongWithHttpInfo(cid, _options);
         return result.toPromise();
     }
 
@@ -162,8 +144,26 @@ export class PromiseSongsApi {
      * 指定した楽曲のダウンロードを開始する
      * @param cid 楽曲の cid
      */
-    public songCidPost(cid: string, _options?: Configuration): Promise<FetchSongResponse> {
-        const result = this.api.songCidPost(cid, _options);
+    public fetchSong(cid: string, _options?: Configuration): Promise<FetchSongResponse> {
+        const result = this.api.fetchSong(cid, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * 指定した楽曲の状態を取得
+     * @param cid 楽曲の cid
+     */
+    public getSongStatusWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<SongStatusResponse>> {
+        const result = this.api.getSongStatusWithHttpInfo(cid, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * 指定した楽曲の状態を取得
+     * @param cid 楽曲の cid
+     */
+    public getSongStatus(cid: string, _options?: Configuration): Promise<SongStatusResponse> {
+        const result = this.api.getSongStatus(cid, _options);
         return result.toPromise();
     }
 
