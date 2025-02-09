@@ -1,5 +1,5 @@
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
-import { router } from "./src/trpc.ts"
+import { router } from "./src/trpc/init.ts"
 
 import albumsRoute from "./src/albums/albumsRoute.ts";
 
@@ -10,7 +10,7 @@ export const appRouter = router({
 export type AppRouter = typeof appRouter;
 
 const server = createHTTPServer({
-  router: appRouter
+  router: appRouter,
 });
 
 server.listen(8000);
