@@ -9,7 +9,8 @@
     "jsxImportSource": "hono/jsx"
   },
   "imports": {
-    "hono": "jsr:@hono/hono"
+    "@trpc/server": "npm:@trpc/server@11.0.0-rc.748",
+    "zod": "npm:zod"
   },
   "lint": {
     "include": ["src"],

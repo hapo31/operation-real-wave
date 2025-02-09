@@ -9,6 +9,13 @@ importers:
   .: {}
 
   packages/core:
+    dependencies:
+      '@trpc/server':
+        specifier: 11.0.0-rc.748
+        version: 11.0.0-rc.748(typescript@5.7.3)
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@openapitools/openapi-generator-cli':
         specifier: ^2.13.7
@@ -37,6 +44,9 @@ importers:
       '@react-router/serve':
         specifier: ^7.1.3
         version: 7.1.3(react-router@7.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(typescript@5.7.3)
+      '@trpc/client':
+        specifier: 11.0.0-rc.748
+        version: 11.0.0-rc.748(@trpc/server@11.0.0-rc.748(typescript@5.7.3))(typescript@5.7.3)
       '@vanilla-extract/css':
         specifier: ^1.17.0
         version: 1.17.0
@@ -685,6 +695,17 @@ packages:
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
+
+  '@trpc/client@11.0.0-rc.748':
+    resolution: {integrity: sha512-n7zTXRFovu4WBC5Xpcjsc9uXsuQDhdboW1XotBF/trvjElZUGiSXUZeqJPxe/CtibgXIb5VSnMRZ5lfpM33HLQ==}
+    peerDependencies:
+      '@trpc/server': 11.0.0-rc.748+b19e7e9a6
+      typescript: '>=5.7.2'
+
+  '@trpc/server@11.0.0-rc.748':
+    resolution: {integrity: sha512-+st99obKEuwZJZ5qvC+21fFI/HJ04uTQW9KBvVDe5LbSxwsB0LbOCOxU4rpRP5b9nzFCEAhbfXPkSBZ3JmEY0g==}
+    peerDependencies:
+      typescript: '>=5.7.2'
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -2854,6 +2875,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -3469,6 +3493,15 @@ snapshots:
   '@sindresorhus/merge-streams@2.3.0': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
+
+  '@trpc/client@11.0.0-rc.748(@trpc/server@11.0.0-rc.748(typescript@5.7.3))(typescript@5.7.3)':
+    dependencies:
+      '@trpc/server': 11.0.0-rc.748(typescript@5.7.3)
+      typescript: 5.7.3
+
+  '@trpc/server@11.0.0-rc.748(typescript@5.7.3)':
+    dependencies:
+      typescript: 5.7.3
 
   '@types/cookie@0.6.0': {}
 
@@ -5884,3 +5917,5 @@ snapshots:
       yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}
+
+  zod@3.24.1: {}
