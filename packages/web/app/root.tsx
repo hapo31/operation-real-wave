@@ -1,3 +1,5 @@
+import { trpc } from "@/src/trpc/trpcClient";
+import TRPCClientProvider from "@/src/trpc/TRPCClientProvider";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 export default function App() {
@@ -10,9 +12,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
+        <TRPCClientProvider>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+        </TRPCClientProvider>
       </body>
     </html>
   );
