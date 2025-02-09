@@ -34,6 +34,9 @@
     },
     "./trpc": {
       "import": "./index.ts"
+    },
+    "./trpc/init": { 
+      "import": "./src/trpc/init.ts"
     }
   }
 }
