@@ -1,10 +1,27 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { publicProcedure } from "../trpc.ts";
+import { publicProcedure, router } from "../trpc.ts";
 import { albumApi } from "../api.ts";
 import { FileStatus } from "../type.ts";
+import AlbumModel from "../model/AlbumModel.ts";
 
-export const details = publicProcedure.input(z.string()).query(async (opts) => {
+const list = publicProcedure.query(async () => {
+  const { data } = await albumApi().getAlbums();
+
+  return {
+    albums: await Promise.all(
+      data
+        .map((album) => new AlbumModel(album))
+        .map(async (album) => ({
+          ...album,
+          coverPath: await album.coverPath,
+          status: await album.fileStatus(),
+        })),
+    ),
+  };
+});
+
+const details = publicProcedure.input(z.string()).query(async (opts) => {
   const { input: cid } = opts;
 
   try {
@@ -31,6 +48,13 @@ export const details = publicProcedure.input(z.string()).query(async (opts) => {
     };
   } catch (e) {
     console.error(e);
-    throw new TRPCError({ message: "Not Found" });
+    throw new TRPCError({ code: "NOT_FOUND", message: "Not Found" });
   }
 });
+
+const albumsRoute = router({
+  list,
+  details,
+});
+
+export default albumsRoute;

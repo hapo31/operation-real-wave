@@ -1,10 +1,10 @@
 import { createHTTPServer } from "@trpc/server/adapters/standalone";
 import { router } from "./src/trpc.ts"
 
-import * as albums from "./src/albums/index.ts";
+import albumsRoute from "./src/albums/albumsRoute.ts";
 
-const appRouter = router({
-  albums
+export const appRouter = router({
+  albums: albumsRoute,
 });
 
 export type AppRouter = typeof appRouter;
@@ -13,4 +13,4 @@ const server = createHTTPServer({
   router: appRouter
 });
 
-Deno.serve(server);
+server.listen(8000);
