@@ -13,5 +13,4 @@ const server = createHTTPServer({
   router: appRouter
 });
 
-
 Deno.serve(server);
