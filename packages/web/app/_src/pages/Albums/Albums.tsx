@@ -1,10 +1,10 @@
-import { AlbumSummary } from "@/api/index";
 import Paging from "@/src/components/Paging";
 import usePaging from "@/src/components/usePaging";
+import AlbumModel from "core/model/AlbumModel.js";
 import { useState } from "react";
 
 type Props = {
-  albums: AlbumSummary[];
+  albums: AlbumModel[];
 };
 
 export default function Albums({ albums }: Props) {

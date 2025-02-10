@@ -1,21 +1,20 @@
-import { FileStatus } from "../generated-core/models/FileStatus.ts";
-import { Song } from "../generated-core/models/Song.ts";
 import { Song as MsrSong } from "../generated-msr/models/Song.ts";
-import { SafeFilePath, safeIsExists } from "../safeFilePath.ts";
+import { SafeFilePath } from "../safeFilePath.ts";
+import { FileStatus } from "../type.ts";
 
-export default class SongModel extends Song {
-  static async fromMsrEntity(entity: MsrSong): Promise<SongModel> {
-    const model = new SongModel();
+export default class SongModel implements MsrSong {
+  cid: string;
+  name: string;
+  artistes: string[];
+  filePath: string;
+  status: FileStatus;
 
-    model.cid = entity.cid;
-    model.name = entity.name;
-    model.artistes = entity.artists;
+  constructor(entity: MsrSong, fileStatus: FileStatus) {
+    this.cid = entity.cid;
+    this.name = entity.name;
+    this.artistes = entity.artists;
     const path = new SafeFilePath(`${entity.cid}_${entity.name}.flac`);
-    model.filePath = path.toString();
-    model.status = await safeIsExists(path)
-      ? FileStatus.Exists
-      : FileStatus.NotExists;
-
-    return model;
+    this.filePath = path.toString();
+    this.status = fileStatus;
   }
 }

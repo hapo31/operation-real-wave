@@ -16,7 +16,7 @@ const albumsRoute = router({
           .map(async (album) => ({
             ...album,
             coverPath: await album.coverPath,
-            status: await album.fileStatus(),
+            status: await AlbumModel.fileStatus(album),
           })),
       ),
     };
@@ -27,8 +27,11 @@ const albumsRoute = router({
     try {
       const { data } = await albumApi().getAlbumSongs(cid);
 
+      const model = new AlbumModel(data);
+
       return {
         album: {
+          ...model,
           cid: data.cid,
           // TODO: 一度表示した画像はキャッシュする処理を入れる
           coverPath: data.coverDeUrl,

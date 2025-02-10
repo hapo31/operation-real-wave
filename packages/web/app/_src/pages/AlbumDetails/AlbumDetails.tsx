@@ -1,9 +1,10 @@
 import { Link } from "react-router";
-import { Album, Song } from "../../generated-orw/index.js";
+import type AlbumModel from "core/model/AlbumModel.js";
+import type SongModel from "core/model/SongModel.js";
 
 type Props = {
-  album: Album;
-  songs: Song[];
+  album: AlbumModel;
+  songs: SongModel[];
   coverBase64: string;
 };
 

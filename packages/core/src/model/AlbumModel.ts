@@ -1,13 +1,19 @@
-import { AlbumSummary } from "../generated-core/models/AlbumSummary.ts";
 import { FileStatus } from "../generated-core/models/FileStatus.ts";
 import { MsrAlbumSummary } from "../generated-msr/models/MsrAlbumSummary.ts";
 import { SafeFilePath, safeIsExists, safeMkdir } from "../lib/safeFilePath.ts";
 
-export default class AlbumModel extends AlbumSummary {
+export default class AlbumModel implements MsrAlbumSummary {
   private filePath: SafeFilePath;
+  coverPath: string;
+
+  cid: string;
+  name: string;
+  artistes: string[];
+
+  coverUrl: string;
+  coverDeUrl: string;
 
   constructor(entity: MsrAlbumSummary) {
-    super();
     this.cid = entity.cid;
     this.name = entity.name;
     this.artistes = entity.artistes;
@@ -16,18 +22,18 @@ export default class AlbumModel extends AlbumSummary {
       "cover.jpg",
     );
     this.coverPath = this.filePath.toString();
+    this.coverUrl = entity.coverUrl;
+    this.coverDeUrl = entity.coverDeUrl;
   }
 
-  async fileStatus(): Promise<FileStatus> {
-    return await safeIsExists(this.filePath)
-      ? FileStatus.Exists
-      : FileStatus.NotExists;
+  static async fileStatus(album: AlbumModel): Promise<FileStatus> {
+    return await safeIsExists(album.filePath) ? FileStatus.Exists : FileStatus.NotExists;
   }
 
-  async writeCover(cover: ArrayBuffer): Promise<void> {
+  static async writeCover(album: AlbumModel, cover: ArrayBuffer): Promise<void> {
     // ディレクトリを作ってから保存
-    await safeMkdir(this.filePath.dirname());
+    await safeMkdir(album.filePath.dirname());
 
-    await Deno.writeFile(this.filePath.toString(), new Uint8Array(cover));
+    await Deno.writeFile(album.filePath.toString(), new Uint8Array(cover));
   }
 }
