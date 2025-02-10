@@ -5,13 +5,9 @@
     "openapi": "openapi-generator-cli",
     "deno": "deno",
     "tsp": "tsp",
-    "tsp:compile": "run-p tsp:compile:*",
-    "tsp:compile:msr": "tsp compile ./tsp/msr.tsp --options \"@typespec/openapi3.output-file=msr.openapi.yaml\" --config ./tspconfig.yaml",
-    "tsp:compile:core": "tsp compile ./tsp/core.tsp --options \"@typespec/openapi3.output-file=core.openapi.yaml\" --config ./tspconfig.yaml",
+    "tsp:compile": "tsp compile ./tsp/msr.tsp --options \"@typespec/openapi3.output-file=msr.openapi.yaml\" --config ./tspconfig.yaml",
     "pregen": "pnpm tsp:compile",
-    "gen": "run-p gen:*",
-    "gen:msr": "openapi-generator-cli generate -i ./openapi/msr.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-msr/",
-    "gen:core": "openapi-generator-cli generate -i ./openapi/core.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-core/"
+    "gen": "openapi-generator-cli generate -i ./openapi/msr.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-msr/"
   },
   "dependencies": {
     "@trpc/server": "11.0.0-rc.748",
@@ -26,8 +22,8 @@
     "npm-run-all": "^4.1.5"
   },
   "exports": {
-    "./models/*": {
-      "import": "./src/generated-core/models/*"
+    "./model/*": {
+      "types": "./src/model/*"
     },
     "./api/*": {
       "import": "./src/generated-orw/*"
