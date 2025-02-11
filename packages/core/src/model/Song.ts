@@ -5,7 +5,6 @@ import { FileStatus } from "../type.ts";
 export default class Song implements MsrSong {
   cid: string;
   name: string;
-  artistes: string[];
   filePath: string;
   status: FileStatus;
   albumCid: string;
@@ -18,7 +17,6 @@ export default class Song implements MsrSong {
   constructor(entity: MsrSong, fileStatus: FileStatus) {
     this.cid = entity.cid;
     this.name = entity.name;
-    this.artistes = entity.artists;
     const path = new SafeFilePath(`${entity.cid}_${entity.name}.flac`);
     this.filePath = path.toString();
     this.status = fileStatus;
