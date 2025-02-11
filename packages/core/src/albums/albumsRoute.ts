@@ -3,7 +3,8 @@ import { z } from "zod";
 import { publicProcedure, router } from "../trpc/init.ts";
 import { albumApi } from "../api.ts";
 import { FileStatus } from "../type.ts";
-import AlbumModel from "../model/AlbumModel.ts";
+import Album from "../model/Album.ts";
+import AlbumDetail from "../model/AlbumDetail.ts";
 
 const albumsRoute = router({
   list: publicProcedure.query(async () => {
@@ -12,11 +13,11 @@ const albumsRoute = router({
     return {
       albums: await Promise.all(
         data
-          .map((album) => new AlbumModel(album))
+          .map((album) => new Album(album))
           .map(async (album) => ({
             ...album,
             coverPath: await album.coverPath,
-            status: await AlbumModel.fileStatus(album),
+            status: await Album.fileStatus(album),
           })),
       ),
     };
@@ -27,7 +28,7 @@ const albumsRoute = router({
     try {
       const { data } = await albumApi().getAlbumSongs(cid);
 
-      const model = new AlbumModel(data);
+      const model = new AlbumDetail(data);
 
       return {
         album: {
@@ -38,15 +39,6 @@ const albumsRoute = router({
           name: data.name,
           // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
           status: FileStatus.NOT_EXISTS,
-          songs: data.songs.map((song) => ({
-            artistes: song.artistes,
-            cid: song.cid,
-            name: song.name,
-            // TODO: 楽曲の状態（音楽ファイルの有無）をチェックしてステータスを決める
-            status: FileStatus.NOT_EXISTS,
-            // ダウンロード済みの場合はローカルのファイルパスを設定する
-            filePath: "",
-          })),
         },
       };
     } catch (e) {
