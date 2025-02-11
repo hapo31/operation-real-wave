@@ -61,7 +61,7 @@ export const FileStatus = {
   NOT_EXISTS: "NOT_EXISTS",
   BROKEN: "BROKEN",
   EXISTS: "EXISTS",
-};
+} as const;
 
 export type FileStatus = keyof typeof FileStatus;
 
