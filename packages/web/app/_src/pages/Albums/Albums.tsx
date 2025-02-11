@@ -1,10 +1,9 @@
 import Paging from "@/src/components/Paging";
 import usePaging from "@/src/components/usePaging";
-import AlbumModel from "core/model/AlbumModel.js";
-import { useState } from "react";
+import Album from "core/model/Album.js";
 
 type Props = {
-  albums: AlbumModel[];
+  albums: Album[];
 };
 
 export default function Albums({ albums }: Props) {

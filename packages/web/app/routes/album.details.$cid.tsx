@@ -11,13 +11,6 @@ export async function loader({ params }: Route.LoaderArgs) {
     throw new Error("No cid provided");
   }
   const { album } = await trpcClient.albums.details.query(cid);
-
-  // アルバムカバー画像はクロスサイト制限が掛かっているかで直接読み込めないので
-  // サーバー側で base64 にして返す
-  const arrayBuffer = await fetch(album.coverPath).then((res) =>
-    res.arrayBuffer()
-  );
-
   return {
     album: album,
     songs: album.songs,

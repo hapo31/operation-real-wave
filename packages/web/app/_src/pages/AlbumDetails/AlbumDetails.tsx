@@ -1,10 +1,12 @@
 import { Link } from "react-router";
-import type AlbumModel from "core/model/AlbumModel.js";
-import type SongModel from "core/model/SongModel.js";
+import type AlbumDetail from "core/model/AlbumDetail.js";
+import type Song from "core/model/Song.js";
+import SongSummary from "@/src/pages/AlbumDetails/Song";
+import { Suspense } from "react";
 
 type Props = {
-  album: AlbumModel;
-  songs: SongModel[];
+  album: AlbumDetail;
+  songs: Song[];
   coverBase64: string;
 };
 
@@ -16,9 +18,9 @@ export default function AlbumDetails({ album, songs, coverBase64 }: Props) {
       <ul>
         {songs.map((song) => (
           <li key={song.cid}>
-            <Link to={`/songs/${song.cid}`}>
-              {song.name}
-            </Link>
+            <Suspense fallback={"..."}>
+              <SongSummary song={song} />
+            </Suspense>
           </li>
         ))}
       </ul>
