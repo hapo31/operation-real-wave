@@ -1,6 +1,8 @@
 import * as path from "https://deno.land/std@0.224.0/path/mod.ts";
 
 export class SafeFilePath {
+  public static basePath = ".cache";
+
   private _fileName: string;
 
   constructor(...paths: string[]) {
@@ -25,6 +27,10 @@ export class SafeFilePath {
 
   dirname() {
     return new SafeFilePath(path.dirname(this._fileName));
+  }
+
+  basename() {
+    return path.basename(this._fileName);
   }
 
   private escape(...paths: string[]) {
