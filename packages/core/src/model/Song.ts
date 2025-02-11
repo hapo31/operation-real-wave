@@ -1,8 +1,8 @@
 import { Song as MsrSong } from "../generated-msr/models/Song.ts";
-import { SafeFilePath } from "../safeFilePath.ts";
+import { SafeFilePath, safeIsExists } from "../lib/safeFilePath.ts";
 import { FileStatus } from "../type.ts";
 
-export default class SongModel implements MsrSong {
+export default class Song implements MsrSong {
   cid: string;
   name: string;
   artistes: string[];
@@ -16,5 +16,11 @@ export default class SongModel implements MsrSong {
     const path = new SafeFilePath(`${entity.cid}_${entity.name}.flac`);
     this.filePath = path.toString();
     this.status = fileStatus;
+  }
+
+  static async fileStatus(entity: MsrSong): Promise<FileStatus> {
+    return await safeIsExists(new SafeFilePath(`${entity.cid}_${entity.name}.flac`))
+      ? FileStatus.EXISTS
+      : FileStatus.NOT_EXISTS;
   }
 }

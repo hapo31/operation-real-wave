@@ -1,7 +1,7 @@
 import { ffmpeg } from "https://deno.land/x/deno_ffmpeg@v3.1.0/mod.ts";
 
 import { albumApi } from "./api.ts";
-import AlbumModel from "./model/AlbumModel.ts";
+import Album from "./model/Album.ts";
 import { MsrAlbumDetails } from "./generated-msr/models/MsrAlbumDetails.ts";
 import { MsrAlbumData } from "./generated-msr/models/MsrAlbumData.ts";
 import { MsrAlbumSummary } from "./generated-msr/models/MsrAlbumSummary.ts";
@@ -9,10 +9,10 @@ import { MsrSong } from "./generated-msr/models/MsrSong.ts";
 
 export type AlbumEntity = MsrAlbumDetails & MsrAlbumData;
 
-export async function fetchAlbumList(): Promise<AlbumModel[]> {
+export async function fetchAlbumList(): Promise<Album[]> {
   const { data } = await albumApi().getAlbums();
 
-  return data.map((album) => new AlbumModel(album));
+  return data.map((album) => new Album(album));
 }
 
 export async function fetchAlbumArtWork(
