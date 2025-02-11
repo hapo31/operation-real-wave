@@ -26,16 +26,22 @@ export default class Album implements MsrAlbumSummary {
     this.coverDeUrl = entity.coverDeUrl;
   }
 
-  static async fileStatus(album: Album): Promise<FileStatus> {
-    return await safeIsExists(new SafeFilePath(album.dirPath))
+  static async fileStatus(album: Pick<Album, "cid" | "name">): Promise<FileStatus> {
+    return await safeIsExists(Album.getAlbumPath(album))
       ? FileStatus.EXISTS
       : FileStatus.NOT_EXISTS;
   }
 
-  static async writeCover(album: Album, cover: ArrayBuffer): Promise<void> {
+  static async writeCover(album: Pick<Album, "cid" | "name">, cover: ArrayBuffer): Promise<void> {
+    const filePath = Album.getAlbumPath(album);
     // ディレクトリを作ってから保存
-    await safeMkdir(new SafeFilePath(album.coverPath).dirname());
+    await safeMkdir(filePath);
+    await Deno.writeFile(filePath.dirname().join("cover.jpg").toString(), new Uint8Array(cover));
+  }
 
-    await Deno.writeFile(album.coverPath.toString(), new Uint8Array(cover));
+  static getAlbumPath(entity: Pick<Album, "cid" | "name">): SafeFilePath {
+    return new SafeFilePath(
+      `${entity.cid}_${entity.name}`,
+    );
   }
 }
