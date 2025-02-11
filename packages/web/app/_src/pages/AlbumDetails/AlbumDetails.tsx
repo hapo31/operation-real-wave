@@ -1,25 +1,25 @@
 import { Link } from "react-router";
 import type AlbumDetail from "core/model/AlbumDetail.js";
 import type Song from "core/model/Song.js";
-import SongSummary from "@/src/pages/AlbumDetails/Song";
+import SongSummary from "@/src/pages/AlbumDetails/SongSummary";
 import { Suspense } from "react";
 
 type Props = {
   album: AlbumDetail;
-  songs: Song[];
+  songCids: string[];
   coverBase64: string;
 };
 
-export default function AlbumDetails({ album, songs, coverBase64 }: Props) {
+export default function AlbumDetails({ album, songCids, coverBase64 }: Props) {
   return (
     <div>
       <img src={coverBase64} />
       <h1>{album.name}</h1>
       <ul>
-        {songs.map((song) => (
-          <li key={song.cid}>
+        {songCids.map((cid) => (
+          <li key={cid}>
             <Suspense fallback={"..."}>
-              <SongSummary song={song} />
+              <SongSummary song={{ cid }} />
             </Suspense>
           </li>
         ))}

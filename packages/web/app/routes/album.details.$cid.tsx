@@ -13,7 +13,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const { album } = await trpcClient.albums.details.query(cid);
   return {
     album: album,
-    songs: album.songs,
+    songs: album.songCids,
     coverBase64: await imageToDataURL(album.coverPath),
   };
 }
@@ -21,5 +21,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 export default function AlbumsRoute() {
   const { album, songs, coverBase64 } = useLoaderData<typeof loader>();
 
-  return <AlbumDetails coverBase64={coverBase64} album={album} songs={songs} />;
+  return (
+    <AlbumDetails coverBase64={coverBase64} album={album} songCids={songs} />
+  );
 }
