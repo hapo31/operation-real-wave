@@ -10,7 +10,7 @@ export default function SongSummary({ song: { cid } }: Props) {
 
   return (
     <div>
-      <h1>{song.name}</h1>
+      <p>{song.name}</p>
     </div>
   );
 }
