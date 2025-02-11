@@ -1,6 +1,5 @@
 .cache
+.openapi
 albums_dist
 !albums_dist/.gitkeep
 
-// FIXME: なぜか tsp をコンパイルするときに一緒に勝手にデフォルトの名前でファイルが作られるので無視する
-openapi.yaml

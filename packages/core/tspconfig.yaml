@@ -6,4 +6,4 @@ options:
     emitter-output-dir: "{output-dir}"
     output-file: "{service-name}.openapi.yaml"
 
-output-dir: "{project-root}/openapi"
+output-dir: "{project-root}/.openapi"

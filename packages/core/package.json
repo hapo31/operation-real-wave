@@ -7,7 +7,7 @@
     "tsp": "tsp",
     "tsp:compile": "tsp compile ./tsp/msr.tsp --options \"@typespec/openapi3.output-file=msr.openapi.yaml\" --config ./tspconfig.yaml",
     "pregen": "pnpm tsp:compile",
-    "gen": "openapi-generator-cli generate -i ./openapi/msr.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-msr/"
+    "gen": "openapi-generator-cli generate -i ./.openapi/msr.openapi.yaml -g typescript --additional-properties=platform=deno -o ./src/generated-msr/"
   },
   "dependencies": {
     "@trpc/server": "11.0.0-rc.748",
