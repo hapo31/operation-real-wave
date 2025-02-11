@@ -3,18 +3,21 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
-import { createTRPCReact } from "@trpc/react-query";
+import { createTRPCQueryUtils, createTRPCReact } from "@trpc/react-query";
 import { AppRouter } from "core/trpc";
 
 export const trpc = createTRPCReact<AppRouter>();
 
 function getUrl() {
   const base = (() => {
-    if (typeof window !== "undefined") return "";
-    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    if (typeof window !== "undefined") return `http://localhost:3000/api`;
+    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}/api`;
+    if (process.env.VITE_API_URL) {
+      return `https://${process.env.VITE_API_URL}/api`;
+    }
     return "http://localhost:8000";
   })();
-  return `${base}`;
+  return base;
 }
 
 export const trpcClient = trpc.createClient({
@@ -34,6 +37,11 @@ export function getQueryClient() {
   // クライアントサイドではキャッシュされた queryClient を取得する
   return (clientQueryClientSingleton ??= makeQueryClient());
 }
+
+export const trpcUtil = createTRPCQueryUtils({
+  queryClient: getQueryClient(),
+  client: trpcClient,
+});
 
 export function makeQueryClient() {
   return new QueryClient(
