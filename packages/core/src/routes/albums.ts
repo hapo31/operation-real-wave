@@ -5,6 +5,7 @@ import { albumApi } from "../api.ts";
 import { FileStatus } from "../type.ts";
 import Album from "../model/Album.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
+import { fetchAlbumArtWork } from "../fetcher.ts";
 
 const albumsRoute = router({
   list: publicProcedure.query(async () => {
@@ -45,6 +46,20 @@ const albumsRoute = router({
       console.error(e);
       throw new TRPCError({ code: "NOT_FOUND", message: "Not Found" });
     }
+  }),
+
+  fetch: publicProcedure.input(z.object({ albumCid: z.string() })).mutation(async (opts) => {
+    const { input: { albumCid } } = opts;
+
+    const { data } = await albumApi().getAlbumDetails(albumCid);
+
+    const album = new AlbumDetail(data);
+
+    if (await Album.fileStatus(album) !== FileStatus.EXISTS) {
+      await Album.writeCover(album, await fetchAlbumArtWork(data));
+    }
+
+    data.songs;
   }),
 });
 
