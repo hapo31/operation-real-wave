@@ -16,7 +16,7 @@ export async function fetchAlbumList(): Promise<Album[]> {
 }
 
 export async function fetchAlbumArtWork(
-  album: MsrAlbumSummary,
+  album: Pick<MsrAlbumSummary, "coverUrl">,
 ): Promise<ArrayBuffer> {
   const artwork = await fetch(album.coverUrl).then((res) => res.arrayBuffer());
   return artwork;
