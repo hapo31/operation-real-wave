@@ -1,5 +1,5 @@
 .cache
 .openapi
-albums_dist
-!albums_dist/.gitkeep
+albums/**/*
+
 
