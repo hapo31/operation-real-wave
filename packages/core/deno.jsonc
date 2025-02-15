@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "start": "deno run --unstable-kv --allow-env --allow-read --allow-write --allow-net index.ts"
+    "start": "deno run --unstable-kv --allow-env --allow-read --allow-write --allow-net index.ts",
+    "watch": "deno run --watch --unstable-kv --allow-env --allow-read --allow-write --allow-net index.ts"
   },
   "compilerOptions": {
     "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],

@@ -2,6 +2,7 @@
   "name": "core",
   "scripts": {
     "start": "deno task start",
+    "dev": "deno task watch",
     "openapi": "openapi-generator-cli",
     "deno": "deno",
     "tsp": "tsp",
