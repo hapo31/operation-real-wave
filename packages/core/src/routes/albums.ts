@@ -51,15 +51,13 @@ const albumsRoute = router({
   fetch: publicProcedure.input(z.object({ albumCid: z.string() })).mutation(async (opts) => {
     const { input: { albumCid } } = opts;
 
-    const { data } = await albumApi().getAlbumDetails(albumCid);
+    const { data } = await albumApi().getAlbumSongs(albumCid);
 
     const album = new AlbumDetail(data);
 
     if (await Album.fileStatus(album) !== FileStatus.EXISTS) {
       await Album.writeCover(album, await fetchAlbumArtWork(data));
     }
-
-    data.songs;
   }),
 });
 
