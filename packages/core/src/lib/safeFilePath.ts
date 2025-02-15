@@ -1,7 +1,7 @@
 import * as path from "https://deno.land/std@0.224.0/path/mod.ts";
 
 export class SafeFilePath {
-  public static basePath = ".cache";
+  public static basePath = "albums";
 
   private _fileName: string;
 
@@ -26,11 +26,14 @@ export class SafeFilePath {
   }
 
   dirname() {
-    return new SafeFilePath(path.dirname(this._fileName));
+    const parsed = path.parse(this._fileName);
+    const dir = parsed.ext === "" ? this._fileName : parsed.dir;
+    return new SafeFilePath(dir);
   }
 
   basename() {
-    return path.basename(this._fileName);
+    const parsed = path.parse(this._fileName);
+    return parsed.base;
   }
 
   private escape(...paths: string[]) {
@@ -53,7 +56,8 @@ export async function safeIsExists(file: SafeFilePath): Promise<boolean> {
 }
 
 export async function safeMkdir(file: SafeFilePath): Promise<boolean> {
-  const dir = path.dirname(file.toString());
+  const parsed = path.parse(file.toString());
+  const dir = parsed.ext === "" ? file.toString() : parsed.dir;
   return await Deno
     .mkdir(dir, { recursive: true })
     .then(() => true)
