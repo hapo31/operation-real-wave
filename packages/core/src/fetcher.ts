@@ -23,15 +23,15 @@ export async function fetchAlbumArtWork(
 }
 
 export async function fetchSongFile(
-  song: MsrSong,
-  album: AlbumEntity,
+  song: Pick<MsrSong, "name" | "artists" | "sourceUrl">,
+  album: Pick<AlbumEntity, "artistes" | "name">,
   trackNumber: `${number}/${number}`,
   audioFormat = "flac",
-): Promise<Uint8Array> {
-  const command = ffmpeg({ input: song.sourceUrl });
+): Promise<void> {
+  const command = ffmpeg({ input: song.sourceUrl, ffmpegDir: "/usr/bin/ffmpeg" });
   command.audioCodec(audioFormat);
-  return await command.save(
-    "pipe:1",
+  await command.save(
+    "./albums/test.flac",
     false,
     makeMataDataArgs({
       name: song.name,
@@ -53,10 +53,34 @@ export function makeMataDataArgs(
   },
 ) {
   return {
-    "metadata:g:0": `title=${props.name}`,
-    "metadata:g:1": `artist=${props.artists.join(", ")}`,
-    "metadata:g:2": `album_artist=${props.albumArtists.join(", ")}`,
-    "metadata:g:3": `album=${props.albumTitle}`,
-    "metadata:g:4": `track=${props.trackNumber}`,
+    metadata: formatMetadata({
+      title: `${props.name}`,
+      artist: `${props.artists.join(", ")}`,
+      album_artist: props.albumArtists ? `${props.albumArtists.join(", ")}` : undefined,
+      album: `${props.albumTitle}`,
+      track: `${props.trackNumber}`,
+    }),
+    // "metadata": `title="${props.name}" -`,
+    // "metadata:g:1": `artist="${props.artists.join(", ")}"`,
+    // "metadata:g:2": props.albumArtists
+    //   ? `album_artist="${props.albumArtists.join(", ")}"`
+    //   : undefined,
+    // "metadata:g:3": `album="${props.albumTitle}"`,
+    // "metadata:g:4": `track="${props.trackNumber}"`,
   };
+}
+
+// metadata: formatMetadata({
+//   title: `${props.name}`,
+//   artist: `${props.artists.join(", ")}`,
+//   album_artist: props.albumArtists ? `${props.albumArtists.join(", ")}` : undefined,
+//   album: `${props.albumTitle}`,
+//   track: `${props.trackNumber}`,
+// }),
+
+function formatMetadata(metadata: Record<string, string | undefined>) {
+  return Object.entries(metadata)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => `${key}="${value}"`)
+    .join("-metadata ");
 }
