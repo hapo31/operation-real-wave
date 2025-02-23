@@ -48,7 +48,7 @@ export class ObjectAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param param the request object
      */
-    public getAlbumDetailsWithHttpInfo(param: AlbumApiGetAlbumDetailsRequest, options?: Configuration): Promise<HttpInfo<MsrAlbumDetailResponse>> {
+    public getAlbumDetailsWithHttpInfo(param: AlbumApiGetAlbumDetailsRequest, options?: Configuration): Promise<HttpInfo<MsrAlbumDataResponse>> {
         return this.api.getAlbumDetailsWithHttpInfo(param.cid,  options).toPromise();
     }
 
@@ -56,7 +56,7 @@ export class ObjectAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param param the request object
      */
-    public getAlbumDetails(param: AlbumApiGetAlbumDetailsRequest, options?: Configuration): Promise<MsrAlbumDetailResponse> {
+    public getAlbumDetails(param: AlbumApiGetAlbumDetailsRequest, options?: Configuration): Promise<MsrAlbumDataResponse> {
         return this.api.getAlbumDetails(param.cid,  options).toPromise();
     }
 

@@ -28,7 +28,7 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public getAlbumDetailsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<MsrAlbumDetailResponse>> {
+    public getAlbumDetailsWithHttpInfo(cid: string, _options?: Configuration): Promise<HttpInfo<MsrAlbumDataResponse>> {
         const result = this.api.getAlbumDetailsWithHttpInfo(cid, _options);
         return result.toPromise();
     }
@@ -37,7 +37,7 @@ export class PromiseAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public getAlbumDetails(cid: string, _options?: Configuration): Promise<MsrAlbumDetailResponse> {
+    public getAlbumDetails(cid: string, _options?: Configuration): Promise<MsrAlbumDataResponse> {
         const result = this.api.getAlbumDetails(cid, _options);
         return result.toPromise();
     }

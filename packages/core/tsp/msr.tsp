@@ -43,6 +43,7 @@ model MsrAlbumDetails {
   coverUrl: string;
   coverDeUrl: string;
   songs: MsrSongSummary[];
+  artistes: string[];
 }
 
 model MsrAlbumData {
@@ -111,7 +112,7 @@ model MsrGetAlbumSongs200ApplicationJsonResponse {
  */
 model MsrGetAlbumDetails200ApplicationJsonResponse {
   @statusCode statusCode: 200;
-  @bodyRoot body: MsrAlbumDetailResponse;
+  @bodyRoot body: MsrAlbumDataResponse;
 }
 
 /**

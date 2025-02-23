@@ -21,6 +21,7 @@ export class MsrAlbumDetails {
     'coverUrl': string;
     'coverDeUrl': string;
     'songs': Array<MsrSongSummary>;
+    'artistes': Array<string>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -67,6 +68,12 @@ export class MsrAlbumDetails {
             "name": "songs",
             "baseName": "songs",
             "type": "Array<MsrSongSummary>",
+            "format": ""
+        },
+        {
+            "name": "artistes",
+            "baseName": "artistes",
+            "type": "Array<string>",
             "format": ""
         }    ];
 

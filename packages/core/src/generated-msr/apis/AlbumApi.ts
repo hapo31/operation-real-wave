@@ -8,6 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util.ts';
 import {SecurityAuthentication} from '../auth/auth.ts';
 
 
+import { MsrAlbumDataResponse } from '../models/MsrAlbumDataResponse.ts';
 import { MsrAlbumDetailResponse } from '../models/MsrAlbumDetailResponse.ts';
 import { MsrAlbumsResponse } from '../models/MsrAlbumsResponse.ts';
 
@@ -112,22 +113,22 @@ export class AlbumApiResponseProcessor {
      * @params response Response returned by the server for a request to getAlbumDetails
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getAlbumDetailsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<MsrAlbumDetailResponse >> {
+     public async getAlbumDetailsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<MsrAlbumDataResponse >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: MsrAlbumDetailResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumDataResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "MsrAlbumDetailResponse", ""
-            ) as MsrAlbumDetailResponse;
+                "MsrAlbumDataResponse", ""
+            ) as MsrAlbumDataResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: MsrAlbumDetailResponse = ObjectSerializer.deserialize(
+            const body: MsrAlbumDataResponse = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "MsrAlbumDetailResponse", ""
-            ) as MsrAlbumDetailResponse;
+                "MsrAlbumDataResponse", ""
+            ) as MsrAlbumDataResponse;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

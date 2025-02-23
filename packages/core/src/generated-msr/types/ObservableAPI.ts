@@ -32,7 +32,7 @@ export class ObservableAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public getAlbumDetailsWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<MsrAlbumDetailResponse>> {
+    public getAlbumDetailsWithHttpInfo(cid: string, _options?: Configuration): Observable<HttpInfo<MsrAlbumDataResponse>> {
         const requestContextPromise = this.requestFactory.getAlbumDetails(cid, _options);
 
         // build promise chain
@@ -55,8 +55,8 @@ export class ObservableAlbumApi {
      * 指定したアルバムの楽曲を除いた詳細データを取得
      * @param cid アルバムの cid
      */
-    public getAlbumDetails(cid: string, _options?: Configuration): Observable<MsrAlbumDetailResponse> {
-        return this.getAlbumDetailsWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<MsrAlbumDetailResponse>) => apiResponse.data));
+    public getAlbumDetails(cid: string, _options?: Configuration): Observable<MsrAlbumDataResponse> {
+        return this.getAlbumDetailsWithHttpInfo(cid, _options).pipe(map((apiResponse: HttpInfo<MsrAlbumDataResponse>) => apiResponse.data));
     }
 
     /**

@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **getAlbumDetails**
-> MsrAlbumDetailResponse getAlbumDetails()
+> MsrAlbumDataResponse getAlbumDetails()
 
 
 ### Example
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**MsrAlbumDetailResponse**
+**MsrAlbumDataResponse**
 
 ### Authorization
 

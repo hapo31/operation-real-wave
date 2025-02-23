@@ -8,6 +8,7 @@ export default class AlbumDetail implements MsrAlbumDetails {
   coverUrl: string;
   coverDeUrl: string;
   songs: never[];
+  artistes: string[];
 
   songCids: string[] = [];
 
@@ -18,6 +19,7 @@ export default class AlbumDetail implements MsrAlbumDetails {
     this.belong = entity.belong;
     this.coverUrl = entity.coverUrl;
     this.coverDeUrl = entity.coverDeUrl;
+    this.artistes = entity.artistes;
     // 曲情報は AlbumDetails では扱わない
     this.songs = [];
     this.songCids = entity.songs.map((song) => song.cid);
