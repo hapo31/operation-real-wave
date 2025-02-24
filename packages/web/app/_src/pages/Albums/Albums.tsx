@@ -7,7 +7,7 @@ type Props = {
 };
 
 export default function Albums({ albums }: Props) {
-  const { slice, ...pagingProps } = usePaging(albums, 10);
+  const { slice, ...pagingProps } = usePaging(albums, 30);
 
   return (
     <div>
