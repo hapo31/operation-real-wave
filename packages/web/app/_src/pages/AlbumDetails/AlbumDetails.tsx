@@ -19,7 +19,7 @@ export default function AlbumDetails({ album, songCids, coverBase64 }: Props) {
         {songCids.map((cid) => (
           <li key={cid}>
             <Suspense fallback={"..."}>
-              <SongSummary song={{ cid }} />
+              <SongSummary song={{ cid, albumCid: album.cid }} />
             </Suspense>
           </li>
         ))}
