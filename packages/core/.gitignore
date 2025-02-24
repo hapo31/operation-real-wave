@@ -2,4 +2,5 @@
 .openapi
 albums/**/*
 
-
+*.db
+*.db-*
