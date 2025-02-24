@@ -5,6 +5,7 @@ import Song from "../model/Song.ts";
 import SongFileSerivce from "../service/SongFileService.ts";
 import { albumApi } from "../api.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
+import { TRPCError } from "@trpc/server";
 
 const songRoute = router({
   detail: publicProcedure.input(z.string()).query(async (opts) => {
@@ -28,16 +29,14 @@ const songRoute = router({
 
       const album = new AlbumDetail(albumResponse);
 
-      const trackNumber = album.songCids.findIndex((s) => s === song.cid) + 1;
-
-      const file = await new SongFileSerivce().fetchSong(
+      await new SongFileSerivce().fetchSong(
         song,
         album,
-        `${trackNumber}/${album.songCids.length}`,
       );
-      // await Deno.writeFile("./albums/test.flac", file);
+      return { message: "ok" };
     } catch (e) {
       console.error(e);
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
     }
   }),
 });
