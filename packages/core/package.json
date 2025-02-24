@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@trpc/server": "11.0.0-rc.748",
+    "fluent-ffmpeg": "^2.1.3",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.7",
+    "@types/fluent-ffmpeg": "^2.1.27",
     "@typespec/compiler": "^0.64.0",
     "@typespec/http": "^0.64.0",
     "@typespec/openapi": "^0.64.0",
@@ -32,7 +34,7 @@
     "./trpc": {
       "import": "./index.ts"
     },
-    "./trpc/init": { 
+    "./trpc/init": {
       "import": "./src/trpc/init.ts"
     }
   }

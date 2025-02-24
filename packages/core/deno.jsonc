@@ -12,7 +12,8 @@
   "nodeModulesDir": "auto",
   "imports": {
     "@trpc/server": "npm:@trpc/server",
-    "zod": "npm:zod"
+    "zod": "npm:zod",
+    "fluent-ffmpeg": "npm:fluent-ffmpeg"
   },
   "lint": {
     "include": ["src"],

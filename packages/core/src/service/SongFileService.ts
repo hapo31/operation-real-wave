@@ -1,6 +1,8 @@
 import { fetchSongFile } from "../fetcher.ts";
+import { SafeFilePath } from "../lib/safeFilePath.ts";
 import Album from "../model/Album.ts";
-import { Song } from "../type.ts";
+import Song from "../model/Song.ts";
+import FfmpegService from "./FfmpegService.ts";
 
 export default class SongFileSerivce {
   async fetchSong(
@@ -8,6 +10,8 @@ export default class SongFileSerivce {
     album: Pick<Album, "artistes" | "name">,
     trackNumber: `${number}/${number}`,
   ): Promise<void> {
-    return await fetchSongFile(song, album, trackNumber);
+    await new FfmpegService().save(new SafeFilePath("./albums/test.flac"), song);
+
+    // return await fetchSongFile(song, album, trackNumber);
   }
 }

@@ -6,11 +6,13 @@
     "npm:@openapitools/openapi-generator-cli@^2.13.7": "2.16.3_@nestjs+common@10.4.15__reflect-metadata@0.1.13__rxjs@7.8.1_axios@1.7.9_rxjs@7.8.1_reflect-metadata@0.1.13",
     "npm:@trpc/server@*": "10.45.2",
     "npm:@trpc/server@11.0.0-rc.748": "11.0.0-rc.748_typescript@5.7.3",
-    "npm:@types/node@*": "22.5.4",
+    "npm:@types/fluent-ffmpeg@^2.1.27": "2.1.27",
     "npm:@typespec/compiler@0.64": "0.64.0",
     "npm:@typespec/http@0.64": "0.64.0_@typespec+compiler@0.64.0",
     "npm:@typespec/openapi3@0.64": "0.64.0_@typespec+compiler@0.64.0_@typespec+http@0.64.0__@typespec+compiler@0.64.0_@typespec+openapi@0.64.0__@typespec+compiler@0.64.0__@typespec+http@0.64.0___@typespec+compiler@0.64.0_@typespec+versioning@0.64.0__@typespec+compiler@0.64.0_openapi-types@12.1.3",
     "npm:@typespec/openapi@0.64": "0.64.0_@typespec+compiler@0.64.0_@typespec+http@0.64.0__@typespec+compiler@0.64.0",
+    "npm:fluent-ffmpeg@*": "2.1.3",
+    "npm:fluent-ffmpeg@^2.1.3": "2.1.3",
     "npm:hono@*": "4.6.2",
     "npm:npm-run-all@^4.1.5": "4.1.5",
     "npm:zod@*": "3.24.1",
@@ -217,6 +219,12 @@
         "typescript"
       ]
     },
+    "@types/fluent-ffmpeg@2.1.27": {
+      "integrity": "sha512-QiDWjihpUhriISNoBi2hJBRUUmoj/BMTYcfz+F+ZM9hHWBYABFAE6hjP/TbCZC0GWwlpa3FzvHH9RzFeRusZ7A==",
+      "dependencies": [
+        "@types/node"
+      ]
+    },
     "@types/json-schema@7.0.15": {
       "integrity": "sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA=="
     },
@@ -345,6 +353,9 @@
     },
     "async-function@1.0.0": {
       "integrity": "sha512-hsU18Ae8CDTR6Kgu9DYf0EbCr/a5iGL0rytQDobUcdpYOKokk8LEjVphnXkDkgpi0wYVsqrXuP0bZxJaTqdgoA=="
+    },
+    "async@0.2.10": {
+      "integrity": "sha512-eAkdoKxU6/LkKDBzLpT+t6Ff5EtfSF4wx1WfJiPEEV7WNLnDaRXk0oVysiEPm262roaachGexwUv94WhSgN5TQ=="
     },
     "asynckit@0.4.0": {
       "integrity": "sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q=="
@@ -799,6 +810,13 @@
       "integrity": "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==",
       "dependencies": [
         "to-regex-range"
+      ]
+    },
+    "fluent-ffmpeg@2.1.3": {
+      "integrity": "sha512-Be3narBNt2s6bsaqP6Jzq91heDgOEaDCJAXcE3qcma/EJBSy5FB4cvO31XBInuAuKBx8Kptf8dkhjK0IOru39Q==",
+      "dependencies": [
+        "async",
+        "which"
       ]
     },
     "follow-redirects@1.15.9": {
@@ -2220,16 +2238,19 @@
   "workspace": {
     "dependencies": [
       "npm:@trpc/server@*",
+      "npm:fluent-ffmpeg@*",
       "npm:zod@*"
     ],
     "packageJson": {
       "dependencies": [
         "npm:@openapitools/openapi-generator-cli@^2.13.7",
         "npm:@trpc/server@11.0.0-rc.748",
+        "npm:@types/fluent-ffmpeg@^2.1.27",
         "npm:@typespec/compiler@0.64",
         "npm:@typespec/http@0.64",
         "npm:@typespec/openapi3@0.64",
         "npm:@typespec/openapi@0.64",
+        "npm:fluent-ffmpeg@^2.1.3",
         "npm:npm-run-all@^4.1.5",
         "npm:zod@^3.24.1"
       ]
