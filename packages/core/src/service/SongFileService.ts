@@ -1,17 +1,29 @@
-import { fetchSongFile } from "../fetcher.ts";
 import { SafeFilePath } from "../lib/safeFilePath.ts";
-import Album from "../model/Album.ts";
+import AlbumDetail from "../model/AlbumDetail.ts";
 import Song from "../model/Song.ts";
 import FfmpegService from "./FfmpegService.ts";
+import FileStatusService from "./FileStatusService.ts";
 
 export default class SongFileSerivce {
   async fetchSong(
     song: Song,
-    album: Pick<Album, "artistes" | "name">,
-    trackNumber: `${number}/${number}`,
+    album: AlbumDetail,
   ): Promise<void> {
-    await new FfmpegService().save(new SafeFilePath("./albums/test.flac"), song);
+    await new FfmpegService(new FileStatusService()).save(
+      this.makeSongFilePath(song, album),
+      song,
+      album,
+    );
+  }
 
-    // return await fetchSongFile(song, album, trackNumber);
+  makeSongFilePath(
+    song: Song,
+    album: AlbumDetail,
+  ) {
+    return new SafeFilePath(
+      "albums",
+      `${album.cid}_${album.name}`,
+      `${song.cid}_${song.name}.flac`,
+    );
   }
 }
