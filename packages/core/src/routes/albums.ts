@@ -6,6 +6,7 @@ import { FileStatus } from "../type.ts";
 import Album from "../model/Album.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
 import { fetchAlbumArtWork } from "../fetcher.ts";
+import FileStatusService, { SongStatus } from "../service/FileStatusService.ts";
 
 const albumsRoute = router({
   list: publicProcedure.query(async () => {
@@ -18,7 +19,6 @@ const albumsRoute = router({
           .map(async (album) => ({
             ...album,
             coverPath: await album.coverPath,
-            status: await Album.fileStatus(album),
           })),
       ),
     };
@@ -38,8 +38,6 @@ const albumsRoute = router({
           // TODO: 一度表示した画像はキャッシュする処理を入れる
           coverPath: data.coverDeUrl,
           name: data.name,
-          // TODO: アルバムの状態（音楽ファイルの有無、カバー画像の有無）をチェックしてステータスを決める
-          status: FileStatus.NOT_EXISTS,
         },
       };
     } catch (e) {
@@ -58,6 +56,29 @@ const albumsRoute = router({
     if (await Album.fileStatus(album) !== FileStatus.EXISTS) {
       await Album.writeCover(album, await fetchAlbumArtWork(data));
     }
+  }),
+
+  status: publicProcedure.input(z.string()).query(async (opts) => {
+    const { input: cid } = opts;
+
+    const { data: album } = await albumApi().getAlbumSongs(cid);
+
+    const statusService = new FileStatusService();
+
+    const songStatuses = await Promise.all(
+      album.songs.map((song) => statusService.get(album, song)),
+    );
+
+    return {
+      statuses: songStatuses
+        .reduce<Record<string, SongStatus>>((acc, curr) => ({
+          ...acc,
+          [curr.cid]: curr,
+        }), {}),
+      albumStatus: songStatuses.every((status) => status.state === "complete")
+        ? "all-complete"
+        : "missing-songs",
+    };
   }),
 });
 
