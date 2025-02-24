@@ -4,9 +4,6 @@ import { useFormAction, useLoaderData, useNavigation } from "react-router";
 
 import imageToDataURL from "../_src/api/imageToDataURL.js";
 import { trpc, trpcClient } from "@/src/trpc/trpcClient.js";
-import { z } from "zod";
-import { useFormState } from "react-dom";
-import { useActionState } from "react";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const cid = params.cid;
