@@ -6,6 +6,8 @@ import SongFileSerivce from "../service/SongFileService.ts";
 import { albumApi } from "../api.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
 import { TRPCError } from "@trpc/server";
+import AlbumFileService from "../service/AlbumFilesService.ts";
+import { FileStatus } from "../type.ts";
 
 const songRoute = router({
   detail: publicProcedure.input(z.string()).query(async (opts) => {
@@ -14,7 +16,7 @@ const songRoute = router({
     const { data } = await songApi().getSongDetails(cid);
 
     return {
-      song: new Song(data, await Song.fileStatus(data)),
+      song: new Song(data),
     };
   }),
 
@@ -25,8 +27,14 @@ const songRoute = router({
       const { data: songResponse } = await songApi().getSongDetails(cid);
       const { data: albumResponse } = await albumApi().getAlbumSongs(songResponse.albumCid);
 
-      const song = new Song(songResponse, await Song.fileStatus(songResponse));
+      const albumFileService = new AlbumFileService();
 
+      const artworkStatus = await albumFileService.artworkStatus(albumResponse);
+      if (artworkStatus !== FileStatus.EXISTS) {
+        await albumFileService.fetchCover(albumResponse);
+      }
+
+      const song = new Song(songResponse);
       const album = new AlbumDetail(albumResponse);
 
       await new SongFileSerivce().fetchSong(
