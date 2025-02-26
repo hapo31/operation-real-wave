@@ -19,7 +19,7 @@ const StatusSchema = z.object({
 type State = z.infer<typeof StateSchema>;
 export type SongStatus = z.infer<typeof StatusSchema>;
 
-export default class FileStatusService {
+export default class FileFetchStatusService {
   kv!: Deno.Kv;
   kvName: string = "./status.db";
 

@@ -3,12 +3,12 @@ import ffmpeg, { FfmpegCommand } from "fluent-ffmpeg";
 
 import { SafeFilePath, safeMkdir } from "../lib/safeFilePath.ts";
 import Song from "../model/Song.ts";
-import FileStatusService from "./FileStatusService.ts";
+import FileFetchStatusService from "./FileFetchStatusService.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
 
 export default class FfmpegService {
-  fileStatusService: FileStatusService;
-  constructor(fileStatusService: FileStatusService) {
+  fileStatusService: FileFetchStatusService;
+  constructor(fileStatusService: FileFetchStatusService) {
     this.fileStatusService = fileStatusService;
   }
 

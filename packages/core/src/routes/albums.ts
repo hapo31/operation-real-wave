@@ -5,23 +5,22 @@ import { albumApi } from "../api.ts";
 import { FileStatus } from "../type.ts";
 import Album from "../model/Album.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
-import { fetchAlbumArtWork } from "../fetcher.ts";
-import FileStatusService, { SongStatus } from "../service/FileStatusService.ts";
+import FileFetchStatusService, { SongStatus } from "../service/FileFetchStatusService.ts";
+import AlbumFileService from "../service/AlbumFilesService.ts";
 
 const albumsRoute = router({
   list: publicProcedure.query(async () => {
-    const { data } = await albumApi().getAlbums();
+    try {
+      const { data } = await albumApi().getAlbums();
 
-    return {
-      albums: await Promise.all(
-        data
-          .map((album) => new Album(album))
-          .map(async (album) => ({
-            ...album,
-            coverPath: await album.coverPath,
-          })),
-      ),
-    };
+      return {
+        albums: data
+          .map((album) => new Album(album)),
+      };
+    } catch (e) {
+      console.error(e);
+      throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+    }
   }),
   details: publicProcedure.input(z.string()).query(async (opts) => {
     const { input: cid } = opts;
@@ -39,6 +38,9 @@ const albumsRoute = router({
           coverPath: data.coverDeUrl,
           name: data.name,
         },
+        statuses: {
+          artwork: await new AlbumFileService().artworkStatus(model),
+        },
       };
     } catch (e) {
       console.error(e);
@@ -51,10 +53,11 @@ const albumsRoute = router({
 
     const { data } = await albumApi().getAlbumSongs(albumCid);
 
+    const albumFileService = new AlbumFileService();
     const album = new AlbumDetail(data);
 
-    if (await Album.fileStatus(album) !== FileStatus.EXISTS) {
-      await Album.writeCover(album, await fetchAlbumArtWork(data));
+    if (await albumFileService.artworkStatus(album) !== FileStatus.EXISTS) {
+      await albumFileService.fetchCover(album);
     }
   }),
 
@@ -63,7 +66,7 @@ const albumsRoute = router({
 
     const { data: album } = await albumApi().getAlbumSongs(cid);
 
-    const statusService = new FileStatusService();
+    const statusService = new FileFetchStatusService();
 
     const songStatuses = await Promise.all(
       album.songs.map((song) => statusService.get(album, song)),

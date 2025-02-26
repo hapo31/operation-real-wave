@@ -5,8 +5,6 @@ import { FileStatus } from "../type.ts";
 export default class Song implements MsrSong {
   cid: string;
   name: string;
-  filePath: string;
-  status: FileStatus;
   albumCid: string;
   sourceUrl: string;
   lyricUrl: string;
@@ -14,24 +12,14 @@ export default class Song implements MsrSong {
   mvCoverUrl: string | null;
   artists: string[];
 
-  constructor(entity: MsrSong, fileStatus: FileStatus) {
+  constructor(entity: MsrSong) {
     this.cid = entity.cid;
     this.name = entity.name;
-    const path = new SafeFilePath(`${entity.cid}_${entity.name}.flac`);
-    this.filePath = path.toString();
-    this.status = fileStatus;
-
     this.albumCid = entity.albumCid;
     this.sourceUrl = entity.sourceUrl;
     this.lyricUrl = entity.lyricUrl;
     this.mvUrl = entity.mvUrl;
     this.mvCoverUrl = entity.mvCoverUrl;
     this.artists = entity.artists;
-  }
-
-  static async fileStatus(entity: MsrSong): Promise<FileStatus> {
-    return await safeIsExists(new SafeFilePath(`${entity.cid}_${entity.name}.flac`))
-      ? FileStatus.EXISTS
-      : FileStatus.NOT_EXISTS;
   }
 }
