@@ -1,12 +1,14 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc/init.ts";
-import { albumApi } from "../api.ts";
+import { albumApi, songApi } from "../api.ts";
 import { FileStatus } from "../type.ts";
 import Album from "../model/Album.ts";
 import AlbumDetail from "../model/AlbumDetail.ts";
 import FileFetchStatusService, { SongStatus } from "../service/FileFetchStatusService.ts";
 import AlbumFileService from "../service/AlbumFilesService.ts";
+import SongFileSerivce from "../service/SongFileService.ts";
+import Song from "../model/Song.ts";
 
 const albumsRoute = router({
   list: publicProcedure.query(async () => {
@@ -53,12 +55,22 @@ const albumsRoute = router({
 
     const { data } = await albumApi().getAlbumSongs(albumCid);
 
+    const songFileService = new SongFileSerivce();
     const albumFileService = new AlbumFileService();
     const album = new AlbumDetail(data);
 
     if (await albumFileService.artworkStatus(album) !== FileStatus.EXISTS) {
       await albumFileService.fetchCover(album);
     }
+
+    await Promise.all(
+      album.songCids.map(async (cid) => {
+        const song = new Song((await songApi().getSongDetails(cid)).data);
+        return await songFileService.fetchSong(song, album);
+      }),
+    );
+
+    return { message: "ok" };
   }),
 
   status: publicProcedure.input(z.string()).query(async (opts) => {
