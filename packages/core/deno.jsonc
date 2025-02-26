@@ -1,7 +1,7 @@
 {
   "tasks": {
-    "start": "deno run --unstable-kv --allow-env --allow-read --allow-write=\"./albums\" --allow-net --allow-run index.ts",
-    "watch": "deno run --unstable-kv --allow-env --allow-read --allow-write=\"./albums\" --allow-net --allow-run --watch index.ts"
+    "start": "deno run --unstable-kv --allow-env --allow-read --allow-write=\"./albums\" --allow-write=\"fetch-cache.db\" --allow-write=\"status.db\" --allow-net --allow-run index.ts",
+    "watch": "deno run --unstable-kv --allow-env --allow-read --allow-write=\"./albums\" --allow-write=\"fetch-cache.db\" --allow-write=\"status.db\" --allow-net --allow-run --watch index.ts"
   },
   "compilerOptions": {
     "lib":  ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
