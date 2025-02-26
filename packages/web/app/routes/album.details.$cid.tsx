@@ -4,6 +4,7 @@ import { useFormAction, useLoaderData, useNavigation } from "react-router";
 
 import imageToDataURL from "../_src/api/imageToDataURL.js";
 import { trpc, trpcClient } from "@/src/trpc/trpcClient.js";
+import { Suspense } from "react";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const cid = params.cid;
@@ -28,7 +29,15 @@ export default function AlbumsRoute() {
   return (
     <div>
       <input type="hidden" name="albumCid" value={album.cid} />
-      <AlbumDetails coverBase64={coverBase64} album={album} songCids={songs} />
+      <Suspense fallback={"..."}>
+        <AlbumDetails
+          coverBase64={coverBase64}
+          album={album}
+          songCids={songs}
+          isFetchingAlbums={fetchMutation
+            .isPending}
+        />
+      </Suspense>
       <button
         type="button"
         onClick={onCickSave}

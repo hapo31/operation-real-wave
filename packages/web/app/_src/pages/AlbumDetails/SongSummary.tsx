@@ -4,16 +4,19 @@ import { useCallback, useState } from "react";
 
 type Props = {
   song: Pick<SongModel, "cid" | "albumCid">;
+  isFetching: boolean;
+  onFetchSong: (cid: string) => void;
 };
 
-export default function SongSummary({ song: { cid, albumCid } }: Props) {
+export default function SongSummary(
+  { song: { cid, albumCid }, isFetching, onFetchSong }: Props,
+) {
   const [{ song }] = trpc.song.detail.useSuspenseQuery(cid);
   const fetchMutation = trpc.song.fetch.useMutation();
-  const [inProgress, setInProgress] = useState(false);
   const [{ statuses }, statusQuery] = trpc.albums.status.useSuspenseQuery(
     albumCid,
     {
-      refetchInterval: inProgress ? 1000 : false,
+      refetchInterval: isFetching ? 1000 : false,
     },
   );
   const status = statuses[cid];
@@ -21,7 +24,6 @@ export default function SongSummary({ song: { cid, albumCid } }: Props) {
   const onClickSave = useCallback(async () => {
     await fetchMutation.mutateAsync(cid);
     statusQuery.refetch();
-    setInProgress(true);
   }, [cid]);
 
   return (
