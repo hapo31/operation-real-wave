@@ -1,6 +1,4 @@
 import { MsrSong } from "../generated-msr/models/MsrSong.ts";
-import { SafeFilePath, safeIsExists } from "../lib/safeFilePath.ts";
-import { FileStatus } from "../type.ts";
 
 export default class Song implements MsrSong {
   cid: string;
