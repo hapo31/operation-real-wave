@@ -29,7 +29,7 @@ export default function AlbumDetails(
           <li key={cid}>
             <Suspense fallback={"..."}>
               <SongSummary
-                isFetching={isFetchingAlbums ||
+                isFetchingStatus={isFetchingAlbums ||
                   status.statuses[cid].state === "fetch"}
                 onFetchSong={(cid) => {
                   fetchMutation.mutate(cid);

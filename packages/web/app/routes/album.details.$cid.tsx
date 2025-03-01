@@ -1,6 +1,6 @@
 import type { Route } from "../+types/root.js";
 import AlbumDetails from "../_src/pages/AlbumDetails/AlbumDetails.jsx";
-import { useFormAction, useLoaderData, useNavigation } from "react-router";
+import { useLoaderData } from "react-router";
 
 import imageToDataURL from "../_src/api/imageToDataURL.js";
 import { trpc, trpcClient } from "@/src/trpc/trpcClient.js";

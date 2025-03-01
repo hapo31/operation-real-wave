@@ -1,6 +1,7 @@
-import { trpc } from "@/src/trpc/trpcClient";
 import TRPCClientProvider from "@/src/trpc/TRPCClientProvider";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+
+import "./root.css";
 
 export default function App() {
   return (

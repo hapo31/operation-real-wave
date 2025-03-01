@@ -11,7 +11,6 @@ export default function Albums({ albums }: Props) {
 
   return (
     <div>
-      <h1>Albums</h1>
       <Paging
         {...pagingProps}
       />
