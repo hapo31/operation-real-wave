@@ -13,7 +13,8 @@
   "imports": {
     "@trpc/server": "npm:@trpc/server",
     "zod": "npm:zod",
-    "fluent-ffmpeg": "npm:fluent-ffmpeg"
+    "fluent-ffmpeg": "npm:fluent-ffmpeg",
+    "express": "npm:express"
   },
   "lint": {
     "include": ["src"],
