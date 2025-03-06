@@ -3,7 +3,7 @@ import AlbumDetails from "../_src/pages/AlbumDetails/AlbumDetails.jsx";
 import { useLoaderData } from "react-router";
 
 import imageToDataURL from "../_src/api/imageToDataURL.js";
-import { trpc, trpcClient } from "@/src/trpc/trpcClient.js";
+import { trpcClient } from "@/src/trpc/trpcClient.js";
 import { Suspense } from "react";
 
 export async function loader({ params }: Route.LoaderArgs) {
@@ -21,10 +21,6 @@ export async function loader({ params }: Route.LoaderArgs) {
 
 export default function AlbumsRoute() {
   const { album, songs, coverBase64 } = useLoaderData<typeof loader>();
-  const fetchMutation = trpc.albums.fetch.useMutation();
-  const onCickSave = async () => {
-    await fetchMutation.mutateAsync({ albumCid: album.cid });
-  };
 
   return (
     <div>
@@ -34,17 +30,8 @@ export default function AlbumsRoute() {
           coverBase64={coverBase64}
           album={album}
           songCids={songs}
-          isFetchingAlbums={fetchMutation
-            .isPending}
         />
       </Suspense>
-      <button
-        type="button"
-        onClick={onCickSave}
-        disabled={fetchMutation.isPending}
-      >
-        アルバムを保存
-      </button>
     </div>
   );
 }
