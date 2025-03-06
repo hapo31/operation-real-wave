@@ -8,11 +8,10 @@ import { useCallback } from "react";
 type Props = {
   song: Pick<SongModel, "cid" | "albumCid">;
   isFetchingStatus: boolean;
-  onFetchSong: (cid: string) => void;
 };
 
 export default function SongSummary(
-  { song: { cid, albumCid }, isFetchingStatus, onFetchSong }: Props,
+  { song: { cid, albumCid }, isFetchingStatus }: Props,
 ) {
   const [{ song }] = trpc.song.detail.useSuspenseQuery(cid);
   const fetchMutation = trpc.song.fetch.useMutation();
@@ -27,6 +26,9 @@ export default function SongSummary(
   const [_isUpdating, startUpdateStatus] = useInterval();
 
   const onClickSave = useCallback(async () => {
+    if (status.state === "complete") {
+      return;
+    }
     await fetchMutation.mutateAsync(cid);
     startUpdateStatus((stop) => {
       statusQuery.refetch().then((data) => {

@@ -40,10 +40,6 @@ export default function AlbumDetails(
                 <SongSummary
                   isFetchingStatus={albumFetchMutation.isPending ||
                     status.statuses[cid].state === "fetch"}
-                  onFetchSong={(cid) => {
-                    fetchMutation.mutate(cid);
-                    statusQuery.refetch();
-                  }}
                   song={{ cid, albumCid: album.cid }}
                 />
               </Suspense>
