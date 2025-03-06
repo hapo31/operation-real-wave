@@ -36,6 +36,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path,
       },
+      "/play": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
     },
   },
 });

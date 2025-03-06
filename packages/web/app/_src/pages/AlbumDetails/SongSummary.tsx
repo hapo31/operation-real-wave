@@ -27,6 +27,10 @@ export default function SongSummary(
 
   const onClickSave = useCallback(async () => {
     if (status.state === "complete") {
+      const audio = new Audio(`/play/${albumCid}/${cid}.flac`);
+      audio.volume = 0.25;
+      document.body.appendChild(audio);
+      audio.oncanplay = () => audio.play();
       return;
     }
     await fetchMutation.mutateAsync(cid);
