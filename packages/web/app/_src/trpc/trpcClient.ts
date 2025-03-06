@@ -15,7 +15,7 @@ function getUrl() {
     if (process.env.VITE_API_URL) {
       return `https://${process.env.VITE_API_URL}/api`;
     }
-    return "http://localhost:8000";
+    return "http://localhost:8000/api";
   })();
   return base;
 }
